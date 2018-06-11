@@ -25,6 +25,15 @@ public class ColumnParser {
             cm.setColumnName(rs.getString("COLUMN_NAME"));
             cm.setComment(rs.getString("COLUMN_COMMENT"));
             cm.setDataType(rs.getString("DATA_TYPE").toUpperCase());
+            if (cm.getDataType().equalsIgnoreCase("INT")) {
+                cm.setDataType("BIGINT");
+            } else if (cm.getDataType().equalsIgnoreCase("TEXT")) {
+                cm.setDataType("VARCHAR");
+            } else if (cm.getDataType().equalsIgnoreCase("MEDIUMTEXT")) {
+                cm.setDataType("VARCHAR");
+            }else if (cm.getDataType().equalsIgnoreCase("DATETIME")) {
+                cm.setDataType("TIMESTAMP");
+            }
             cm.setDefaultValue(rs.getString("COLUMN_DEFAULT"));
             cm.setPrimaryKey(rs.getString("COLUMN_KEY").equals("PRI"));
 

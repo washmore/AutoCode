@@ -1,13 +1,12 @@
 {
   "project": {
     "path": "",
-    "subModule": "autocode.test",
-    "javaRoot": "/src/test/java/",
-    "resourcesRoot": "/src/test/resources/",
+    "subModule": "",
+    "javaRoot": "/src/main/java/",
+    "resourcesRoot": "/src/main/resources/",
     "underline2Camel": true,
     "generateOgnl": false,
     "exclude": [
-
     ],
     "include": [
     ]

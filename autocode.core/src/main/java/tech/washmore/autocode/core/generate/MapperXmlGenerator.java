@@ -182,7 +182,7 @@ public class MapperXmlGenerator {
 
     private static String appendCountByParams(TableModel tm) {
         StringBuffer sb = new StringBuffer();
-        sb.append("\t<select id=\"countByParams\" parameterType=\"map\" resultMap=\"int\">").append(System.lineSeparator());
+        sb.append("\t<select id=\"countByParams\" parameterType=\"map\" resultType=\"int\">").append(System.lineSeparator());
         sb.append("\t\tSELECT COUNT(*) FROM ").append(tm.getTbName()).append(System.lineSeparator());
         sb.append("\t\t<where>").append(System.lineSeparator());
 
