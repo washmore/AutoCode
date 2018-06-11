@@ -1,4 +1,4 @@
-package tech.washmore.autocode.model;
+package tech.washmore.autocode.model.mysql;
 
 import java.util.List;
 
@@ -7,6 +7,15 @@ public class TableModel {
     private String clsName;
     private String tbComment;
     private List<ColumnModel> columns;
+    private ColumnModel primaryKey;
+
+    public ColumnModel getPrimaryKey() {
+        return primaryKey;
+    }
+
+    public void setPrimaryKey(ColumnModel primaryKey) {
+        this.primaryKey = primaryKey;
+    }
 
     public String getClsName() {
         return clsName;

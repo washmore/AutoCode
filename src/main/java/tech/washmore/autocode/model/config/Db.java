@@ -1,10 +1,19 @@
 package tech.washmore.autocode.model.config;
 
 public class Db {
+    private String dbName;
     private String driver;
     private String url;
     private String username;
     private String password;
+
+    public String getDbName() {
+        return dbName;
+    }
+
+    public void setDbName(String dbName) {
+        this.dbName = dbName;
+    }
 
     public String getDriver() {
         return driver;

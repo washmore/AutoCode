@@ -3,7 +3,6 @@ package tech.washmore.autocode.model.config;
 public class Doc {
     private String author;
     private String version;
-    private String summary;
     private String copyright;
 
     public String getAuthor() {
@@ -22,13 +21,6 @@ public class Doc {
         this.version = version;
     }
 
-    public String getSummary() {
-        return summary;
-    }
-
-    public void setSummary(String summary) {
-        this.summary = summary;
-    }
 
     public String getCopyright() {
         return copyright;

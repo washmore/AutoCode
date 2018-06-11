@@ -1,21 +1,51 @@
 package tech.washmore.autocode.core;
 
-import tech.washmore.autocode.model.ColumnModel;
-import tech.washmore.autocode.model.TableModel;
+import tech.washmore.autocode.core.config.ConfigManager;
+import tech.washmore.autocode.core.db.TableParser;
+import tech.washmore.autocode.core.generate.DaoClassGenerator;
+import tech.washmore.autocode.core.generate.MapperXmlGenerator;
+import tech.washmore.autocode.core.generate.ModelClassGenerator;
+import tech.washmore.autocode.model.config.Config;
+import tech.washmore.autocode.model.mysql.TableModel;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.util.ArrayList;
+import java.sql.SQLException;
 import java.util.List;
-import java.util.Random;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 public class CodeMaker {
+
+    public static void main(String[] args) throws Exception {
+        generate();
+    }
+
+    public static void generate() throws Exception {
+        List<String> tables = TableParser.allTables();
+        Config config = ConfigManager.getConfig();
+        List<String> includes = config.getProject().getInclude();
+        List<String> excludes = config.getProject().getExclude();
+
+        if (includes != null && includes.size() > 0) {
+            tables = tables.stream().filter(includes::contains).collect(Collectors.toList());
+        } else if (excludes != null && excludes.size() > 0) {
+            tables = tables.stream().filter(t -> !excludes.contains(t)).collect(Collectors.toList());
+        }
+        List<TableModel> tableModels = tables.stream().map(t -> {
+            try {
+                return TableParser.parse(config.getDb().getDbName(), t);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }).collect(Collectors.toList());
+
+        if (tableModels == null || tableModels.size() == 0) {
+            return;
+        }
+
+        ModelClassGenerator.generateModels(tableModels);
+        DaoClassGenerator.generateDaos(tableModels);
+        MapperXmlGenerator.generateMappers(tableModels);
+    }
 
 
 }

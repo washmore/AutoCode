@@ -1,0 +1,77 @@
+{
+  "project": {
+    "path": "",
+    "javaRoot": "/src/main/java/",
+    "resourcesRoot": "/src/main/resources/",
+    "underline2Camel": true,
+    "generateOgnl": false,
+    "exclude": [
+      "bless_send_requirement_yearly",
+      "bless_send_message_task_his"
+    ],
+    "include": [
+    ]
+  },
+  "model": {
+    "summary": "",
+    "packageName": "washmore.model",
+    "visitorWithDoc": false,
+    "toString": true
+  },
+  "dataFile": {
+    "dao": {
+      "summary": "",
+      "packageName": "washmore.dao",
+      "baseSuffix": "BaseDao",
+      "suffix": "Dao"
+    },
+    "mapper": {
+      "usekeyProperty": true,
+      "path": "/mappers/",
+      "baseSuffix": "BaseMapper",
+      "suffix": "Mapper"
+    },
+    "methodInclude": [
+      "insert",
+      "updateByPrimaryKey",
+      "deleteByPrimaryKey",
+      "selectByPrimaryKey",
+      "selectByParams",
+      "countByParams"
+    ]
+  },
+  "db": {
+    "driver": "com.mysql.jdbc.Driver",
+    "url": "jdbc:mysql://127.0.0.1:3306/EmployeeCare?serverTimezone=Asia/Shanghai&useSSL=false&useUnicode=true&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true",
+    "username": "root",
+    "password": ""
+  },
+  "doc": {
+    "author": "Washmore",
+    "version": "V1",
+    "copyright": "(c) 2018, Washmore All Rights Reserved."
+  },
+  "dataType": {
+    "date": [
+      "timestamp",
+      "datetime"
+    ],
+    "string": [
+      "char",
+      "varchar",
+      "text"
+    ],
+    "integer": [
+      "int",
+      "smallint",
+      "tinyint"
+    ],
+    "longL": [
+      "bigint"
+    ],
+    "doubleD": [
+      "double",
+      "float"
+    ]
+  }
+}

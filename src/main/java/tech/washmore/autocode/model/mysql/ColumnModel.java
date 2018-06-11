@@ -1,4 +1,4 @@
-package tech.washmore.autocode.model;
+package tech.washmore.autocode.model.mysql;
 
 public class ColumnModel {
     private String dataType;
@@ -8,6 +8,25 @@ public class ColumnModel {
     private String defaultValue;
     private String fieldName;
     private String fieldType;
+    private String fullFieldType;
+
+    private boolean primaryKey;
+
+    public String getFullFieldType() {
+        return fullFieldType;
+    }
+
+    public void setFullFieldType(String fullFieldType) {
+        this.fullFieldType = fullFieldType;
+    }
+
+    public boolean isPrimaryKey() {
+        return primaryKey;
+    }
+
+    public void setPrimaryKey(boolean primaryKey) {
+        this.primaryKey = primaryKey;
+    }
 
     public String getFieldType() {
         return fieldType;

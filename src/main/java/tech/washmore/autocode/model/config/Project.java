@@ -1,11 +1,22 @@
 package tech.washmore.autocode.model.config;
 
+import java.util.List;
+
 public class Project {
     private String path;
     private String javaRoot;
+    private String resourcesRoot;
     private Boolean underline2Camel;
-    private String exclude;
-    private String include;
+    private List<String> exclude;
+    private List<String> include;
+
+    public String getResourcesRoot() {
+        return resourcesRoot;
+    }
+
+    public void setResourcesRoot(String resourcesRoot) {
+        this.resourcesRoot = resourcesRoot;
+    }
 
     public String getPath() {
         return path;
@@ -31,19 +42,19 @@ public class Project {
         this.underline2Camel = underline2Camel;
     }
 
-    public String getExclude() {
+    public List<String> getExclude() {
         return exclude;
     }
 
-    public void setExclude(String exclude) {
+    public void setExclude(List<String> exclude) {
         this.exclude = exclude;
     }
 
-    public String getInclude() {
+    public List<String> getInclude() {
         return include;
     }
 
-    public void setInclude(String include) {
+    public void setInclude(List<String> include) {
         this.include = include;
     }
 }

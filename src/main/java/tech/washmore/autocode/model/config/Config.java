@@ -6,6 +6,15 @@ public class Config {
     private Doc doc;
     private Model model;
     private DataType dataType;
+    private DataFile dataFile;
+
+    public DataFile getDataFile() {
+        return dataFile;
+    }
+
+    public void setDataFile(DataFile dataFile) {
+        this.dataFile = dataFile;
+    }
 
     public DataType getDataType() {
         return dataType;

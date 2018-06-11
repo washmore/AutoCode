@@ -1,8 +1,8 @@
 package tech.washmore.autocode.util;
 
 import tech.washmore.autocode.core.config.ConfigManager;
-import tech.washmore.autocode.model.config.Config;
 import tech.washmore.autocode.model.config.DataType;
+import tech.washmore.autocode.model.enums.JavaDataType;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -10,6 +10,12 @@ import java.util.regex.Pattern;
 public class StringUtils {
 
     public static String underline2Camel(String origin, boolean firstUpperCase) {
+        if (!ConfigManager.getConfig().getProject().getUnderline2Camel().booleanValue()) {
+            if (firstUpperCase) {
+                return origin.substring(0, 1).toUpperCase() + origin.substring(1);
+            }
+            return origin;
+        }
         Pattern pattern = Pattern.compile("(_)?([A-Za-z\\d]+)");
         Matcher matcher = pattern.matcher(origin);
         StringBuffer sb = new StringBuffer("");
@@ -34,26 +40,26 @@ public class StringUtils {
         DataType dataType = ConfigManager.getConfig().getDataType();
         for (String s : dataType.getDate()) {
             if (s.equalsIgnoreCase(columnDataType)) {
-                return "Date";
+                return JavaDataType.时间.value;
             }
         }
         for (String s : dataType.getDoubleD()) {
             if (s.equalsIgnoreCase(columnDataType)) {
-                return "Double";
+                return JavaDataType.小数.value;
             }
         }
         for (String s : dataType.getInteger()) {
             if (s.equalsIgnoreCase(columnDataType)) {
-                return "Integer";
+                return JavaDataType.短数字.value;
             }
         }
         for (String s : dataType.getLongL()) {
             if (s.equalsIgnoreCase(columnDataType)) {
-                return "Long";
+                return JavaDataType.长数字.value;
             }
         }
 
-        return "String";
+        return JavaDataType.字符串.value;
     }
 
 }
