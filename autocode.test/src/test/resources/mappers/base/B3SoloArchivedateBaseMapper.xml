@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="washmore.dao.ext.B3SoloArchivedateDao">
+
+	<resultMap id="BaseResultMap" type="washmore.model.B3SoloArchivedate">
+		<id column="oId" property="oid" jdbcType="VARCHAR"/>
+		<result column="archiveDateArticleCount" property="archivedatearticlecount" jdbcType="INT"/>
+		<result column="archiveDatePublishedArticleCount" property="archivedatepublishedarticlecount" jdbcType="INT"/>
+		<result column="archiveTime" property="archivetime" jdbcType="BIGINT"/>
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		oId, archiveDateArticleCount, archiveDatePublishedArticleCount, archiveTime
+	</sql>
+
+	<insert id="insert" parameterType="washmore.model.B3SoloArchivedate" keyProperty = "oid">
+		INSERT INTO b3_solo_archivedate
+			(oId, archiveDateArticleCount, archiveDatePublishedArticleCount, archiveTime)
+		VALUES
+			(#{oid,jdbcType=VARCHAR}, #{archivedatearticlecount,jdbcType=INT}, #{archivedatepublishedarticlecount,jdbcType=INT}, 
+			#{archivetime,jdbcType=BIGINT})
+	</insert>
+
+	<update id="updateByPrimaryKeySelective" parameterType="washmore.model.B3SoloArchivedate">
+		UPDATE b3_solo_archivedate
+		<set>
+			<if test="oid != null">
+				oId = #{oid,jdbcType=VARCHAR},
+			</if>
+			<if test="archivedatearticlecount != null">
+				archiveDateArticleCount = #{archivedatearticlecount,jdbcType=INT},
+			</if>
+			<if test="archivedatepublishedarticlecount != null">
+				archiveDatePublishedArticleCount = #{archivedatepublishedarticlecount,jdbcType=INT},
+			</if>
+			<if test="archivetime != null">
+				archiveTime = #{archivetime,jdbcType=BIGINT},
+			</if>
+		</set>
+		WHERE oId = #{oid,jdbcType=VARCHAR}
+	</update>
+
+	<delete id="deleteByPrimaryKey" parameterType="String">
+		DELETE FROM b3_solo_archivedate
+		WHERE oId = #{oid,jdbcType=VARCHAR}
+	</delete>
+
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="String">
+		SELECT
+		<include refid="Base_Column_List"/>
+		FROM b3_solo_archivedate
+		WHERE oId = #{oid,jdbcType=VARCHAR}
+	</select>
+
+	<select id="selectByParams" parameterType="map" resultMap="BaseResultMap">
+		SELECT
+		<include refid="Base_Column_List"/>
+		FROM b3_solo_archivedate
+		<where>
+			<if test="oid != null">
+				AND oId = #{oid,jdbcType=VARCHAR}
+			</if>
+			<if test="archivedatearticlecount != null">
+				AND archiveDateArticleCount = #{archivedatearticlecount,jdbcType=INT}
+			</if>
+			<if test="archivedatepublishedarticlecount != null">
+				AND archiveDatePublishedArticleCount = #{archivedatepublishedarticlecount,jdbcType=INT}
+			</if>
+			<if test="archivetime != null">
+				AND archiveTime = #{archivetime,jdbcType=BIGINT}
+			</if>
+		</where>
+		ORDER BY oId DESC
+		<if test="start != null and offset != null">
+			LIMIT #{start} ,#{offset}
+		</if>
+	</select>
+
+	<select id="countByParams" parameterType="map" resultMap="int">
+		SELECT COUNT(*) FROM b3_solo_archivedate
+		<where>
+			<if test="oid != null">
+				AND oId = #{oid,jdbcType=VARCHAR}
+			</if>
+			<if test="archivedatearticlecount != null">
+				AND archiveDateArticleCount = #{archivedatearticlecount,jdbcType=INT}
+			</if>
+			<if test="archivedatepublishedarticlecount != null">
+				AND archiveDatePublishedArticleCount = #{archivedatepublishedarticlecount,jdbcType=INT}
+			</if>
+			<if test="archivetime != null">
+				AND archiveTime = #{archivetime,jdbcType=BIGINT}
+			</if>
+		</where>
+	</select>
+
+</mapper>

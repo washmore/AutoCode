@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="washmore.dao.ext.B3SoloArchivedateArticleDao">
+
+	<resultMap id="BaseResultMap" type="washmore.model.B3SoloArchivedateArticle">
+		<id column="oId" property="oid" jdbcType="VARCHAR"/>
+		<result column="archiveDate_oId" property="archivedateOid" jdbcType="VARCHAR"/>
+		<result column="article_oId" property="articleOid" jdbcType="VARCHAR"/>
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		oId, archiveDate_oId, article_oId
+	</sql>
+
+	<insert id="insert" parameterType="washmore.model.B3SoloArchivedateArticle" keyProperty = "oid">
+		INSERT INTO b3_solo_archivedate_article
+			(oId, archiveDate_oId, article_oId)
+		VALUES
+			(#{oid,jdbcType=VARCHAR}, #{archivedateOid,jdbcType=VARCHAR}, #{articleOid,jdbcType=VARCHAR})
+	</insert>
+
+	<update id="updateByPrimaryKeySelective" parameterType="washmore.model.B3SoloArchivedateArticle">
+		UPDATE b3_solo_archivedate_article
+		<set>
+			<if test="oid != null">
+				oId = #{oid,jdbcType=VARCHAR},
+			</if>
+			<if test="archivedateOid != null">
+				archiveDate_oId = #{archivedateOid,jdbcType=VARCHAR},
+			</if>
+			<if test="articleOid != null">
+				article_oId = #{articleOid,jdbcType=VARCHAR},
+			</if>
+		</set>
+		WHERE oId = #{oid,jdbcType=VARCHAR}
+	</update>
+
+	<delete id="deleteByPrimaryKey" parameterType="String">
+		DELETE FROM b3_solo_archivedate_article
+		WHERE oId = #{oid,jdbcType=VARCHAR}
+	</delete>
+
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="String">
+		SELECT
+		<include refid="Base_Column_List"/>
+		FROM b3_solo_archivedate_article
+		WHERE oId = #{oid,jdbcType=VARCHAR}
+	</select>
+
+	<select id="selectByParams" parameterType="map" resultMap="BaseResultMap">
+		SELECT
+		<include refid="Base_Column_List"/>
+		FROM b3_solo_archivedate_article
+		<where>
+			<if test="oid != null">
+				AND oId = #{oid,jdbcType=VARCHAR}
+			</if>
+			<if test="archivedateOid != null">
+				AND archiveDate_oId = #{archivedateOid,jdbcType=VARCHAR}
+			</if>
+			<if test="articleOid != null">
+				AND article_oId = #{articleOid,jdbcType=VARCHAR}
+			</if>
+		</where>
+		ORDER BY oId DESC
+		<if test="start != null and offset != null">
+			LIMIT #{start} ,#{offset}
+		</if>
+	</select>
+
+	<select id="countByParams" parameterType="map" resultMap="int">
+		SELECT COUNT(*) FROM b3_solo_archivedate_article
+		<where>
+			<if test="oid != null">
+				AND oId = #{oid,jdbcType=VARCHAR}
+			</if>
+			<if test="archivedateOid != null">
+				AND archiveDate_oId = #{archivedateOid,jdbcType=VARCHAR}
+			</if>
+			<if test="articleOid != null">
+				AND article_oId = #{articleOid,jdbcType=VARCHAR}
+			</if>
+		</where>
+	</select>
+
+</mapper>

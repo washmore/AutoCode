@@ -3,33 +3,13 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>tech.washmore</groupId>
     <artifactId>autocode</artifactId>
-    <packaging>jar</packaging>
+    <packaging>pom</packaging>
     <version>0.0.1-SNAPSHOT</version>
+    <modules>
+        <module>autocode.core</module>
+        <module>autocode.test</module>
+        <module>autocode.plugin</module>
+    </modules>
     <name>autocode Maven Webapp</name>
     <url>http://maven.apache.org</url>
-    <dependencies>
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>5.1.37</version>
-        </dependency>
-        <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>fastjson</artifactId>
-            <version>1.2.16</version>
-        </dependency>
-    </dependencies>
-    <build>
-        <finalName>AutoCode</finalName>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
 </project>

@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="washmore.dao.ext.B3SoloCommentDao">
+
+	<resultMap id="BaseResultMap" type="washmore.model.B3SoloComment">
+		<id column="oId" property="oid" jdbcType="VARCHAR"/>
+		<result column="commentContent" property="commentcontent" jdbcType="TEXT"/>
+		<result column="commentDate" property="commentdate" jdbcType="DATETIME"/>
+		<result column="commentEmail" property="commentemail" jdbcType="VARCHAR"/>
+		<result column="commentName" property="commentname" jdbcType="VARCHAR"/>
+		<result column="commentOnId" property="commentonid" jdbcType="VARCHAR"/>
+		<result column="commentOnType" property="commentontype" jdbcType="VARCHAR"/>
+		<result column="commentSharpURL" property="commentsharpurl" jdbcType="VARCHAR"/>
+		<result column="commentThumbnailURL" property="commentthumbnailurl" jdbcType="TEXT"/>
+		<result column="commentURL" property="commenturl" jdbcType="VARCHAR"/>
+		<result column="commentOriginalCommentId" property="commentoriginalcommentid" jdbcType="VARCHAR"/>
+		<result column="commentOriginalCommentName" property="commentoriginalcommentname" jdbcType="VARCHAR"/>
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		oId, commentContent, commentDate, commentEmail, commentName, commentOnId, 
+		commentOnType, commentSharpURL, commentThumbnailURL, commentURL, commentOriginalCommentId, commentOriginalCommentName
+	</sql>
+
+	<insert id="insert" parameterType="washmore.model.B3SoloComment" keyProperty = "oid">
+		INSERT INTO b3_solo_comment
+			(oId, commentContent, commentDate, commentEmail, commentName, commentOnId, 
+			commentOnType, commentSharpURL, commentThumbnailURL, commentURL, commentOriginalCommentId, commentOriginalCommentName)
+		VALUES
+			(#{oid,jdbcType=VARCHAR}, #{commentcontent,jdbcType=TEXT}, #{commentdate,jdbcType=DATETIME}, 
+			#{commentemail,jdbcType=VARCHAR}, #{commentname,jdbcType=VARCHAR}, #{commentonid,jdbcType=VARCHAR}, 
+			#{commentontype,jdbcType=VARCHAR}, #{commentsharpurl,jdbcType=VARCHAR}, #{commentthumbnailurl,jdbcType=TEXT}, 
+			#{commenturl,jdbcType=VARCHAR}, #{commentoriginalcommentid,jdbcType=VARCHAR}, #{commentoriginalcommentname,jdbcType=VARCHAR})
+	</insert>
+
+	<update id="updateByPrimaryKeySelective" parameterType="washmore.model.B3SoloComment">
+		UPDATE b3_solo_comment
+		<set>
+			<if test="oid != null">
+				oId = #{oid,jdbcType=VARCHAR},
+			</if>
+			<if test="commentcontent != null">
+				commentContent = #{commentcontent,jdbcType=TEXT},
+			</if>
+			<if test="commentdate != null">
+				commentDate = #{commentdate,jdbcType=DATETIME},
+			</if>
+			<if test="commentemail != null">
+				commentEmail = #{commentemail,jdbcType=VARCHAR},
+			</if>
+			<if test="commentname != null">
+				commentName = #{commentname,jdbcType=VARCHAR},
+			</if>
+			<if test="commentonid != null">
+				commentOnId = #{commentonid,jdbcType=VARCHAR},
+			</if>
+			<if test="commentontype != null">
+				commentOnType = #{commentontype,jdbcType=VARCHAR},
+			</if>
+			<if test="commentsharpurl != null">
+				commentSharpURL = #{commentsharpurl,jdbcType=VARCHAR},
+			</if>
+			<if test="commentthumbnailurl != null">
+				commentThumbnailURL = #{commentthumbnailurl,jdbcType=TEXT},
+			</if>
+			<if test="commenturl != null">
+				commentURL = #{commenturl,jdbcType=VARCHAR},
+			</if>
+			<if test="commentoriginalcommentid != null">
+				commentOriginalCommentId = #{commentoriginalcommentid,jdbcType=VARCHAR},
+			</if>
+			<if test="commentoriginalcommentname != null">
+				commentOriginalCommentName = #{commentoriginalcommentname,jdbcType=VARCHAR},
+			</if>
+		</set>
+		WHERE oId = #{oid,jdbcType=VARCHAR}
+	</update>
+
+	<delete id="deleteByPrimaryKey" parameterType="String">
+		DELETE FROM b3_solo_comment
+		WHERE oId = #{oid,jdbcType=VARCHAR}
+	</delete>
+
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="String">
+		SELECT
+		<include refid="Base_Column_List"/>
+		FROM b3_solo_comment
+		WHERE oId = #{oid,jdbcType=VARCHAR}
+	</select>
+
+	<select id="selectByParams" parameterType="map" resultMap="BaseResultMap">
+		SELECT
+		<include refid="Base_Column_List"/>
+		FROM b3_solo_comment
+		<where>
+			<if test="oid != null">
+				AND oId = #{oid,jdbcType=VARCHAR}
+			</if>
+			<if test="commentcontent != null">
+				AND commentContent = #{commentcontent,jdbcType=TEXT}
+			</if>
+			<if test="commentdate != null">
+				AND commentDate = #{commentdate,jdbcType=DATETIME}
+			</if>
+			<if test="commentemail != null">
+				AND commentEmail = #{commentemail,jdbcType=VARCHAR}
+			</if>
+			<if test="commentname != null">
+				AND commentName = #{commentname,jdbcType=VARCHAR}
+			</if>
+			<if test="commentonid != null">
+				AND commentOnId = #{commentonid,jdbcType=VARCHAR}
+			</if>
+			<if test="commentontype != null">
+				AND commentOnType = #{commentontype,jdbcType=VARCHAR}
+			</if>
+			<if test="commentsharpurl != null">
+				AND commentSharpURL = #{commentsharpurl,jdbcType=VARCHAR}
+			</if>
+			<if test="commentthumbnailurl != null">
+				AND commentThumbnailURL = #{commentthumbnailurl,jdbcType=TEXT}
+			</if>
+			<if test="commenturl != null">
+				AND commentURL = #{commenturl,jdbcType=VARCHAR}
+			</if>
+			<if test="commentoriginalcommentid != null">
+				AND commentOriginalCommentId = #{commentoriginalcommentid,jdbcType=VARCHAR}
+			</if>
+			<if test="commentoriginalcommentname != null">
+				AND commentOriginalCommentName = #{commentoriginalcommentname,jdbcType=VARCHAR}
+			</if>
+		</where>
+		ORDER BY oId DESC
+		<if test="start != null and offset != null">
+			LIMIT #{start} ,#{offset}
+		</if>
+	</select>
+
+	<select id="countByParams" parameterType="map" resultMap="int">
+		SELECT COUNT(*) FROM b3_solo_comment
+		<where>
+			<if test="oid != null">
+				AND oId = #{oid,jdbcType=VARCHAR}
+			</if>
+			<if test="commentcontent != null">
+				AND commentContent = #{commentcontent,jdbcType=TEXT}
+			</if>
+			<if test="commentdate != null">
+				AND commentDate = #{commentdate,jdbcType=DATETIME}
+			</if>
+			<if test="commentemail != null">
+				AND commentEmail = #{commentemail,jdbcType=VARCHAR}
+			</if>
+			<if test="commentname != null">
+				AND commentName = #{commentname,jdbcType=VARCHAR}
+			</if>
+			<if test="commentonid != null">
+				AND commentOnId = #{commentonid,jdbcType=VARCHAR}
+			</if>
+			<if test="commentontype != null">
+				AND commentOnType = #{commentontype,jdbcType=VARCHAR}
+			</if>
+			<if test="commentsharpurl != null">
+				AND commentSharpURL = #{commentsharpurl,jdbcType=VARCHAR}
+			</if>
+			<if test="commentthumbnailurl != null">
+				AND commentThumbnailURL = #{commentthumbnailurl,jdbcType=TEXT}
+			</if>
+			<if test="commenturl != null">
+				AND commentURL = #{commenturl,jdbcType=VARCHAR}
+			</if>
+			<if test="commentoriginalcommentid != null">
+				AND commentOriginalCommentId = #{commentoriginalcommentid,jdbcType=VARCHAR}
+			</if>
+			<if test="commentoriginalcommentname != null">
+				AND commentOriginalCommentName = #{commentoriginalcommentname,jdbcType=VARCHAR}
+			</if>
+		</where>
+	</select>
+
+</mapper>
