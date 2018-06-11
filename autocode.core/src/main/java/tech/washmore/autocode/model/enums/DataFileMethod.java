@@ -13,7 +13,5 @@ public enum DataFileMethod {
     deleteByPrimaryKey,
     selectByPrimaryKey,
     selectByParams,
-    countByParams,
-    //
-    ;
+    countByParams;
 }

@@ -5,7 +5,7 @@
     <parent>
         <artifactId>autocode</artifactId>
         <groupId>tech.washmore</groupId>
-        <version>0.0.1-RELEASE</version>
+        <version>0.0.1-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>autocode.core</artifactId>
@@ -15,25 +15,18 @@
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>5.1.37</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
             <version>1.2.16</version>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
     <build>
         <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.7.0</version>
-                <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
-                    <encoding>UTF8</encoding>
-                </configuration>
-            </plugin>
+
         </plugins>
     </build>
 </project>
