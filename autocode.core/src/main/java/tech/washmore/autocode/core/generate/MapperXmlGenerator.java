@@ -122,11 +122,17 @@ public class MapperXmlGenerator {
                         case insert:
                             sb.append(appendInsert(tm));
                             break;
+                        case insertSelective:
+                            sb.append(appendInsertSelective(tm));
+                            break;
                         case deleteByPrimaryKey:
                             sb.append(appendDeleteByPrimaryKey(tm));
                             break;
                         case updateByPrimaryKey:
                             sb.append(appendUpdateByPrimaryKey(tm));
+                            break;
+                        case updateByPrimaryKeySelective:
+                            sb.append(appendUpdateByPrimaryKeySelective(tm));
                             break;
                         case selectByPrimaryKey:
                             sb.append(appendSelectByPrimaryKey(tm));
@@ -163,22 +169,6 @@ public class MapperXmlGenerator {
         ops.flush();
         ops.flush();
     }
-
-    String xx =
-            "    <select id=\"countByParams\" parameterType=\"map\" resultType=\"int\">\n" +
-                    "        select count(*) from bless_jiaxin_notice_user\n" +
-                    "        <where>\n" +
-                    "            <if test=\"@Ognl@isNotEmpty(id)\">\n" +
-                    "                AND id = #{id}\n" +
-                    "            </if>\n" +
-                    "            <if test=\"@Ognl@isNotEmpty(noticeType)\">\n" +
-                    "                AND notice_type = #{noticeType}\n" +
-                    "            </if>\n" +
-                    "            <if test=\"@Ognl@isNotEmpty(userCode)\">\n" +
-                    "                AND user_code = #{userCode}\n" +
-                    "            </if>\n" +
-                    "        </where>\n" +
-                    "    </select>";
 
     private static String appendCountByParams(TableModel tm) {
         StringBuffer sb = new StringBuffer();
@@ -240,7 +230,19 @@ public class MapperXmlGenerator {
         return sb.toString();
     }
 
-    private static String appendUpdateByPrimaryKey(TableModel tm) {
+    String xx =
+            "  update bless_image_template\n" +
+                    "        <set>\n" +
+                    "            <if test=\"updaterName != null\">\n" +
+                    "                updater_name = #{updaterName,jdbcType=VARCHAR},\n" +
+                    "            </if>\n" +
+                    "            <if test=\"updateTime != null\">\n" +
+                    "                update_time = #{updateTime,jdbcType=TIMESTAMP},\n" +
+                    "            </if>\n" +
+                    "        </set>\n" +
+                    "        where id = #{id,jdbcType=BIGINT}";
+
+    private static String appendUpdateByPrimaryKeySelective(TableModel tm) {
         ColumnModel pk = tm.getPrimaryKey();
         if (pk == null) {
             return "";
@@ -252,13 +254,40 @@ public class MapperXmlGenerator {
         sb.append("\t\tUPDATE ").append(tm.getTbName()).append(System.lineSeparator());
         sb.append("\t\t<set>").append(System.lineSeparator());
 
-        for (ColumnModel cm : tm.getColumns()) {
+        for (int i = 0; i < tm.getColumnsWithoutPK().size(); i++) {
+            ColumnModel cm = tm.getColumnsWithoutPK().get(i);
             sb.append("\t\t\t<if test=\"").append(cm.getFieldName()).append(" != null\">").append(System.lineSeparator());
             sb.append("\t\t\t\t").append(cm.getColumnName()).append(" = ").append("#{").append(cm.getFieldName()).append(",jdbcType=").append(cm.getJdbcType()).append("},").append(System.lineSeparator());
             sb.append("\t\t\t</if>").append(System.lineSeparator());
         }
 
         sb.append("\t\t</set>").append(System.lineSeparator());
+        sb.append("\t\tWHERE ").append(pk.getColumnName()).append(" = #{").append(pk.getFieldName()).append(",jdbcType=").append(pk.getJdbcType()).append("}").append(System.lineSeparator());
+        sb.append("\t</update>").append(System.lineSeparator()).append(System.lineSeparator());
+        return sb.toString();
+    }
+
+    private static String appendUpdateByPrimaryKey(TableModel tm) {
+        ColumnModel pk = tm.getPrimaryKey();
+        if (pk == null) {
+            return "";
+        }
+        Model model = ConfigManager.getConfig().getModel();
+
+        StringBuffer sb = new StringBuffer();
+        sb.append("\t<update id=\"updateByPrimaryKey\" parameterType=\"").append(model.getPackageName()).append(".").append(tm.getClsName()).append("\">").append(System.lineSeparator());
+        sb.append("\t\tUPDATE ").append(tm.getTbName()).append(" SET ").append(System.lineSeparator());
+
+        for (int i = 0; i < tm.getColumnsWithoutPK().size(); i++) {
+            ColumnModel cm = tm.getColumnsWithoutPK().get(i);
+            sb.append("\t\t\t");
+            if (i != 0) {
+                sb.append(",");
+            }
+            sb.append(cm.getColumnName()).append(" = ").append("#{").append(cm.getFieldName()).append(",jdbcType=").append(cm.getJdbcType()).append("}");
+            sb.append(System.lineSeparator());
+        }
+
         sb.append("\t\tWHERE ").append(pk.getColumnName()).append(" = #{").append(pk.getFieldName()).append(",jdbcType=").append(pk.getJdbcType()).append("}").append(System.lineSeparator());
         sb.append("\t</update>").append(System.lineSeparator()).append(System.lineSeparator());
         return sb.toString();
@@ -274,6 +303,35 @@ public class MapperXmlGenerator {
         sb.append("\t\tDELETE FROM ").append(tm.getTbName()).append(System.lineSeparator());
         sb.append("\t\tWHERE ").append(pk.getColumnName()).append(" = #{").append(pk.getFieldName()).append(",jdbcType=").append(pk.getJdbcType()).append("}").append(System.lineSeparator());
         sb.append("\t</delete>").append(System.lineSeparator()).append(System.lineSeparator());
+        return sb.toString();
+    }
+
+    private static String appendInsertSelective(TableModel tm) {
+        Model model = ConfigManager.getConfig().getModel();
+        Mapper mapper = ConfigManager.getConfig().getDataFile().getMapper();
+        StringBuffer sb = new StringBuffer();
+        sb.append("\t<insert id=\"insertSelective\" parameterType=\"").append(model.getPackageName()).append(".").append(tm.getClsName()).append("\"");
+        if (mapper.getUsekeyProperty().booleanValue() && tm.getPrimaryKey() != null) {
+            sb.append(" keyProperty = \"").append(tm.getPrimaryKey().getFieldName()).append("\"");
+        }
+        sb.append(">").append(System.lineSeparator());
+        sb.append("\t\tINSERT INTO ").append(tm.getTbName()).append(System.lineSeparator());
+        sb.append("\t\t<trim prefix=\"(\" suffix=\")\" suffixOverrides=\",\">").append(System.lineSeparator());
+        for (ColumnModel cm : tm.getColumns()) {
+            sb.append("\t\t\t<if test=\"").append(cm.getFieldName()).append(" != null\">").append(System.lineSeparator());
+            sb.append("\t\t\t\t").append(cm.getColumnName()).append(",").append(System.lineSeparator());
+            sb.append("\t\t\t</if>").append(System.lineSeparator());
+        }
+        sb.append("\t\t</trim>").append(System.lineSeparator());
+
+        sb.append("\t\t<trim prefix=\"values (\" suffix=\")\" suffixOverrides=\",\">").append(System.lineSeparator());
+        for (ColumnModel cm : tm.getColumns()) {
+            sb.append("\t\t\t<if test=\"").append(cm.getFieldName()).append(" != null\">").append(System.lineSeparator());
+            sb.append("\t\t\t\t").append("#{").append(cm.getFieldName()).append(",jdbcType=").append(cm.getJdbcType()).append("},").append(System.lineSeparator());
+            sb.append("\t\t\t</if>").append(System.lineSeparator());
+        }
+        sb.append("\t\t</trim>").append(System.lineSeparator());
+        sb.append("\t</insert>").append(System.lineSeparator()).append(System.lineSeparator());
         return sb.toString();
     }
 

@@ -13,7 +13,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -99,7 +98,7 @@ public class DaoClassGenerator {
         sb.append(" * @version ").append(doc.getVersion()).append(System.lineSeparator());
         sb.append(" * @summary ").append(dao.getSummary() != null && dao.getSummary().length() > 0 ? dao.getSummary() : String.format(Constants.daoSummaryTemplate, tm.getTbComment(), tm.getTbName())).append(System.lineSeparator());
         sb.append(" * @Copyright ").append(doc.getCopyright()).append(System.lineSeparator());
-        sb.append(" * @since ").append(LocalDate.now().toString()).append(System.lineSeparator());
+        sb.append(" * @since ").append(new SimpleDateFormat("yyyy年MM月dd日").format(new Date())).append(System.lineSeparator());
         sb.append(" */").append(System.lineSeparator());
         sb.append("public interface ").append(tm.getClsName() + dao.getBaseSuffix()).append(" {")
                 .append(System.lineSeparator())
@@ -113,11 +112,17 @@ public class DaoClassGenerator {
                         case insert:
                             sb.append(appendInsert(tm));
                             break;
+                        case insertSelective:
+                            sb.append(appendInsertSelective(tm));
+                            break;
                         case deleteByPrimaryKey:
                             sb.append(appendDeleteByPrimaryKey(tm));
                             break;
                         case updateByPrimaryKey:
                             sb.append(appendUpdateByPrimaryKey(tm));
+                            break;
+                        case updateByPrimaryKeySelective:
+                            sb.append(appendUpdateByPrimaryKeySelective(tm));
                             break;
                         case selectByPrimaryKey:
                             sb.append(appendSelectByPrimaryKey(tm));
@@ -162,6 +167,7 @@ public class DaoClassGenerator {
         ops.flush();
     }
 
+
     private static String appendCountByParams(TableModel tm) {
         StringBuffer sb = new StringBuffer();
         sb.append("\tint countByParams(Map<String, Object> params);")
@@ -190,6 +196,20 @@ public class DaoClassGenerator {
         return sb.toString();
     }
 
+    private static String appendUpdateByPrimaryKeySelective(TableModel tm) {
+        ColumnModel pk = tm.getPrimaryKey();
+        if (pk == null) {
+            return "";
+        }
+        StringBuffer sb = new StringBuffer();
+        sb.append("\tint updateByPrimaryKeySelective(")
+                .append(tm.getClsName()).append(" ")
+                .append(underline2Camel(tm.getTbName(), false))
+                .append(");")
+                .append(System.lineSeparator()).append(System.lineSeparator());
+        return sb.toString();
+    }
+
     private static String appendUpdateByPrimaryKey(TableModel tm) {
         ColumnModel pk = tm.getPrimaryKey();
         if (pk == null) {
@@ -213,6 +233,16 @@ public class DaoClassGenerator {
         sb.append("\tint deleteByPrimaryKey(")
                 .append(pk.getFieldType()).append(" ")
                 .append(pk.getFieldName())
+                .append(");")
+                .append(System.lineSeparator()).append(System.lineSeparator());
+        return sb.toString();
+    }
+
+    private static String appendInsertSelective(TableModel tm) {
+        StringBuffer sb = new StringBuffer();
+        sb.append("\tint insertSelective(")
+                .append(tm.getClsName()).append(" ")
+                .append(underline2Camel(tm.getTbName(), false))
                 .append(");")
                 .append(System.lineSeparator()).append(System.lineSeparator());
         return sb.toString();

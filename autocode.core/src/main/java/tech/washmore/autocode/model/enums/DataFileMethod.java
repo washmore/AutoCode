@@ -9,7 +9,9 @@ package tech.washmore.autocode.model.enums;
  */
 public enum DataFileMethod {
     insert,
+    insertSelective,
     updateByPrimaryKey,
+    updateByPrimaryKeySelective,
     deleteByPrimaryKey,
     selectByPrimaryKey,
     selectByParams,

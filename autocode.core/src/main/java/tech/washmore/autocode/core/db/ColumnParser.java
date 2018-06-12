@@ -8,6 +8,8 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import static tech.washmore.autocode.util.StringUtils.dataType2FieldType;
@@ -47,8 +49,15 @@ public class ColumnParser {
             cm.setJdbcType(JdbcType.forCode(data.getColumnType(index)).name());
             columnModels.add(cm);
         }
-
-        //columnModels.sort(Comparator.comparing(ColumnModel::isPrimaryKey).reversed().thenComparing(ColumnModel::getOrder));
+        Collections.sort(columnModels, new Comparator<ColumnModel>() {
+            @Override
+            public int compare(ColumnModel o1, ColumnModel o2) {
+                if (o1.isPrimaryKey()) {
+                    return -1;
+                }
+                return Integer.compare(o1.getOrder(), o2.getOrder());
+            }
+        });
         return columnModels;
     }
 }

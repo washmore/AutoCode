@@ -1,0 +1,400 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="washmore.dao.ext.B3SoloArticleDao">
+
+	<resultMap id="BaseResultMap" type="washmore.model.B3SoloArticle">
+		<id column="oId" property="oid" jdbcType="VARCHAR"/>
+		<result column="articleTitle" property="articletitle" jdbcType="VARCHAR"/>
+		<result column="articleAbstract" property="articleabstract" jdbcType="LONGVARCHAR"/>
+		<result column="articleTags" property="articletags" jdbcType="LONGVARCHAR"/>
+		<result column="articleAuthorEmail" property="articleauthoremail" jdbcType="VARCHAR"/>
+		<result column="articleCommentCount" property="articlecommentcount" jdbcType="INTEGER"/>
+		<result column="articleViewCount" property="articleviewcount" jdbcType="INTEGER"/>
+		<result column="articleContent" property="articlecontent" jdbcType="LONGVARCHAR"/>
+		<result column="articlePermalink" property="articlepermalink" jdbcType="VARCHAR"/>
+		<result column="articleHadBeenPublished" property="articlehadbeenpublished" jdbcType="CHAR"/>
+		<result column="articleIsPublished" property="articleispublished" jdbcType="CHAR"/>
+		<result column="articlePutTop" property="articleputtop" jdbcType="CHAR"/>
+		<result column="articleCreateDate" property="articlecreatedate" jdbcType="TIMESTAMP"/>
+		<result column="articleUpdateDate" property="articleupdatedate" jdbcType="TIMESTAMP"/>
+		<result column="articleRandomDouble" property="articlerandomdouble" jdbcType="DOUBLE"/>
+		<result column="articleSignId" property="articlesignid" jdbcType="VARCHAR"/>
+		<result column="articleCommentable" property="articlecommentable" jdbcType="CHAR"/>
+		<result column="articleViewPwd" property="articleviewpwd" jdbcType="VARCHAR"/>
+		<result column="articleEditorType" property="articleeditortype" jdbcType="VARCHAR"/>
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		oId, articleTitle, articleAbstract, articleTags, articleAuthorEmail, articleCommentCount, 
+		articleViewCount, articleContent, articlePermalink, articleHadBeenPublished, articleIsPublished, articlePutTop, 
+		articleCreateDate, articleUpdateDate, articleRandomDouble, articleSignId, articleCommentable, articleViewPwd, 
+		articleEditorType
+	</sql>
+
+	<insert id="insert" parameterType="washmore.model.B3SoloArticle" keyProperty = "oid">
+		INSERT INTO b3_solo_article
+			(oId, articleTitle, articleAbstract, articleTags, articleAuthorEmail, articleCommentCount, 
+			articleViewCount, articleContent, articlePermalink, articleHadBeenPublished, articleIsPublished, articlePutTop, 
+			articleCreateDate, articleUpdateDate, articleRandomDouble, articleSignId, articleCommentable, articleViewPwd, 
+			articleEditorType)
+		VALUES
+			(#{oid,jdbcType=VARCHAR}, #{articletitle,jdbcType=VARCHAR}, #{articleabstract,jdbcType=LONGVARCHAR}, 
+			#{articletags,jdbcType=LONGVARCHAR}, #{articleauthoremail,jdbcType=VARCHAR}, #{articlecommentcount,jdbcType=INTEGER}, 
+			#{articleviewcount,jdbcType=INTEGER}, #{articlecontent,jdbcType=LONGVARCHAR}, #{articlepermalink,jdbcType=VARCHAR}, 
+			#{articlehadbeenpublished,jdbcType=CHAR}, #{articleispublished,jdbcType=CHAR}, #{articleputtop,jdbcType=CHAR}, 
+			#{articlecreatedate,jdbcType=TIMESTAMP}, #{articleupdatedate,jdbcType=TIMESTAMP}, #{articlerandomdouble,jdbcType=DOUBLE}, 
+			#{articlesignid,jdbcType=VARCHAR}, #{articlecommentable,jdbcType=CHAR}, #{articleviewpwd,jdbcType=VARCHAR}, 
+			#{articleeditortype,jdbcType=VARCHAR})
+	</insert>
+
+	<insert id="insertSelective" parameterType="washmore.model.B3SoloArticle" keyProperty = "oid">
+		INSERT INTO b3_solo_article
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="oid != null">
+				oId,
+			</if>
+			<if test="articletitle != null">
+				articleTitle,
+			</if>
+			<if test="articleabstract != null">
+				articleAbstract,
+			</if>
+			<if test="articletags != null">
+				articleTags,
+			</if>
+			<if test="articleauthoremail != null">
+				articleAuthorEmail,
+			</if>
+			<if test="articlecommentcount != null">
+				articleCommentCount,
+			</if>
+			<if test="articleviewcount != null">
+				articleViewCount,
+			</if>
+			<if test="articlecontent != null">
+				articleContent,
+			</if>
+			<if test="articlepermalink != null">
+				articlePermalink,
+			</if>
+			<if test="articlehadbeenpublished != null">
+				articleHadBeenPublished,
+			</if>
+			<if test="articleispublished != null">
+				articleIsPublished,
+			</if>
+			<if test="articleputtop != null">
+				articlePutTop,
+			</if>
+			<if test="articlecreatedate != null">
+				articleCreateDate,
+			</if>
+			<if test="articleupdatedate != null">
+				articleUpdateDate,
+			</if>
+			<if test="articlerandomdouble != null">
+				articleRandomDouble,
+			</if>
+			<if test="articlesignid != null">
+				articleSignId,
+			</if>
+			<if test="articlecommentable != null">
+				articleCommentable,
+			</if>
+			<if test="articleviewpwd != null">
+				articleViewPwd,
+			</if>
+			<if test="articleeditortype != null">
+				articleEditorType,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="oid != null">
+				#{oid,jdbcType=VARCHAR},
+			</if>
+			<if test="articletitle != null">
+				#{articletitle,jdbcType=VARCHAR},
+			</if>
+			<if test="articleabstract != null">
+				#{articleabstract,jdbcType=LONGVARCHAR},
+			</if>
+			<if test="articletags != null">
+				#{articletags,jdbcType=LONGVARCHAR},
+			</if>
+			<if test="articleauthoremail != null">
+				#{articleauthoremail,jdbcType=VARCHAR},
+			</if>
+			<if test="articlecommentcount != null">
+				#{articlecommentcount,jdbcType=INTEGER},
+			</if>
+			<if test="articleviewcount != null">
+				#{articleviewcount,jdbcType=INTEGER},
+			</if>
+			<if test="articlecontent != null">
+				#{articlecontent,jdbcType=LONGVARCHAR},
+			</if>
+			<if test="articlepermalink != null">
+				#{articlepermalink,jdbcType=VARCHAR},
+			</if>
+			<if test="articlehadbeenpublished != null">
+				#{articlehadbeenpublished,jdbcType=CHAR},
+			</if>
+			<if test="articleispublished != null">
+				#{articleispublished,jdbcType=CHAR},
+			</if>
+			<if test="articleputtop != null">
+				#{articleputtop,jdbcType=CHAR},
+			</if>
+			<if test="articlecreatedate != null">
+				#{articlecreatedate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="articleupdatedate != null">
+				#{articleupdatedate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="articlerandomdouble != null">
+				#{articlerandomdouble,jdbcType=DOUBLE},
+			</if>
+			<if test="articlesignid != null">
+				#{articlesignid,jdbcType=VARCHAR},
+			</if>
+			<if test="articlecommentable != null">
+				#{articlecommentable,jdbcType=CHAR},
+			</if>
+			<if test="articleviewpwd != null">
+				#{articleviewpwd,jdbcType=VARCHAR},
+			</if>
+			<if test="articleeditortype != null">
+				#{articleeditortype,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+
+	<update id="updateByPrimaryKey" parameterType="washmore.model.B3SoloArticle">
+		UPDATE b3_solo_article SET 
+			articleTitle = #{articletitle,jdbcType=VARCHAR}
+			,articleAbstract = #{articleabstract,jdbcType=LONGVARCHAR}
+			,articleTags = #{articletags,jdbcType=LONGVARCHAR}
+			,articleAuthorEmail = #{articleauthoremail,jdbcType=VARCHAR}
+			,articleCommentCount = #{articlecommentcount,jdbcType=INTEGER}
+			,articleViewCount = #{articleviewcount,jdbcType=INTEGER}
+			,articleContent = #{articlecontent,jdbcType=LONGVARCHAR}
+			,articlePermalink = #{articlepermalink,jdbcType=VARCHAR}
+			,articleHadBeenPublished = #{articlehadbeenpublished,jdbcType=CHAR}
+			,articleIsPublished = #{articleispublished,jdbcType=CHAR}
+			,articlePutTop = #{articleputtop,jdbcType=CHAR}
+			,articleCreateDate = #{articlecreatedate,jdbcType=TIMESTAMP}
+			,articleUpdateDate = #{articleupdatedate,jdbcType=TIMESTAMP}
+			,articleRandomDouble = #{articlerandomdouble,jdbcType=DOUBLE}
+			,articleSignId = #{articlesignid,jdbcType=VARCHAR}
+			,articleCommentable = #{articlecommentable,jdbcType=CHAR}
+			,articleViewPwd = #{articleviewpwd,jdbcType=VARCHAR}
+			,articleEditorType = #{articleeditortype,jdbcType=VARCHAR}
+		WHERE oId = #{oid,jdbcType=VARCHAR}
+	</update>
+
+	<update id="updateByPrimaryKeySelective" parameterType="washmore.model.B3SoloArticle">
+		UPDATE b3_solo_article
+		<set>
+			<if test="articletitle != null">
+				articleTitle = #{articletitle,jdbcType=VARCHAR},
+			</if>
+			<if test="articleabstract != null">
+				articleAbstract = #{articleabstract,jdbcType=LONGVARCHAR},
+			</if>
+			<if test="articletags != null">
+				articleTags = #{articletags,jdbcType=LONGVARCHAR},
+			</if>
+			<if test="articleauthoremail != null">
+				articleAuthorEmail = #{articleauthoremail,jdbcType=VARCHAR},
+			</if>
+			<if test="articlecommentcount != null">
+				articleCommentCount = #{articlecommentcount,jdbcType=INTEGER},
+			</if>
+			<if test="articleviewcount != null">
+				articleViewCount = #{articleviewcount,jdbcType=INTEGER},
+			</if>
+			<if test="articlecontent != null">
+				articleContent = #{articlecontent,jdbcType=LONGVARCHAR},
+			</if>
+			<if test="articlepermalink != null">
+				articlePermalink = #{articlepermalink,jdbcType=VARCHAR},
+			</if>
+			<if test="articlehadbeenpublished != null">
+				articleHadBeenPublished = #{articlehadbeenpublished,jdbcType=CHAR},
+			</if>
+			<if test="articleispublished != null">
+				articleIsPublished = #{articleispublished,jdbcType=CHAR},
+			</if>
+			<if test="articleputtop != null">
+				articlePutTop = #{articleputtop,jdbcType=CHAR},
+			</if>
+			<if test="articlecreatedate != null">
+				articleCreateDate = #{articlecreatedate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="articleupdatedate != null">
+				articleUpdateDate = #{articleupdatedate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="articlerandomdouble != null">
+				articleRandomDouble = #{articlerandomdouble,jdbcType=DOUBLE},
+			</if>
+			<if test="articlesignid != null">
+				articleSignId = #{articlesignid,jdbcType=VARCHAR},
+			</if>
+			<if test="articlecommentable != null">
+				articleCommentable = #{articlecommentable,jdbcType=CHAR},
+			</if>
+			<if test="articleviewpwd != null">
+				articleViewPwd = #{articleviewpwd,jdbcType=VARCHAR},
+			</if>
+			<if test="articleeditortype != null">
+				articleEditorType = #{articleeditortype,jdbcType=VARCHAR},
+			</if>
+		</set>
+		WHERE oId = #{oid,jdbcType=VARCHAR}
+	</update>
+
+	<delete id="deleteByPrimaryKey" parameterType="String">
+		DELETE FROM b3_solo_article
+		WHERE oId = #{oid,jdbcType=VARCHAR}
+	</delete>
+
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="String">
+		SELECT
+		<include refid="Base_Column_List"/>
+		FROM b3_solo_article
+		WHERE oId = #{oid,jdbcType=VARCHAR}
+	</select>
+
+	<select id="selectByParams" parameterType="map" resultMap="BaseResultMap">
+		SELECT
+		<include refid="Base_Column_List"/>
+		FROM b3_solo_article
+		<where>
+			<if test="oid != null">
+				AND oId = #{oid,jdbcType=VARCHAR}
+			</if>
+			<if test="articletitle != null">
+				AND articleTitle = #{articletitle,jdbcType=VARCHAR}
+			</if>
+			<if test="articleabstract != null">
+				AND articleAbstract = #{articleabstract,jdbcType=LONGVARCHAR}
+			</if>
+			<if test="articletags != null">
+				AND articleTags = #{articletags,jdbcType=LONGVARCHAR}
+			</if>
+			<if test="articleauthoremail != null">
+				AND articleAuthorEmail = #{articleauthoremail,jdbcType=VARCHAR}
+			</if>
+			<if test="articlecommentcount != null">
+				AND articleCommentCount = #{articlecommentcount,jdbcType=INTEGER}
+			</if>
+			<if test="articleviewcount != null">
+				AND articleViewCount = #{articleviewcount,jdbcType=INTEGER}
+			</if>
+			<if test="articlecontent != null">
+				AND articleContent = #{articlecontent,jdbcType=LONGVARCHAR}
+			</if>
+			<if test="articlepermalink != null">
+				AND articlePermalink = #{articlepermalink,jdbcType=VARCHAR}
+			</if>
+			<if test="articlehadbeenpublished != null">
+				AND articleHadBeenPublished = #{articlehadbeenpublished,jdbcType=CHAR}
+			</if>
+			<if test="articleispublished != null">
+				AND articleIsPublished = #{articleispublished,jdbcType=CHAR}
+			</if>
+			<if test="articleputtop != null">
+				AND articlePutTop = #{articleputtop,jdbcType=CHAR}
+			</if>
+			<if test="articlecreatedate != null">
+				AND articleCreateDate = #{articlecreatedate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="articleupdatedate != null">
+				AND articleUpdateDate = #{articleupdatedate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="articlerandomdouble != null">
+				AND articleRandomDouble = #{articlerandomdouble,jdbcType=DOUBLE}
+			</if>
+			<if test="articlesignid != null">
+				AND articleSignId = #{articlesignid,jdbcType=VARCHAR}
+			</if>
+			<if test="articlecommentable != null">
+				AND articleCommentable = #{articlecommentable,jdbcType=CHAR}
+			</if>
+			<if test="articleviewpwd != null">
+				AND articleViewPwd = #{articleviewpwd,jdbcType=VARCHAR}
+			</if>
+			<if test="articleeditortype != null">
+				AND articleEditorType = #{articleeditortype,jdbcType=VARCHAR}
+			</if>
+		</where>
+		ORDER BY oId DESC
+		<if test="start != null and offset != null">
+			LIMIT #{start} ,#{offset}
+		</if>
+	</select>
+
+	<select id="countByParams" parameterType="map" resultType="int">
+		SELECT COUNT(*) FROM b3_solo_article
+		<where>
+			<if test="oid != null">
+				AND oId = #{oid,jdbcType=VARCHAR}
+			</if>
+			<if test="articletitle != null">
+				AND articleTitle = #{articletitle,jdbcType=VARCHAR}
+			</if>
+			<if test="articleabstract != null">
+				AND articleAbstract = #{articleabstract,jdbcType=LONGVARCHAR}
+			</if>
+			<if test="articletags != null">
+				AND articleTags = #{articletags,jdbcType=LONGVARCHAR}
+			</if>
+			<if test="articleauthoremail != null">
+				AND articleAuthorEmail = #{articleauthoremail,jdbcType=VARCHAR}
+			</if>
+			<if test="articlecommentcount != null">
+				AND articleCommentCount = #{articlecommentcount,jdbcType=INTEGER}
+			</if>
+			<if test="articleviewcount != null">
+				AND articleViewCount = #{articleviewcount,jdbcType=INTEGER}
+			</if>
+			<if test="articlecontent != null">
+				AND articleContent = #{articlecontent,jdbcType=LONGVARCHAR}
+			</if>
+			<if test="articlepermalink != null">
+				AND articlePermalink = #{articlepermalink,jdbcType=VARCHAR}
+			</if>
+			<if test="articlehadbeenpublished != null">
+				AND articleHadBeenPublished = #{articlehadbeenpublished,jdbcType=CHAR}
+			</if>
+			<if test="articleispublished != null">
+				AND articleIsPublished = #{articleispublished,jdbcType=CHAR}
+			</if>
+			<if test="articleputtop != null">
+				AND articlePutTop = #{articleputtop,jdbcType=CHAR}
+			</if>
+			<if test="articlecreatedate != null">
+				AND articleCreateDate = #{articlecreatedate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="articleupdatedate != null">
+				AND articleUpdateDate = #{articleupdatedate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="articlerandomdouble != null">
+				AND articleRandomDouble = #{articlerandomdouble,jdbcType=DOUBLE}
+			</if>
+			<if test="articlesignid != null">
+				AND articleSignId = #{articlesignid,jdbcType=VARCHAR}
+			</if>
+			<if test="articlecommentable != null">
+				AND articleCommentable = #{articlecommentable,jdbcType=CHAR}
+			</if>
+			<if test="articleviewpwd != null">
+				AND articleViewPwd = #{articleviewpwd,jdbcType=VARCHAR}
+			</if>
+			<if test="articleeditortype != null">
+				AND articleEditorType = #{articleeditortype,jdbcType=VARCHAR}
+			</if>
+		</where>
+	</select>
+
+</mapper>

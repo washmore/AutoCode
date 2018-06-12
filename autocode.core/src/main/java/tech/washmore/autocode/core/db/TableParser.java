@@ -26,13 +26,16 @@ public class TableParser {
             tm.setClsName(underline2Camel(tm.getTbName(), true));
         }
         tm.setColumns(ColumnParser.parse(dbname, tableName));
+
+        List<ColumnModel> columnsWithoutPK = new ArrayList<>();
         for (ColumnModel cm : tm.getColumns()) {
             if (cm.isPrimaryKey()) {
                 tm.setPrimaryKey(cm);
-                break;
+            } else {
+                columnsWithoutPK.add(cm);
             }
         }
-        // tm.setPrimaryKey(tm.getColumns().stream().filter(ColumnModel::isPrimaryKey).findFirst().orElse(null));
+        tm.setColumnsWithoutPK(columnsWithoutPK);
         return tm;
     }
 

@@ -7,8 +7,18 @@ public class TableModel {
     private String clsName;
     private String tbComment;
     private List<ColumnModel> columns;
+    private List<ColumnModel> columnsWithoutPK;
+
+
     private ColumnModel primaryKey;
 
+    public List<ColumnModel> getColumnsWithoutPK() {
+        return columnsWithoutPK;
+    }
+
+    public void setColumnsWithoutPK(List<ColumnModel> columnsWithoutPK) {
+        this.columnsWithoutPK = columnsWithoutPK;
+    }
     public ColumnModel getPrimaryKey() {
         return primaryKey;
     }

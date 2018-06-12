@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="washmore.dao.ext.B3SoloUserDao">
+
+	<resultMap id="BaseResultMap" type="washmore.model.B3SoloUser">
+		<id column="oId" property="oid" jdbcType="VARCHAR"/>
+		<result column="userEmail" property="useremail" jdbcType="VARCHAR"/>
+		<result column="userName" property="username" jdbcType="VARCHAR"/>
+		<result column="userURL" property="userurl" jdbcType="VARCHAR"/>
+		<result column="userPassword" property="userpassword" jdbcType="VARCHAR"/>
+		<result column="userRole" property="userrole" jdbcType="VARCHAR"/>
+		<result column="userArticleCount" property="userarticlecount" jdbcType="INTEGER"/>
+		<result column="userPublishedArticleCount" property="userpublishedarticlecount" jdbcType="INTEGER"/>
+		<result column="userAvatar" property="useravatar" jdbcType="VARCHAR"/>
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		oId, userEmail, userName, userURL, userPassword, userRole, 
+		userArticleCount, userPublishedArticleCount, userAvatar
+	</sql>
+
+	<insert id="insert" parameterType="washmore.model.B3SoloUser" keyProperty = "oid">
+		INSERT INTO b3_solo_user
+			(oId, userEmail, userName, userURL, userPassword, userRole, 
+			userArticleCount, userPublishedArticleCount, userAvatar)
+		VALUES
+			(#{oid,jdbcType=VARCHAR}, #{useremail,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, 
+			#{userurl,jdbcType=VARCHAR}, #{userpassword,jdbcType=VARCHAR}, #{userrole,jdbcType=VARCHAR}, 
+			#{userarticlecount,jdbcType=INTEGER}, #{userpublishedarticlecount,jdbcType=INTEGER}, #{useravatar,jdbcType=VARCHAR})
+	</insert>
+
+	<insert id="insertSelective" parameterType="washmore.model.B3SoloUser" keyProperty = "oid">
+		INSERT INTO b3_solo_user
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="oid != null">
+				oId,
+			</if>
+			<if test="useremail != null">
+				userEmail,
+			</if>
+			<if test="username != null">
+				userName,
+			</if>
+			<if test="userurl != null">
+				userURL,
+			</if>
+			<if test="userpassword != null">
+				userPassword,
+			</if>
+			<if test="userrole != null">
+				userRole,
+			</if>
+			<if test="userarticlecount != null">
+				userArticleCount,
+			</if>
+			<if test="userpublishedarticlecount != null">
+				userPublishedArticleCount,
+			</if>
+			<if test="useravatar != null">
+				userAvatar,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="oid != null">
+				#{oid,jdbcType=VARCHAR},
+			</if>
+			<if test="useremail != null">
+				#{useremail,jdbcType=VARCHAR},
+			</if>
+			<if test="username != null">
+				#{username,jdbcType=VARCHAR},
+			</if>
+			<if test="userurl != null">
+				#{userurl,jdbcType=VARCHAR},
+			</if>
+			<if test="userpassword != null">
+				#{userpassword,jdbcType=VARCHAR},
+			</if>
+			<if test="userrole != null">
+				#{userrole,jdbcType=VARCHAR},
+			</if>
+			<if test="userarticlecount != null">
+				#{userarticlecount,jdbcType=INTEGER},
+			</if>
+			<if test="userpublishedarticlecount != null">
+				#{userpublishedarticlecount,jdbcType=INTEGER},
+			</if>
+			<if test="useravatar != null">
+				#{useravatar,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+
+	<update id="updateByPrimaryKey" parameterType="washmore.model.B3SoloUser">
+		UPDATE b3_solo_user SET 
+			userEmail = #{useremail,jdbcType=VARCHAR}
+			,userName = #{username,jdbcType=VARCHAR}
+			,userURL = #{userurl,jdbcType=VARCHAR}
+			,userPassword = #{userpassword,jdbcType=VARCHAR}
+			,userRole = #{userrole,jdbcType=VARCHAR}
+			,userArticleCount = #{userarticlecount,jdbcType=INTEGER}
+			,userPublishedArticleCount = #{userpublishedarticlecount,jdbcType=INTEGER}
+			,userAvatar = #{useravatar,jdbcType=VARCHAR}
+		WHERE oId = #{oid,jdbcType=VARCHAR}
+	</update>
+
+	<update id="updateByPrimaryKeySelective" parameterType="washmore.model.B3SoloUser">
+		UPDATE b3_solo_user
+		<set>
+			<if test="useremail != null">
+				userEmail = #{useremail,jdbcType=VARCHAR},
+			</if>
+			<if test="username != null">
+				userName = #{username,jdbcType=VARCHAR},
+			</if>
+			<if test="userurl != null">
+				userURL = #{userurl,jdbcType=VARCHAR},
+			</if>
+			<if test="userpassword != null">
+				userPassword = #{userpassword,jdbcType=VARCHAR},
+			</if>
+			<if test="userrole != null">
+				userRole = #{userrole,jdbcType=VARCHAR},
+			</if>
+			<if test="userarticlecount != null">
+				userArticleCount = #{userarticlecount,jdbcType=INTEGER},
+			</if>
+			<if test="userpublishedarticlecount != null">
+				userPublishedArticleCount = #{userpublishedarticlecount,jdbcType=INTEGER},
+			</if>
+			<if test="useravatar != null">
+				userAvatar = #{useravatar,jdbcType=VARCHAR},
+			</if>
+		</set>
+		WHERE oId = #{oid,jdbcType=VARCHAR}
+	</update>
+
+	<delete id="deleteByPrimaryKey" parameterType="String">
+		DELETE FROM b3_solo_user
+		WHERE oId = #{oid,jdbcType=VARCHAR}
+	</delete>
+
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="String">
+		SELECT
+		<include refid="Base_Column_List"/>
+		FROM b3_solo_user
+		WHERE oId = #{oid,jdbcType=VARCHAR}
+	</select>
+
+	<select id="selectByParams" parameterType="map" resultMap="BaseResultMap">
+		SELECT
+		<include refid="Base_Column_List"/>
+		FROM b3_solo_user
+		<where>
+			<if test="oid != null">
+				AND oId = #{oid,jdbcType=VARCHAR}
+			</if>
+			<if test="useremail != null">
+				AND userEmail = #{useremail,jdbcType=VARCHAR}
+			</if>
+			<if test="username != null">
+				AND userName = #{username,jdbcType=VARCHAR}
+			</if>
+			<if test="userurl != null">
+				AND userURL = #{userurl,jdbcType=VARCHAR}
+			</if>
+			<if test="userpassword != null">
+				AND userPassword = #{userpassword,jdbcType=VARCHAR}
+			</if>
+			<if test="userrole != null">
+				AND userRole = #{userrole,jdbcType=VARCHAR}
+			</if>
+			<if test="userarticlecount != null">
+				AND userArticleCount = #{userarticlecount,jdbcType=INTEGER}
+			</if>
+			<if test="userpublishedarticlecount != null">
+				AND userPublishedArticleCount = #{userpublishedarticlecount,jdbcType=INTEGER}
+			</if>
+			<if test="useravatar != null">
+				AND userAvatar = #{useravatar,jdbcType=VARCHAR}
+			</if>
+		</where>
+		ORDER BY oId DESC
+		<if test="start != null and offset != null">
+			LIMIT #{start} ,#{offset}
+		</if>
+	</select>
+
+	<select id="countByParams" parameterType="map" resultType="int">
+		SELECT COUNT(*) FROM b3_solo_user
+		<where>
+			<if test="oid != null">
+				AND oId = #{oid,jdbcType=VARCHAR}
+			</if>
+			<if test="useremail != null">
+				AND userEmail = #{useremail,jdbcType=VARCHAR}
+			</if>
+			<if test="username != null">
+				AND userName = #{username,jdbcType=VARCHAR}
+			</if>
+			<if test="userurl != null">
+				AND userURL = #{userurl,jdbcType=VARCHAR}
+			</if>
+			<if test="userpassword != null">
+				AND userPassword = #{userpassword,jdbcType=VARCHAR}
+			</if>
+			<if test="userrole != null">
+				AND userRole = #{userrole,jdbcType=VARCHAR}
+			</if>
+			<if test="userarticlecount != null">
+				AND userArticleCount = #{userarticlecount,jdbcType=INTEGER}
+			</if>
+			<if test="userpublishedarticlecount != null">
+				AND userPublishedArticleCount = #{userpublishedarticlecount,jdbcType=INTEGER}
+			</if>
+			<if test="useravatar != null">
+				AND userAvatar = #{useravatar,jdbcType=VARCHAR}
+			</if>
+		</where>
+	</select>
+
+</mapper>
