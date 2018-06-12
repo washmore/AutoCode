@@ -20,6 +20,14 @@ public class RuleService {
     @Resource
     BlessSendRuleDao blessSendRuleDao;
 
+    public int countAll() {
+        return blessSendRuleDao.countAll();
+    }
+
+    public List<BlessSendRule> selectAll() {
+        return blessSendRuleDao.selectAll();
+    }
+
     public List<BlessSendRule> selectByParams(Map<String, Object> params) {
         return blessSendRuleDao.selectByParams(params);
     }

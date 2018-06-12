@@ -1,6 +1,10 @@
 package washmore.dao.ext;
 
 import washmore.dao.base.BlessSendRuleBaseDao;
+import washmore.model.BlessSendRule;
+
+import java.util.List;
+
 /**
  * @author Washmore
  * @version V1
@@ -9,5 +13,7 @@ import washmore.dao.base.BlessSendRuleBaseDao;
  * @since 2018年06月12日
  */
 public interface BlessSendRuleDao extends BlessSendRuleBaseDao {
+    int countAll();
 
+    List<BlessSendRule> selectAll();
 }

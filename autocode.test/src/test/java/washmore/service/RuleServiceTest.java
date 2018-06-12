@@ -121,4 +121,21 @@ public class RuleServiceTest extends BaseTest {
         //ruleService.countByExample();
     }
 
+    /**
+     * Method: countAll()
+     */
+    @Test
+    public void testCountAll() throws Exception {
+        //TODO: Test goes here...
+        System.out.println(ruleService.countAll());
+    }
+
+    /**
+     * Method: selectAll()
+     */
+    @Test
+    public void testSelectAll() throws Exception {
+        //TODO: Test goes here...
+        System.out.println(ruleService.selectAll());
+    }
 } 
