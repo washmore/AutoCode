@@ -58,8 +58,12 @@ public class StringUtils {
                 return JavaDataType.长数字.value;
             }
         }
-
-        return JavaDataType.字符串.value;
+        for (String s : dataType.getString()) {
+            if (s.equalsIgnoreCase(columnDataType)) {
+                return JavaDataType.字符串.value;
+            }
+        }
+        return null;
     }
 
 }

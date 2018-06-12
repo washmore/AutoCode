@@ -22,14 +22,14 @@ import java.util.List;
 public class MapperXmlGenerator {
 
     public static void generateMappers(List<TableModel> tableModels) {
-        tableModels.forEach(t -> {
+        for (TableModel t : tableModels) {
             try {
                 generateMapper(t);
                 generateMapperExtends(t);
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        });
+        }
     }
 
 
@@ -85,13 +85,13 @@ public class MapperXmlGenerator {
         if (pk != null) {
             sb.append("\t\t<id column=\"").append(pk.getColumnName())
                     .append("\" property=\"").append(pk.getFieldName())
-                    .append("\" jdbcType=\"").append(pk.getDataType()).append("\"/>").append(System.lineSeparator());
+                    .append("\" jdbcType=\"").append(pk.getJdbcType()).append("\"/>").append(System.lineSeparator());
         }
         for (ColumnModel cm : tm.getColumns()) {
             if (!cm.equals(pk)) {
                 sb.append("\t\t<result column=\"").append(cm.getColumnName())
                         .append("\" property=\"").append(cm.getFieldName())
-                        .append("\" jdbcType=\"").append(cm.getDataType()).append("\"/>").append(System.lineSeparator());
+                        .append("\" jdbcType=\"").append(cm.getJdbcType()).append("\"/>").append(System.lineSeparator());
             }
         }
         sb.append("\t</resultMap>").append(System.lineSeparator()).append(System.lineSeparator());
@@ -188,7 +188,7 @@ public class MapperXmlGenerator {
 
         for (ColumnModel cm : tm.getColumns()) {
             sb.append("\t\t\t<if test=\"").append(cm.getFieldName()).append(" != null\">").append(System.lineSeparator());
-            sb.append("\t\t\t\tAND ").append(cm.getColumnName()).append(" = ").append("#{").append(cm.getFieldName()).append(",jdbcType=").append(cm.getDataType()).append("}").append(System.lineSeparator());
+            sb.append("\t\t\t\tAND ").append(cm.getColumnName()).append(" = ").append("#{").append(cm.getFieldName()).append(",jdbcType=").append(cm.getJdbcType()).append("}").append(System.lineSeparator());
             sb.append("\t\t\t</if>").append(System.lineSeparator());
         }
         sb.append("\t\t</where>").append(System.lineSeparator());
@@ -210,7 +210,7 @@ public class MapperXmlGenerator {
 
         for (ColumnModel cm : tm.getColumns()) {
             sb.append("\t\t\t<if test=\"").append(cm.getFieldName()).append(" != null\">").append(System.lineSeparator());
-            sb.append("\t\t\t\tAND ").append(cm.getColumnName()).append(" = ").append("#{").append(cm.getFieldName()).append(",jdbcType=").append(cm.getDataType()).append("}").append(System.lineSeparator());
+            sb.append("\t\t\t\tAND ").append(cm.getColumnName()).append(" = ").append("#{").append(cm.getFieldName()).append(",jdbcType=").append(cm.getJdbcType()).append("}").append(System.lineSeparator());
             sb.append("\t\t\t</if>").append(System.lineSeparator());
         }
         sb.append("\t\t</where>").append(System.lineSeparator());
@@ -235,7 +235,7 @@ public class MapperXmlGenerator {
         sb.append("\t\t<include refid=\"Base_Column_List\"/>").append(System.lineSeparator());
         sb.append("\t\tFROM ").append(tm.getTbName()).append(System.lineSeparator());
 
-        sb.append("\t\tWHERE ").append(pk.getColumnName()).append(" = #{").append(pk.getFieldName()).append(",jdbcType=").append(pk.getDataType()).append("}").append(System.lineSeparator());
+        sb.append("\t\tWHERE ").append(pk.getColumnName()).append(" = #{").append(pk.getFieldName()).append(",jdbcType=").append(pk.getJdbcType()).append("}").append(System.lineSeparator());
         sb.append("\t</select>").append(System.lineSeparator()).append(System.lineSeparator());
         return sb.toString();
     }
@@ -254,12 +254,12 @@ public class MapperXmlGenerator {
 
         for (ColumnModel cm : tm.getColumns()) {
             sb.append("\t\t\t<if test=\"").append(cm.getFieldName()).append(" != null\">").append(System.lineSeparator());
-            sb.append("\t\t\t\t").append(cm.getColumnName()).append(" = ").append("#{").append(cm.getFieldName()).append(",jdbcType=").append(cm.getDataType()).append("},").append(System.lineSeparator());
+            sb.append("\t\t\t\t").append(cm.getColumnName()).append(" = ").append("#{").append(cm.getFieldName()).append(",jdbcType=").append(cm.getJdbcType()).append("},").append(System.lineSeparator());
             sb.append("\t\t\t</if>").append(System.lineSeparator());
         }
 
         sb.append("\t\t</set>").append(System.lineSeparator());
-        sb.append("\t\tWHERE ").append(pk.getColumnName()).append(" = #{").append(pk.getFieldName()).append(",jdbcType=").append(pk.getDataType()).append("}").append(System.lineSeparator());
+        sb.append("\t\tWHERE ").append(pk.getColumnName()).append(" = #{").append(pk.getFieldName()).append(",jdbcType=").append(pk.getJdbcType()).append("}").append(System.lineSeparator());
         sb.append("\t</update>").append(System.lineSeparator()).append(System.lineSeparator());
         return sb.toString();
     }
@@ -272,7 +272,7 @@ public class MapperXmlGenerator {
         StringBuffer sb = new StringBuffer();
         sb.append("\t<delete id=\"deleteByPrimaryKey\" parameterType=\"").append(pk.getFieldType()).append("\">").append(System.lineSeparator());
         sb.append("\t\tDELETE FROM ").append(tm.getTbName()).append(System.lineSeparator());
-        sb.append("\t\tWHERE ").append(pk.getColumnName()).append(" = #{").append(pk.getFieldName()).append(",jdbcType=").append(pk.getDataType()).append("}").append(System.lineSeparator());
+        sb.append("\t\tWHERE ").append(pk.getColumnName()).append(" = #{").append(pk.getFieldName()).append(",jdbcType=").append(pk.getJdbcType()).append("}").append(System.lineSeparator());
         sb.append("\t</delete>").append(System.lineSeparator()).append(System.lineSeparator());
         return sb.toString();
     }
@@ -305,7 +305,7 @@ public class MapperXmlGenerator {
 
         for (int i = 0; i < tm.getColumns().size(); i++) {
             ColumnModel cm = tm.getColumns().get(i);
-            sb.append("#{").append(cm.getFieldName()).append(",jdbcType=").append(cm.getDataType()).append("}");
+            sb.append("#{").append(cm.getFieldName()).append(",jdbcType=").append(cm.getJdbcType()).append("}");
 
             if (i == tm.getColumns().size() - 1) {
                 sb.append(")").append(System.lineSeparator());

@@ -13,7 +13,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.time.LocalDate;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
@@ -29,13 +30,13 @@ import static tech.washmore.autocode.util.StringUtils.underline2Camel;
 public class ModelClassGenerator {
 
     public static void generateModels(List<TableModel> tableModels) {
-        tableModels.forEach(t -> {
+        for (TableModel t : tableModels) {
             try {
                 generateModel(t);
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        });
+        }
     }
 
     /**
@@ -54,18 +55,17 @@ public class ModelClassGenerator {
         sb.append("package ").append(modelConfig.getPackageName()).append(";").append(System.lineSeparator()).append(System.lineSeparator());
         //引入依赖项
         sb.append("import java.io.Serializable;").append(System.lineSeparator());
-        if (tm.getColumns().stream().map(ColumnModel::getFieldType).anyMatch(ft -> JavaDataType.时间.value.equals(ft))) {
-            sb.append("import java.util.Date;").append(System.lineSeparator());
-        }
+        // if (tm.getColumns().stream().map(ColumnModel::getFieldType).anyMatch(ft -> JavaDataType.时间.value.equals(ft))) {
+        sb.append("import java.util.Date;").append(System.lineSeparator());
+        // }
         //添加类文件注释
         sb.append("/**").append(System.lineSeparator());
         sb.append(" * @author ").append(doc.getAuthor()).append(System.lineSeparator());
         sb.append(" * @version ").append(doc.getVersion()).append(System.lineSeparator());
         sb.append(" * @summary ").append(modelConfig.getSummary() != null && modelConfig.getSummary().length() > 0 ? modelConfig.getSummary() : tm.getTbComment()).append(System.lineSeparator());
-        sb.append(" * @Copyright (c) 2018, Lianjia Group All Rights Reserved.").append(System.lineSeparator());
-        sb.append(" * @since ").append(LocalDate.now().toString()).append(System.lineSeparator());
+        sb.append(" * @Copyright ").append(doc.getCopyright()).append(System.lineSeparator());
+        sb.append(" * @since ").append(new SimpleDateFormat("yyyy年MM月dd日").format(new Date())).append(System.lineSeparator());
         sb.append(" */").append(System.lineSeparator());
-
 
         sb.append("public class ").append(tm.getClsName()).append(" implements Serializable ").append("{")
                 .append(System.lineSeparator());

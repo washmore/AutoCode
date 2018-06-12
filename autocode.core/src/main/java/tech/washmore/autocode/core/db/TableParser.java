@@ -26,18 +26,28 @@ public class TableParser {
             tm.setClsName(underline2Camel(tm.getTbName(), true));
         }
         tm.setColumns(ColumnParser.parse(dbname, tableName));
-        tm.setPrimaryKey(tm.getColumns().stream().filter(ColumnModel::isPrimaryKey).findFirst().orElse(null));
+        for (ColumnModel cm : tm.getColumns()) {
+            if (cm.isPrimaryKey()) {
+                tm.setPrimaryKey(cm);
+                break;
+            }
+        }
+        // tm.setPrimaryKey(tm.getColumns().stream().filter(ColumnModel::isPrimaryKey).findFirst().orElse(null));
         return tm;
     }
 
-    public static List<String> allTables() throws SQLException {
-        List<String> tablenames = new ArrayList<String>();
-        String sql = "SHOW TABLES";
-        PreparedStatement stat = ConnManager.getConn().prepareStatement(sql);
-        ResultSet rs = stat.executeQuery();
-        while (rs.next()) {
-            tablenames.add(rs.getString(1));
+    public static List<String> allTables() {
+        try {
+            List<String> tablenames = new ArrayList<String>();
+            String sql = "SHOW TABLES";
+            PreparedStatement stat = ConnManager.getConn().prepareStatement(sql);
+            ResultSet rs = stat.executeQuery();
+            while (rs.next()) {
+                tablenames.add(rs.getString(1));
+            }
+            return tablenames;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
-        return tablenames;
     }
 }

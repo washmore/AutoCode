@@ -2,8 +2,8 @@
   "project": {
     "path": "",
     "subModule": "",
-    "javaRoot": "/src/main/java/",
-    "resourcesRoot": "/src/main/resources/",
+    "javaRoot": "/src/test/java/",
+    "resourcesRoot": "/src/test/resources/",
     "underline2Camel": true,
     "generateOgnl": false,
     "exclude": [
@@ -39,11 +39,17 @@
       "countByParams"
     ]
   },
-  "db": {
+  "dbbak": {
     "driver": "com.mysql.jdbc.Driver",
     "url": "jdbc:mysql://192.168.2.88:3306/mytest?serverTimezone=Asia/Shanghai&useSSL=false&useUnicode=true&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true",
     "username": "root",
     "password": "wangyalan"
+  },
+  "db": {
+    "driver": "com.mysql.jdbc.Driver",
+    "url": "jdbc:mysql://localhost:3306/solo_test?serverTimezone=Asia/Shanghai&useSSL=false&useUnicode=true&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true",
+    "username": "root",
+    "password": ""
   },
   "doc": {
     "author": "Washmore",

@@ -8,16 +8,27 @@ public class ColumnModel {
     private String defaultValue;
     private String fieldName;
     private String fieldType;
-    private String fullFieldType;
+
+    private String jdbcType;
+    private Integer order;
 
     private boolean primaryKey;
 
-    public String getFullFieldType() {
-        return fullFieldType;
+
+    public Integer getOrder() {
+        return order;
     }
 
-    public void setFullFieldType(String fullFieldType) {
-        this.fullFieldType = fullFieldType;
+    public void setOrder(Integer order) {
+        this.order = order;
+    }
+
+    public String getJdbcType() {
+        return jdbcType;
+    }
+
+    public void setJdbcType(String jdbcType) {
+        this.jdbcType = jdbcType;
     }
 
     public boolean isPrimaryKey() {

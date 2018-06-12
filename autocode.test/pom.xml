@@ -10,6 +10,15 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>autocode.test</artifactId>
-
-
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>tech.washmore</groupId>
+                <version>0.0.1-SNAPSHOT</version>
+                <artifactId>maven-autocode-plugin</artifactId>
+                <configuration>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>

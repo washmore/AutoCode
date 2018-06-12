@@ -12,13 +12,13 @@ import tech.washmore.autocode.core.CodeMaker;
  */
 public class CodeMojo extends AbstractMojo {
     /**
-     * @parameter expression="${config}" default-value="config.json"
+     * @parameter expression="${configLocation}" default-value="config.json"
      */
-    private String config;
+    private String configLocation;
 
     public void execute() throws MojoExecutionException {
         try {
-            String configPath = System.getProperty("user.dir") + "/" + config;
+            String configPath = System.getProperty("user.dir") + "/" + configLocation;
             System.out.println("configPath:" + configPath);
             CodeMaker.generate(configPath);
         } catch (Exception e) {

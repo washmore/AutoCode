@@ -12,7 +12,9 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 import static tech.washmore.autocode.util.StringUtils.underline2Camel;
@@ -27,7 +29,7 @@ import static tech.washmore.autocode.util.StringUtils.underline2Camel;
 public class DaoClassGenerator {
 
     public static void generateDaos(List<TableModel> tableModels) {
-        tableModels.forEach(t -> {
+        for (TableModel t : tableModels) {
             try {
                 generateDao(t);
                 generateDaoExtends(t);
@@ -35,7 +37,7 @@ public class DaoClassGenerator {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        });
+        }
     }
 
     private static void generateDaoExtends(TableModel tm) throws IOException {
@@ -53,7 +55,7 @@ public class DaoClassGenerator {
         sb.append(" * @version ").append(doc.getVersion()).append(System.lineSeparator());
         sb.append(" * @summary ").append(dao.getSummary() != null && dao.getSummary().length() > 0 ? dao.getSummary() : String.format(Constants.daoSummaryTemplate, tm.getTbComment(), tm.getTbName())).append(System.lineSeparator());
         sb.append(" * @Copyright ").append(doc.getCopyright()).append(System.lineSeparator());
-        sb.append(" * @since ").append(LocalDate.now().toString()).append(System.lineSeparator());
+        sb.append(" * @since ").append(new SimpleDateFormat("yyyy年MM月dd日").format(new Date())).append(System.lineSeparator());
         sb.append(" */").append(System.lineSeparator());
         sb.append("public interface ").append(tm.getClsName() + dao.getSuffix()).append(" extends ")
                 .append(tm.getClsName() + dao.getBaseSuffix())
