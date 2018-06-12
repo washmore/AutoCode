@@ -46,6 +46,18 @@ public class DaoClassGenerator {
         Dao dao = dataFile.getDao();
         Doc doc = config.getDoc();
         Project project = config.getProject();
+
+        File dic = new File(project.getPath() + project.getJavaRoot() + dao.getExtendsPackagePath());
+        if (!dic.exists()) {
+            dic.mkdirs();
+        }
+
+        File file = new File(dic, tm.getClsName() + dao.getSuffix() + ".java");
+        if (file.exists()) {
+            return;
+        }
+        file.createNewFile();
+
         StringBuffer sb = new StringBuffer("");
         sb.append("package ").append(dao.getExtendsPackageName()).append(";").append(System.lineSeparator()).append(System.lineSeparator());
         sb.append("import ").append(dao.getBasePackageName()).append(".").append(tm.getClsName() + dao.getBaseSuffix()).append(";").append(System.lineSeparator());
@@ -65,15 +77,7 @@ public class DaoClassGenerator {
 
         sb.append("}");
         System.out.println(sb.toString());
-        File dic = new File(project.getPath() + project.getJavaRoot() + dao.getExtendsPackagePath());
-        if (!dic.exists()) {
-            dic.mkdirs();
-        }
 
-        File file = new File(dic, tm.getClsName() + dao.getSuffix() + ".java");
-        if (!file.exists()) {
-            file.createNewFile();
-        }
         OutputStream ops = new FileOutputStream(file);
         ops.write(sb.toString().getBytes());
         ops.flush();
@@ -127,12 +131,26 @@ public class DaoClassGenerator {
                         case selectByPrimaryKey:
                             sb.append(appendSelectByPrimaryKey(tm));
                             break;
+                        case selectByExample:
+                            sb.append(appendSelectByExample(tm));
+                            if (sb.indexOf("import java.util.Map;") == -1) {
+                                sb.insert(sb.lastIndexOf("import "), "import java.util.Map;" + System.lineSeparator());
+                            }
+                            if (sb.indexOf("import java.util.List;") == -1) {
+                                sb.insert(sb.lastIndexOf("import "), "import java.util.List;" + System.lineSeparator());
+                            }
+                            break;
                         case selectByParams:
                             sb.append(appendSelectByParams(tm));
                             if (sb.indexOf("import java.util.Map;") == -1) {
                                 sb.insert(sb.lastIndexOf("import "), "import java.util.Map;" + System.lineSeparator());
                             }
-                            sb.insert(sb.lastIndexOf("import "), "import java.util.List;" + System.lineSeparator());
+                            if (sb.indexOf("import java.util.List;") == -1) {
+                                sb.insert(sb.lastIndexOf("import "), "import java.util.List;" + System.lineSeparator());
+                            }
+                            break;
+                        case countByExample:
+                            sb.append(appendCountByExample(tm));
                             break;
                         case countByParams:
                             sb.append(appendCountByParams(tm));
@@ -155,12 +173,10 @@ public class DaoClassGenerator {
         }
 
         File file = new File(dic, tm.getClsName() + dao.getBaseSuffix() + ".java");
-        if (!file.exists()) {
-            file.createNewFile();
-        } else {
+        if (file.exists()) {
             file.delete();
-            file.createNewFile();
         }
+        file.createNewFile();
         OutputStream ops = new FileOutputStream(file);
         ops.write(sb.toString().getBytes());
         ops.flush();
@@ -175,9 +191,23 @@ public class DaoClassGenerator {
         return sb.toString();
     }
 
+    private static String appendCountByExample(TableModel tm) {
+        StringBuffer sb = new StringBuffer();
+        sb.append("\tint countByExample(").append(tm.getClsName()).append(" example);")
+                .append(System.lineSeparator()).append(System.lineSeparator());
+        return sb.toString();
+    }
+
     private static String appendSelectByParams(TableModel tm) {
         StringBuffer sb = new StringBuffer();
         sb.append("\tList<").append(tm.getClsName()).append("> selectByParams(Map<String, Object> params);")
+                .append(System.lineSeparator()).append(System.lineSeparator());
+        return sb.toString();
+    }
+
+    private static String appendSelectByExample(TableModel tm) {
+        StringBuffer sb = new StringBuffer();
+        sb.append("\tList<").append(tm.getClsName()).append("> selectByExample(").append(tm.getClsName()).append(" example);")
                 .append(System.lineSeparator()).append(System.lineSeparator());
         return sb.toString();
     }

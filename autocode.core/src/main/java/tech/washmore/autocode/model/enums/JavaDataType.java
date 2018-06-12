@@ -15,7 +15,6 @@ public enum JavaDataType {
     时间("Date");
 
     public String value;
-    public String fullValue;
 
     JavaDataType(String value) {
         this.value = value;

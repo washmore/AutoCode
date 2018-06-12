@@ -3,10 +3,14 @@ package tech.washmore.autocode.core.config;
 import com.alibaba.fastjson.JSON;
 import tech.washmore.autocode.model.Constants;
 import tech.washmore.autocode.model.config.*;
+import tech.washmore.autocode.model.enums.AutoType;
+import tech.washmore.autocode.model.enums.DataFileMethod;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ConfigManager {
     private static Config config;
@@ -25,14 +29,31 @@ public class ConfigManager {
     }
 
     private static Config adapte(Config config) {
+        List<String> autoTypes = config.getAutoTypes();
+        if (autoTypes == null || autoTypes.size() == 0) {
+            autoTypes = new ArrayList<>();
+            for (AutoType autoType : AutoType.values()) {
+                autoTypes.add(autoType.name());
+            }
+        }
+
         Db db = config.getDb();
+        if (db == null) {
+            db = new Db();
+            config.setDb(db);
+        }
         if (db.getUrl().contains("?")) {
             String sub = db.getUrl().substring(0, db.getUrl().indexOf("?"));
             db.setDbName(sub.substring(sub.lastIndexOf("/") + 1));
         } else {
             db.setDbName(db.getUrl().substring(db.getUrl().lastIndexOf("/") + 1));
         }
+
         Model model = config.getModel();
+        if (model == null) {
+            model = new Model();
+            config.setModel(model);
+        }
         if (model.getPackageName() != null && model.getPackageName().length() > 0) {
             model.setPackagePath(model.getPackageName().replace(".", "/"));
         } else {
@@ -40,11 +61,52 @@ public class ConfigManager {
         }
 
         Project project = config.getProject();
+        if (project == null) {
+            project = new Project();
+            config.setProject(project);
+        }
         if (project.getPath() == null || project.getPath().length() == 0) {
             project.setPath(System.getProperty("user.dir"));
         }
         project.setPath(project.getPath() + "/" + project.getSubModule() + "/");
-        Dao dao = config.getDataFile().getDao();
+
+        DataFile dataFile = config.getDataFile();
+        if (dataFile == null) {
+            dataFile = new DataFile();
+            config.setDataFile(dataFile);
+        }
+        List<String> includes = dataFile.getMethodInclude();
+        List<String> excludes = dataFile.getMethodExclude();
+        DataFileMethod[] methods = DataFileMethod.values();
+        if (includes != null && includes.size() > 0) {
+            List<String> temp = new ArrayList<>();
+            for (DataFileMethod m : methods) {
+                if (includes.contains(m.name())) {
+                    temp.add(m.name());
+                }
+            }
+            dataFile.setMethodInclude(temp);
+        } else if (excludes != null && excludes.size() > 0) {
+            List<String> temp = new ArrayList<>();
+            for (DataFileMethod m : methods) {
+                if (!excludes.contains(m.name())) {
+                    temp.add(m.name());
+                }
+            }
+            dataFile.setMethodInclude(temp);
+        } else {
+            for (DataFileMethod m : methods) {
+                if (includes.contains(m.name())) {
+                    dataFile.getMethodInclude().add(m.name());
+                }
+            }
+        }
+
+        Dao dao = dataFile.getDao();
+        if (dao == null) {
+            dao = new Dao();
+            dataFile.setDao(dao);
+        }
         if (dao.getPackageName() != null && dao.getPackageName().length() > 0) {
             dao.setExtendsPackageName(dao.getPackageName() + "." + Constants.extendsDataFileSuffix);
             dao.setBasePackageName(dao.getPackageName() + "." + Constants.baseDataFileSuffix);
@@ -59,7 +121,11 @@ public class ConfigManager {
         dao.setExtendsPackagePath(dao.getExtendsPackageName().replace(".", "/"));
         dao.setBasePackagePath(dao.getBasePackageName().replace(".", "/"));
 
-        Mapper mapper = config.getDataFile().getMapper();
+        Mapper mapper = dataFile.getMapper();
+        if (mapper == null) {
+            mapper = new Mapper();
+            dataFile.setMapper(mapper);
+        }
         if (mapper.getPath() != null && mapper.getPath().length() > 0) {
             mapper.setBasePath(mapper.getPath() + "/" + Constants.baseDataFileSuffix);
             mapper.setExtendsPath(mapper.getPath() + "/" + Constants.extendsDataFileSuffix);

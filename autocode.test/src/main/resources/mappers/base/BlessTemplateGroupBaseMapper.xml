@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="washmore.dao.ext.BlessTemplateGroupDao">
+
+	<select id="selectByParams" parameterType="map" resultMap="BaseResultMap">
+		SELECT
+		<include refid="Base_Column_List"/>
+		FROM bless_template_group
+		<where>
+			<if test="id != null">
+				AND id = #{id,jdbcType=BIGINT}
+			</if>
+		</where>
+		ORDER BY id DESC
+		<if test="start != null and offset != null">
+			LIMIT #{start} ,#{offset}
+		</if>
+	</select>
+
+	<select id="countByParams" parameterType="map" resultType="int">
+		SELECT COUNT(*) FROM bless_template_group
+		<where>
+			<if test="id != null">
+				AND id = #{id,jdbcType=BIGINT}
+			</if>
+		</where>
+	</select>
+
+	<insert id="insert" parameterType="washmore.model.BlessTemplateGroup" keyProperty = "id">
+		INSERT INTO bless_template_group
+			(id, name, template_type, org_type, org_id, valid_status, 
+			flag_delete, creator, creator_name, create_time, updater, updater_name, 
+			update_time)
+		VALUES
+			(#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{templateType,jdbcType=INTEGER}, 
+			#{orgType,jdbcType=INTEGER}, #{orgId,jdbcType=BIGINT}, #{validStatus,jdbcType=INTEGER}, 
+			#{flagDelete,jdbcType=INTEGER}, #{creator,jdbcType=BIGINT}, #{creatorName,jdbcType=VARCHAR}, 
+			#{createTime,jdbcType=TIMESTAMP}, #{updater,jdbcType=BIGINT}, #{updaterName,jdbcType=VARCHAR}, 
+			#{updateTime,jdbcType=TIMESTAMP})
+	</insert>
+
+	<insert id="insertSelective" parameterType="washmore.model.BlessTemplateGroup" keyProperty = "id">
+		INSERT INTO bless_template_group
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="name != null">
+				name,
+			</if>
+			<if test="templateType != null">
+				template_type,
+			</if>
+			<if test="orgType != null">
+				org_type,
+			</if>
+			<if test="orgId != null">
+				org_id,
+			</if>
+			<if test="validStatus != null">
+				valid_status,
+			</if>
+			<if test="flagDelete != null">
+				flag_delete,
+			</if>
+			<if test="creator != null">
+				creator,
+			</if>
+			<if test="creatorName != null">
+				creator_name,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+			<if test="updater != null">
+				updater,
+			</if>
+			<if test="updaterName != null">
+				updater_name,
+			</if>
+			<if test="updateTime != null">
+				update_time,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=BIGINT},
+			</if>
+			<if test="name != null">
+				#{name,jdbcType=VARCHAR},
+			</if>
+			<if test="templateType != null">
+				#{templateType,jdbcType=INTEGER},
+			</if>
+			<if test="orgType != null">
+				#{orgType,jdbcType=INTEGER},
+			</if>
+			<if test="orgId != null">
+				#{orgId,jdbcType=BIGINT},
+			</if>
+			<if test="validStatus != null">
+				#{validStatus,jdbcType=INTEGER},
+			</if>
+			<if test="flagDelete != null">
+				#{flagDelete,jdbcType=INTEGER},
+			</if>
+			<if test="creator != null">
+				#{creator,jdbcType=BIGINT},
+			</if>
+			<if test="creatorName != null">
+				#{creatorName,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updater != null">
+				#{updater,jdbcType=BIGINT},
+			</if>
+			<if test="updaterName != null">
+				#{updaterName,jdbcType=VARCHAR},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+
+	<update id="updateByPrimaryKey" parameterType="washmore.model.BlessTemplateGroup">
+		UPDATE bless_template_group SET 
+			name = #{name,jdbcType=VARCHAR}
+			,template_type = #{templateType,jdbcType=INTEGER}
+			,org_type = #{orgType,jdbcType=INTEGER}
+			,org_id = #{orgId,jdbcType=BIGINT}
+			,valid_status = #{validStatus,jdbcType=INTEGER}
+			,flag_delete = #{flagDelete,jdbcType=INTEGER}
+			,creator = #{creator,jdbcType=BIGINT}
+			,creator_name = #{creatorName,jdbcType=VARCHAR}
+			,create_time = #{createTime,jdbcType=TIMESTAMP}
+			,updater = #{updater,jdbcType=BIGINT}
+			,updater_name = #{updaterName,jdbcType=VARCHAR}
+			,update_time = #{updateTime,jdbcType=TIMESTAMP}
+		WHERE id = #{id,jdbcType=BIGINT}
+	</update>
+
+	<update id="updateByPrimaryKeySelective" parameterType="washmore.model.BlessTemplateGroup">
+		UPDATE bless_template_group
+		<set>
+			<if test="name != null">
+				name = #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="templateType != null">
+				template_type = #{templateType,jdbcType=INTEGER},
+			</if>
+			<if test="orgType != null">
+				org_type = #{orgType,jdbcType=INTEGER},
+			</if>
+			<if test="orgId != null">
+				org_id = #{orgId,jdbcType=BIGINT},
+			</if>
+			<if test="validStatus != null">
+				valid_status = #{validStatus,jdbcType=INTEGER},
+			</if>
+			<if test="flagDelete != null">
+				flag_delete = #{flagDelete,jdbcType=INTEGER},
+			</if>
+			<if test="creator != null">
+				creator = #{creator,jdbcType=BIGINT},
+			</if>
+			<if test="creatorName != null">
+				creator_name = #{creatorName,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updater != null">
+				updater = #{updater,jdbcType=BIGINT},
+			</if>
+			<if test="updaterName != null">
+				updater_name = #{updaterName,jdbcType=VARCHAR},
+			</if>
+			<if test="updateTime != null">
+				update_time = #{updateTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		WHERE id = #{id,jdbcType=BIGINT}
+	</update>
+
+	<delete id="deleteByPrimaryKey" parameterType="Long">
+		DELETE FROM bless_template_group
+		WHERE id = #{id,jdbcType=BIGINT}
+	</delete>
+
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="Long">
+		SELECT
+		<include refid="Base_Column_List"/>
+		FROM bless_template_group
+		WHERE id = #{id,jdbcType=BIGINT}
+	</select>
+
+	<select id="selectByExample" parameterType="washmore.model.BlessTemplateGroup" resultMap="BaseResultMap">
+		SELECT
+		<include refid="Base_Column_List"/>
+		FROM bless_template_group
+		<where>
+			<if test="id != null">
+				AND id = #{id,jdbcType=BIGINT}
+			</if>
+			<if test="name != null">
+				AND name = #{name,jdbcType=VARCHAR}
+			</if>
+			<if test="templateType != null">
+				AND template_type = #{templateType,jdbcType=INTEGER}
+			</if>
+			<if test="orgType != null">
+				AND org_type = #{orgType,jdbcType=INTEGER}
+			</if>
+			<if test="orgId != null">
+				AND org_id = #{orgId,jdbcType=BIGINT}
+			</if>
+			<if test="validStatus != null">
+				AND valid_status = #{validStatus,jdbcType=INTEGER}
+			</if>
+			<if test="flagDelete != null">
+				AND flag_delete = #{flagDelete,jdbcType=INTEGER}
+			</if>
+			<if test="creator != null">
+				AND creator = #{creator,jdbcType=BIGINT}
+			</if>
+			<if test="creatorName != null">
+				AND creator_name = #{creatorName,jdbcType=VARCHAR}
+			</if>
+			<if test="createTime != null">
+				AND create_time = #{createTime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="updater != null">
+				AND updater = #{updater,jdbcType=BIGINT}
+			</if>
+			<if test="updaterName != null">
+				AND updater_name = #{updaterName,jdbcType=VARCHAR}
+			</if>
+			<if test="updateTime != null">
+				AND update_time = #{updateTime,jdbcType=TIMESTAMP}
+			</if>
+		</where>
+		ORDER BY id DESC
+	</select>
+
+	<select id="countByExample" parameterType="washmore.model.BlessTemplateGroup" resultType="int">
+		SELECT COUNT(*) FROM bless_template_group
+		<where>
+			<if test="id != null">
+				AND id = #{id,jdbcType=BIGINT}
+			</if>
+			<if test="name != null">
+				AND name = #{name,jdbcType=VARCHAR}
+			</if>
+			<if test="templateType != null">
+				AND template_type = #{templateType,jdbcType=INTEGER}
+			</if>
+			<if test="orgType != null">
+				AND org_type = #{orgType,jdbcType=INTEGER}
+			</if>
+			<if test="orgId != null">
+				AND org_id = #{orgId,jdbcType=BIGINT}
+			</if>
+			<if test="validStatus != null">
+				AND valid_status = #{validStatus,jdbcType=INTEGER}
+			</if>
+			<if test="flagDelete != null">
+				AND flag_delete = #{flagDelete,jdbcType=INTEGER}
+			</if>
+			<if test="creator != null">
+				AND creator = #{creator,jdbcType=BIGINT}
+			</if>
+			<if test="creatorName != null">
+				AND creator_name = #{creatorName,jdbcType=VARCHAR}
+			</if>
+			<if test="createTime != null">
+				AND create_time = #{createTime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="updater != null">
+				AND updater = #{updater,jdbcType=BIGINT}
+			</if>
+			<if test="updaterName != null">
+				AND updater_name = #{updaterName,jdbcType=VARCHAR}
+			</if>
+			<if test="updateTime != null">
+				AND update_time = #{updateTime,jdbcType=TIMESTAMP}
+			</if>
+		</where>
+	</select>
+
+	<resultMap id="BaseResultMap" type="washmore.model.BlessTemplateGroup">
+		<id column="id" property="id" jdbcType="BIGINT"/>
+		<result column="name" property="name" jdbcType="VARCHAR"/>
+		<result column="template_type" property="templateType" jdbcType="INTEGER"/>
+		<result column="org_type" property="orgType" jdbcType="INTEGER"/>
+		<result column="org_id" property="orgId" jdbcType="BIGINT"/>
+		<result column="valid_status" property="validStatus" jdbcType="INTEGER"/>
+		<result column="flag_delete" property="flagDelete" jdbcType="INTEGER"/>
+		<result column="creator" property="creator" jdbcType="BIGINT"/>
+		<result column="creator_name" property="creatorName" jdbcType="VARCHAR"/>
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+		<result column="updater" property="updater" jdbcType="BIGINT"/>
+		<result column="updater_name" property="updaterName" jdbcType="VARCHAR"/>
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		id, name, template_type, org_type, org_id, valid_status, 
+		flag_delete, creator, creator_name, create_time, updater, updater_name, 
+		update_time
+	</sql>
+
+</mapper>

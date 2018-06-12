@@ -13,6 +13,15 @@ public class DataFile {
     private List<String> methodInclude;
     private Dao dao;
     private Mapper mapper;
+    private List<String> methodExclude;
+
+    public List<String> getMethodExclude() {
+        return methodExclude;
+    }
+
+    public void setMethodExclude(List<String> methodExclude) {
+        this.methodExclude = methodExclude;
+    }
 
     public List<String> getMethodInclude() {
         return methodInclude;

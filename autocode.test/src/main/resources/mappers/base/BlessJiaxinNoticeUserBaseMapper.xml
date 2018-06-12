@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="washmore.dao.ext.BlessJiaxinNoticeUserDao">
+
+	<select id="selectByParams" parameterType="map" resultMap="BaseResultMap">
+		SELECT
+		<include refid="Base_Column_List"/>
+		FROM bless_jiaxin_notice_user
+		<where>
+			<if test="id != null">
+				AND id = #{id,jdbcType=BIGINT}
+			</if>
+		</where>
+		ORDER BY id DESC
+		<if test="start != null and offset != null">
+			LIMIT #{start} ,#{offset}
+		</if>
+	</select>
+
+	<select id="countByParams" parameterType="map" resultType="int">
+		SELECT COUNT(*) FROM bless_jiaxin_notice_user
+		<where>
+			<if test="id != null">
+				AND id = #{id,jdbcType=BIGINT}
+			</if>
+		</where>
+	</select>
+
+	<insert id="insert" parameterType="washmore.model.BlessJiaxinNoticeUser" keyProperty = "id">
+		INSERT INTO bless_jiaxin_notice_user
+			(id, notice_type, user_code, user_name, creator, creator_name, 
+			create_time, updater, updater_name, update_time)
+		VALUES
+			(#{id,jdbcType=BIGINT}, #{noticeType,jdbcType=INTEGER}, #{userCode,jdbcType=BIGINT}, 
+			#{userName,jdbcType=VARCHAR}, #{creator,jdbcType=BIGINT}, #{creatorName,jdbcType=VARCHAR}, 
+			#{createTime,jdbcType=TIMESTAMP}, #{updater,jdbcType=BIGINT}, #{updaterName,jdbcType=VARCHAR}, 
+			#{updateTime,jdbcType=TIMESTAMP})
+	</insert>
+
+	<insert id="insertSelective" parameterType="washmore.model.BlessJiaxinNoticeUser" keyProperty = "id">
+		INSERT INTO bless_jiaxin_notice_user
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="noticeType != null">
+				notice_type,
+			</if>
+			<if test="userCode != null">
+				user_code,
+			</if>
+			<if test="userName != null">
+				user_name,
+			</if>
+			<if test="creator != null">
+				creator,
+			</if>
+			<if test="creatorName != null">
+				creator_name,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+			<if test="updater != null">
+				updater,
+			</if>
+			<if test="updaterName != null">
+				updater_name,
+			</if>
+			<if test="updateTime != null">
+				update_time,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=BIGINT},
+			</if>
+			<if test="noticeType != null">
+				#{noticeType,jdbcType=INTEGER},
+			</if>
+			<if test="userCode != null">
+				#{userCode,jdbcType=BIGINT},
+			</if>
+			<if test="userName != null">
+				#{userName,jdbcType=VARCHAR},
+			</if>
+			<if test="creator != null">
+				#{creator,jdbcType=BIGINT},
+			</if>
+			<if test="creatorName != null">
+				#{creatorName,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updater != null">
+				#{updater,jdbcType=BIGINT},
+			</if>
+			<if test="updaterName != null">
+				#{updaterName,jdbcType=VARCHAR},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+
+	<update id="updateByPrimaryKey" parameterType="washmore.model.BlessJiaxinNoticeUser">
+		UPDATE bless_jiaxin_notice_user SET 
+			notice_type = #{noticeType,jdbcType=INTEGER}
+			,user_code = #{userCode,jdbcType=BIGINT}
+			,user_name = #{userName,jdbcType=VARCHAR}
+			,creator = #{creator,jdbcType=BIGINT}
+			,creator_name = #{creatorName,jdbcType=VARCHAR}
+			,create_time = #{createTime,jdbcType=TIMESTAMP}
+			,updater = #{updater,jdbcType=BIGINT}
+			,updater_name = #{updaterName,jdbcType=VARCHAR}
+			,update_time = #{updateTime,jdbcType=TIMESTAMP}
+		WHERE id = #{id,jdbcType=BIGINT}
+	</update>
+
+	<update id="updateByPrimaryKeySelective" parameterType="washmore.model.BlessJiaxinNoticeUser">
+		UPDATE bless_jiaxin_notice_user
+		<set>
+			<if test="noticeType != null">
+				notice_type = #{noticeType,jdbcType=INTEGER},
+			</if>
+			<if test="userCode != null">
+				user_code = #{userCode,jdbcType=BIGINT},
+			</if>
+			<if test="userName != null">
+				user_name = #{userName,jdbcType=VARCHAR},
+			</if>
+			<if test="creator != null">
+				creator = #{creator,jdbcType=BIGINT},
+			</if>
+			<if test="creatorName != null">
+				creator_name = #{creatorName,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updater != null">
+				updater = #{updater,jdbcType=BIGINT},
+			</if>
+			<if test="updaterName != null">
+				updater_name = #{updaterName,jdbcType=VARCHAR},
+			</if>
+			<if test="updateTime != null">
+				update_time = #{updateTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		WHERE id = #{id,jdbcType=BIGINT}
+	</update>
+
+	<delete id="deleteByPrimaryKey" parameterType="Long">
+		DELETE FROM bless_jiaxin_notice_user
+		WHERE id = #{id,jdbcType=BIGINT}
+	</delete>
+
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="Long">
+		SELECT
+		<include refid="Base_Column_List"/>
+		FROM bless_jiaxin_notice_user
+		WHERE id = #{id,jdbcType=BIGINT}
+	</select>
+
+	<select id="selectByExample" parameterType="washmore.model.BlessJiaxinNoticeUser" resultMap="BaseResultMap">
+		SELECT
+		<include refid="Base_Column_List"/>
+		FROM bless_jiaxin_notice_user
+		<where>
+			<if test="id != null">
+				AND id = #{id,jdbcType=BIGINT}
+			</if>
+			<if test="noticeType != null">
+				AND notice_type = #{noticeType,jdbcType=INTEGER}
+			</if>
+			<if test="userCode != null">
+				AND user_code = #{userCode,jdbcType=BIGINT}
+			</if>
+			<if test="userName != null">
+				AND user_name = #{userName,jdbcType=VARCHAR}
+			</if>
+			<if test="creator != null">
+				AND creator = #{creator,jdbcType=BIGINT}
+			</if>
+			<if test="creatorName != null">
+				AND creator_name = #{creatorName,jdbcType=VARCHAR}
+			</if>
+			<if test="createTime != null">
+				AND create_time = #{createTime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="updater != null">
+				AND updater = #{updater,jdbcType=BIGINT}
+			</if>
+			<if test="updaterName != null">
+				AND updater_name = #{updaterName,jdbcType=VARCHAR}
+			</if>
+			<if test="updateTime != null">
+				AND update_time = #{updateTime,jdbcType=TIMESTAMP}
+			</if>
+		</where>
+		ORDER BY id DESC
+	</select>
+
+	<select id="countByExample" parameterType="washmore.model.BlessJiaxinNoticeUser" resultType="int">
+		SELECT COUNT(*) FROM bless_jiaxin_notice_user
+		<where>
+			<if test="id != null">
+				AND id = #{id,jdbcType=BIGINT}
+			</if>
+			<if test="noticeType != null">
+				AND notice_type = #{noticeType,jdbcType=INTEGER}
+			</if>
+			<if test="userCode != null">
+				AND user_code = #{userCode,jdbcType=BIGINT}
+			</if>
+			<if test="userName != null">
+				AND user_name = #{userName,jdbcType=VARCHAR}
+			</if>
+			<if test="creator != null">
+				AND creator = #{creator,jdbcType=BIGINT}
+			</if>
+			<if test="creatorName != null">
+				AND creator_name = #{creatorName,jdbcType=VARCHAR}
+			</if>
+			<if test="createTime != null">
+				AND create_time = #{createTime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="updater != null">
+				AND updater = #{updater,jdbcType=BIGINT}
+			</if>
+			<if test="updaterName != null">
+				AND updater_name = #{updaterName,jdbcType=VARCHAR}
+			</if>
+			<if test="updateTime != null">
+				AND update_time = #{updateTime,jdbcType=TIMESTAMP}
+			</if>
+		</where>
+	</select>
+
+	<resultMap id="BaseResultMap" type="washmore.model.BlessJiaxinNoticeUser">
+		<id column="id" property="id" jdbcType="BIGINT"/>
+		<result column="notice_type" property="noticeType" jdbcType="INTEGER"/>
+		<result column="user_code" property="userCode" jdbcType="BIGINT"/>
+		<result column="user_name" property="userName" jdbcType="VARCHAR"/>
+		<result column="creator" property="creator" jdbcType="BIGINT"/>
+		<result column="creator_name" property="creatorName" jdbcType="VARCHAR"/>
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+		<result column="updater" property="updater" jdbcType="BIGINT"/>
+		<result column="updater_name" property="updaterName" jdbcType="VARCHAR"/>
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		id, notice_type, user_code, user_name, creator, creator_name, 
+		create_time, updater, updater_name, update_time
+	</sql>
+
+</mapper>

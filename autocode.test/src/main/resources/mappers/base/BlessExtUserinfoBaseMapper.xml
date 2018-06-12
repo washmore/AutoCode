@@ -1,0 +1,384 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="washmore.dao.ext.BlessExtUserinfoDao">
+
+	<select id="selectByParams" parameterType="map" resultMap="BaseResultMap">
+		SELECT
+		<include refid="Base_Column_List"/>
+		FROM bless_ext_userinfo
+		<where>
+			<if test="id != null">
+				AND id = #{id,jdbcType=BIGINT}
+			</if>
+		</where>
+		ORDER BY id DESC
+		<if test="start != null and offset != null">
+			LIMIT #{start} ,#{offset}
+		</if>
+	</select>
+
+	<select id="countByParams" parameterType="map" resultType="int">
+		SELECT COUNT(*) FROM bless_ext_userinfo
+		<where>
+			<if test="id != null">
+				AND id = #{id,jdbcType=BIGINT}
+			</if>
+		</where>
+	</select>
+
+	<insert id="insert" parameterType="washmore.model.BlessExtUserinfo" keyProperty = "id">
+		INSERT INTO bless_ext_userinfo
+			(id, user_code, org_id, company_id, birthday_calender, birthday, 
+			married, wedding_day_calender, wedding_day, spouse_is_lianer, spouse_user_code, creator, 
+			creator_name, create_time, updater, updater_name, update_time)
+		VALUES
+			(#{id,jdbcType=BIGINT}, #{userCode,jdbcType=BIGINT}, #{orgId,jdbcType=BIGINT}, 
+			#{companyId,jdbcType=BIGINT}, #{birthdayCalender,jdbcType=INTEGER}, #{birthday,jdbcType=TIMESTAMP}, 
+			#{married,jdbcType=INTEGER}, #{weddingDayCalender,jdbcType=INTEGER}, #{weddingDay,jdbcType=TIMESTAMP}, 
+			#{spouseIsLianer,jdbcType=INTEGER}, #{spouseUserCode,jdbcType=BIGINT}, #{creator,jdbcType=BIGINT}, 
+			#{creatorName,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updater,jdbcType=BIGINT}, 
+			#{updaterName,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP})
+	</insert>
+
+	<insert id="insertSelective" parameterType="washmore.model.BlessExtUserinfo" keyProperty = "id">
+		INSERT INTO bless_ext_userinfo
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="userCode != null">
+				user_code,
+			</if>
+			<if test="orgId != null">
+				org_id,
+			</if>
+			<if test="companyId != null">
+				company_id,
+			</if>
+			<if test="birthdayCalender != null">
+				birthday_calender,
+			</if>
+			<if test="birthday != null">
+				birthday,
+			</if>
+			<if test="married != null">
+				married,
+			</if>
+			<if test="weddingDayCalender != null">
+				wedding_day_calender,
+			</if>
+			<if test="weddingDay != null">
+				wedding_day,
+			</if>
+			<if test="spouseIsLianer != null">
+				spouse_is_lianer,
+			</if>
+			<if test="spouseUserCode != null">
+				spouse_user_code,
+			</if>
+			<if test="creator != null">
+				creator,
+			</if>
+			<if test="creatorName != null">
+				creator_name,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+			<if test="updater != null">
+				updater,
+			</if>
+			<if test="updaterName != null">
+				updater_name,
+			</if>
+			<if test="updateTime != null">
+				update_time,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=BIGINT},
+			</if>
+			<if test="userCode != null">
+				#{userCode,jdbcType=BIGINT},
+			</if>
+			<if test="orgId != null">
+				#{orgId,jdbcType=BIGINT},
+			</if>
+			<if test="companyId != null">
+				#{companyId,jdbcType=BIGINT},
+			</if>
+			<if test="birthdayCalender != null">
+				#{birthdayCalender,jdbcType=INTEGER},
+			</if>
+			<if test="birthday != null">
+				#{birthday,jdbcType=TIMESTAMP},
+			</if>
+			<if test="married != null">
+				#{married,jdbcType=INTEGER},
+			</if>
+			<if test="weddingDayCalender != null">
+				#{weddingDayCalender,jdbcType=INTEGER},
+			</if>
+			<if test="weddingDay != null">
+				#{weddingDay,jdbcType=TIMESTAMP},
+			</if>
+			<if test="spouseIsLianer != null">
+				#{spouseIsLianer,jdbcType=INTEGER},
+			</if>
+			<if test="spouseUserCode != null">
+				#{spouseUserCode,jdbcType=BIGINT},
+			</if>
+			<if test="creator != null">
+				#{creator,jdbcType=BIGINT},
+			</if>
+			<if test="creatorName != null">
+				#{creatorName,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updater != null">
+				#{updater,jdbcType=BIGINT},
+			</if>
+			<if test="updaterName != null">
+				#{updaterName,jdbcType=VARCHAR},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+
+	<update id="updateByPrimaryKey" parameterType="washmore.model.BlessExtUserinfo">
+		UPDATE bless_ext_userinfo SET 
+			user_code = #{userCode,jdbcType=BIGINT}
+			,org_id = #{orgId,jdbcType=BIGINT}
+			,company_id = #{companyId,jdbcType=BIGINT}
+			,birthday_calender = #{birthdayCalender,jdbcType=INTEGER}
+			,birthday = #{birthday,jdbcType=TIMESTAMP}
+			,married = #{married,jdbcType=INTEGER}
+			,wedding_day_calender = #{weddingDayCalender,jdbcType=INTEGER}
+			,wedding_day = #{weddingDay,jdbcType=TIMESTAMP}
+			,spouse_is_lianer = #{spouseIsLianer,jdbcType=INTEGER}
+			,spouse_user_code = #{spouseUserCode,jdbcType=BIGINT}
+			,creator = #{creator,jdbcType=BIGINT}
+			,creator_name = #{creatorName,jdbcType=VARCHAR}
+			,create_time = #{createTime,jdbcType=TIMESTAMP}
+			,updater = #{updater,jdbcType=BIGINT}
+			,updater_name = #{updaterName,jdbcType=VARCHAR}
+			,update_time = #{updateTime,jdbcType=TIMESTAMP}
+		WHERE id = #{id,jdbcType=BIGINT}
+	</update>
+
+	<update id="updateByPrimaryKeySelective" parameterType="washmore.model.BlessExtUserinfo">
+		UPDATE bless_ext_userinfo
+		<set>
+			<if test="userCode != null">
+				user_code = #{userCode,jdbcType=BIGINT},
+			</if>
+			<if test="orgId != null">
+				org_id = #{orgId,jdbcType=BIGINT},
+			</if>
+			<if test="companyId != null">
+				company_id = #{companyId,jdbcType=BIGINT},
+			</if>
+			<if test="birthdayCalender != null">
+				birthday_calender = #{birthdayCalender,jdbcType=INTEGER},
+			</if>
+			<if test="birthday != null">
+				birthday = #{birthday,jdbcType=TIMESTAMP},
+			</if>
+			<if test="married != null">
+				married = #{married,jdbcType=INTEGER},
+			</if>
+			<if test="weddingDayCalender != null">
+				wedding_day_calender = #{weddingDayCalender,jdbcType=INTEGER},
+			</if>
+			<if test="weddingDay != null">
+				wedding_day = #{weddingDay,jdbcType=TIMESTAMP},
+			</if>
+			<if test="spouseIsLianer != null">
+				spouse_is_lianer = #{spouseIsLianer,jdbcType=INTEGER},
+			</if>
+			<if test="spouseUserCode != null">
+				spouse_user_code = #{spouseUserCode,jdbcType=BIGINT},
+			</if>
+			<if test="creator != null">
+				creator = #{creator,jdbcType=BIGINT},
+			</if>
+			<if test="creatorName != null">
+				creator_name = #{creatorName,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updater != null">
+				updater = #{updater,jdbcType=BIGINT},
+			</if>
+			<if test="updaterName != null">
+				updater_name = #{updaterName,jdbcType=VARCHAR},
+			</if>
+			<if test="updateTime != null">
+				update_time = #{updateTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		WHERE id = #{id,jdbcType=BIGINT}
+	</update>
+
+	<delete id="deleteByPrimaryKey" parameterType="Long">
+		DELETE FROM bless_ext_userinfo
+		WHERE id = #{id,jdbcType=BIGINT}
+	</delete>
+
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="Long">
+		SELECT
+		<include refid="Base_Column_List"/>
+		FROM bless_ext_userinfo
+		WHERE id = #{id,jdbcType=BIGINT}
+	</select>
+
+	<select id="selectByExample" parameterType="washmore.model.BlessExtUserinfo" resultMap="BaseResultMap">
+		SELECT
+		<include refid="Base_Column_List"/>
+		FROM bless_ext_userinfo
+		<where>
+			<if test="id != null">
+				AND id = #{id,jdbcType=BIGINT}
+			</if>
+			<if test="userCode != null">
+				AND user_code = #{userCode,jdbcType=BIGINT}
+			</if>
+			<if test="orgId != null">
+				AND org_id = #{orgId,jdbcType=BIGINT}
+			</if>
+			<if test="companyId != null">
+				AND company_id = #{companyId,jdbcType=BIGINT}
+			</if>
+			<if test="birthdayCalender != null">
+				AND birthday_calender = #{birthdayCalender,jdbcType=INTEGER}
+			</if>
+			<if test="birthday != null">
+				AND birthday = #{birthday,jdbcType=TIMESTAMP}
+			</if>
+			<if test="married != null">
+				AND married = #{married,jdbcType=INTEGER}
+			</if>
+			<if test="weddingDayCalender != null">
+				AND wedding_day_calender = #{weddingDayCalender,jdbcType=INTEGER}
+			</if>
+			<if test="weddingDay != null">
+				AND wedding_day = #{weddingDay,jdbcType=TIMESTAMP}
+			</if>
+			<if test="spouseIsLianer != null">
+				AND spouse_is_lianer = #{spouseIsLianer,jdbcType=INTEGER}
+			</if>
+			<if test="spouseUserCode != null">
+				AND spouse_user_code = #{spouseUserCode,jdbcType=BIGINT}
+			</if>
+			<if test="creator != null">
+				AND creator = #{creator,jdbcType=BIGINT}
+			</if>
+			<if test="creatorName != null">
+				AND creator_name = #{creatorName,jdbcType=VARCHAR}
+			</if>
+			<if test="createTime != null">
+				AND create_time = #{createTime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="updater != null">
+				AND updater = #{updater,jdbcType=BIGINT}
+			</if>
+			<if test="updaterName != null">
+				AND updater_name = #{updaterName,jdbcType=VARCHAR}
+			</if>
+			<if test="updateTime != null">
+				AND update_time = #{updateTime,jdbcType=TIMESTAMP}
+			</if>
+		</where>
+		ORDER BY id DESC
+	</select>
+
+	<select id="countByExample" parameterType="washmore.model.BlessExtUserinfo" resultType="int">
+		SELECT COUNT(*) FROM bless_ext_userinfo
+		<where>
+			<if test="id != null">
+				AND id = #{id,jdbcType=BIGINT}
+			</if>
+			<if test="userCode != null">
+				AND user_code = #{userCode,jdbcType=BIGINT}
+			</if>
+			<if test="orgId != null">
+				AND org_id = #{orgId,jdbcType=BIGINT}
+			</if>
+			<if test="companyId != null">
+				AND company_id = #{companyId,jdbcType=BIGINT}
+			</if>
+			<if test="birthdayCalender != null">
+				AND birthday_calender = #{birthdayCalender,jdbcType=INTEGER}
+			</if>
+			<if test="birthday != null">
+				AND birthday = #{birthday,jdbcType=TIMESTAMP}
+			</if>
+			<if test="married != null">
+				AND married = #{married,jdbcType=INTEGER}
+			</if>
+			<if test="weddingDayCalender != null">
+				AND wedding_day_calender = #{weddingDayCalender,jdbcType=INTEGER}
+			</if>
+			<if test="weddingDay != null">
+				AND wedding_day = #{weddingDay,jdbcType=TIMESTAMP}
+			</if>
+			<if test="spouseIsLianer != null">
+				AND spouse_is_lianer = #{spouseIsLianer,jdbcType=INTEGER}
+			</if>
+			<if test="spouseUserCode != null">
+				AND spouse_user_code = #{spouseUserCode,jdbcType=BIGINT}
+			</if>
+			<if test="creator != null">
+				AND creator = #{creator,jdbcType=BIGINT}
+			</if>
+			<if test="creatorName != null">
+				AND creator_name = #{creatorName,jdbcType=VARCHAR}
+			</if>
+			<if test="createTime != null">
+				AND create_time = #{createTime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="updater != null">
+				AND updater = #{updater,jdbcType=BIGINT}
+			</if>
+			<if test="updaterName != null">
+				AND updater_name = #{updaterName,jdbcType=VARCHAR}
+			</if>
+			<if test="updateTime != null">
+				AND update_time = #{updateTime,jdbcType=TIMESTAMP}
+			</if>
+		</where>
+	</select>
+
+	<resultMap id="BaseResultMap" type="washmore.model.BlessExtUserinfo">
+		<id column="id" property="id" jdbcType="BIGINT"/>
+		<result column="user_code" property="userCode" jdbcType="BIGINT"/>
+		<result column="org_id" property="orgId" jdbcType="BIGINT"/>
+		<result column="company_id" property="companyId" jdbcType="BIGINT"/>
+		<result column="birthday_calender" property="birthdayCalender" jdbcType="INTEGER"/>
+		<result column="birthday" property="birthday" jdbcType="TIMESTAMP"/>
+		<result column="married" property="married" jdbcType="INTEGER"/>
+		<result column="wedding_day_calender" property="weddingDayCalender" jdbcType="INTEGER"/>
+		<result column="wedding_day" property="weddingDay" jdbcType="TIMESTAMP"/>
+		<result column="spouse_is_lianer" property="spouseIsLianer" jdbcType="INTEGER"/>
+		<result column="spouse_user_code" property="spouseUserCode" jdbcType="BIGINT"/>
+		<result column="creator" property="creator" jdbcType="BIGINT"/>
+		<result column="creator_name" property="creatorName" jdbcType="VARCHAR"/>
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+		<result column="updater" property="updater" jdbcType="BIGINT"/>
+		<result column="updater_name" property="updaterName" jdbcType="VARCHAR"/>
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		id, user_code, org_id, company_id, birthday_calender, birthday, 
+		married, wedding_day_calender, wedding_day, spouse_is_lianer, spouse_user_code, creator, 
+		creator_name, create_time, updater, updater_name, update_time
+	</sql>
+
+</mapper>

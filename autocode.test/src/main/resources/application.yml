@@ -1,0 +1,64 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: ${datasource.main.url}
+    username: ${datasource.main.username}
+    password: ${datasource.main.password}
+    tomcat:
+      initial-size: 5
+      max-active: 50
+      max-idle: 30
+      min-idle: 5
+      test-while-idle: true
+      validation-query-timeout: 1
+      validation-interval: 30000
+      time-between-eviction-runs-millis: 10000
+      default-auto-commit: true
+      jmx-enabled: true
+      jdbc-interceptors: QueryTimeoutInterceptor(queryTimeout=30);SlowQueryReport(threshold=3000)
+      validation-query: SELECT 1
+  application:
+    name: employee-care
+  http:
+    multipart:
+      maxFileSize: 20Mb
+      maxRequestSize: 100Mb
+#    converters.preferred-json-mapper: fastjson
+
+management.security.enabled: false
+
+server:
+  tomcat:
+    max-threads: 700
+    uri-encoding: UTF-8
+  compression:
+    enabled: true
+    mime-types: application/json,application/javascript,text/html,text/xml,text/plain,text/css
+  port: 13531
+
+
+#thymeleaf
+spring.thymeleaf:
+   cache: false # Enable template caching.
+   check-template-location: true # Check that the templates location exists.
+   content-type: text/html # Content-Type value.
+   enabled: true # Enable MVC Thymeleaf view resolution.
+   encoding: UTF-8 # Template encoding.
+   mode: LEGACYHTML5 # Template mode to be applied to templates. See also StandardTemplateModeHandlers.
+   prefix: "classpath:/pages" # Prefix that gets prepended to view names when building a URL.
+   suffix: ".html"  # Suffix that gets appended to view names when building a URL.
+
+#激活配置文件
+spring.profiles.active: dev
+spring.mvc.favicon.enabled: false
+
+#开启下划线驼峰命名转换
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
+    log-prefix: dao.
+    useGeneratedKeys: true
+    autoMappingBehavior: full
+  type-aliases-package: washmore.model
+  mapper-locations: classpath*:mappers/**/*.xml
+

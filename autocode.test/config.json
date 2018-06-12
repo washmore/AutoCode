@@ -1,9 +1,18 @@
 {
+  "autoTypes": [
+    "service",
+    "junitWithSpring",
+    "model",
+    "dao",
+    "mapper"
+  ],
   "project": {
     "path": "",
     "subModule": "",
-    "javaRoot": "/src/test/java/",
-    "resourcesRoot": "/src/test/resources/",
+    "javaRoot": "/src/main/java/",
+    "resourcesRoot": "/src/main/resources/",
+    "testJavaRoot": "/src/test/java/",
+    "testResourcesRoot": "/src/main/resources/",
     "underline2Camel": true,
     "generateOgnl": false,
     "exclude": [
@@ -32,11 +41,17 @@
     },
     "methodInclude": [
       "insert",
+      "insertSelective",
       "updateByPrimaryKey",
+      "updateByPrimaryKeySelective",
       "deleteByPrimaryKey",
       "selectByPrimaryKey",
+      "selectByExample",
       "selectByParams",
+      "countByExample",
       "countByParams"
+    ],
+    "methodExclude": [
     ]
   },
   "dbbak": {
@@ -47,7 +62,7 @@
   },
   "db": {
     "driver": "com.mysql.jdbc.Driver",
-    "url": "jdbc:mysql://localhost:3306/solo_test?serverTimezone=Asia/Shanghai&useSSL=false&useUnicode=true&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true",
+    "url": "jdbc:mysql://localhost:3306/EmployeeCare?serverTimezone=Asia/Shanghai&useSSL=false&useUnicode=true&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true",
     "username": "root",
     "password": ""
   },

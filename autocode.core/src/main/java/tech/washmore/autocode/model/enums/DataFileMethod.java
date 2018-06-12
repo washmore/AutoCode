@@ -8,12 +8,15 @@ package tech.washmore.autocode.model.enums;
  * @since 2018/6/11
  */
 public enum DataFileMethod {
+    selectByParams,
+    countByParams,
+
     insert,
     insertSelective,
     updateByPrimaryKey,
     updateByPrimaryKeySelective,
     deleteByPrimaryKey,
     selectByPrimaryKey,
-    selectByParams,
-    countByParams;
+    selectByExample,
+    countByExample;
 }

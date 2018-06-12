@@ -1,12 +1,23 @@
 package tech.washmore.autocode.model.config;
 
+import java.util.List;
+
 public class Config {
+    private List<String> autoTypes;
     private Project project;
     private Db db;
     private Doc doc;
     private Model model;
     private DataType dataType;
     private DataFile dataFile;
+
+    public List<String> getAutoTypes() {
+        return autoTypes;
+    }
+
+    public void setAutoTypes(List<String> autoTypes) {
+        this.autoTypes = autoTypes;
+    }
 
     public DataFile getDataFile() {
         return dataFile;
