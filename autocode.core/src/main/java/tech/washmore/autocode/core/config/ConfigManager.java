@@ -33,6 +33,7 @@ public class ConfigManager {
     }
 
     private static Config adapte(Config config) {
+
         List<String> autoTypes = config.getAutoTypes();
         if (autoTypes == null || autoTypes.size() == 0) {
             autoTypes = new ArrayList<>();
@@ -100,11 +101,28 @@ public class ConfigManager {
             dataFile.setMethodInclude(temp);
         } else {
             for (DataFileMethod m : methods) {
-                if (includes.contains(m.name())) {
-                    dataFile.getMethodInclude().add(m.name());
-                }
+                dataFile.getMethodInclude().add(m.name());
             }
         }
+
+        Service service = dataFile.getService();
+
+        if (service == null) {
+            service = new Service();
+            dataFile.setService(service);
+        }
+        if (service.getPackageName() == null || service.getPackageName().length() == 0) {
+            service.setExtendsPackageName(Constants.extendsDataFileSuffix);
+            service.setBasePackageName(Constants.baseDataFileSuffix);
+            service.setPackagePath("");
+        } else {
+            service.setExtendsPackageName(service.getPackageName() + "." + Constants.extendsDataFileSuffix);
+            service.setBasePackageName(service.getPackageName() + "." + Constants.baseDataFileSuffix);
+            service.setPackagePath(service.getPackageName().replace(".", Constants.pathSplitor));
+        }
+        service.setExtendsPackagePath(service.getExtendsPackageName().replace(".", Constants.pathSplitor));
+        service.setBasePackagePath(service.getBasePackageName().replace(".", Constants.pathSplitor));
+
 
         Dao dao = dataFile.getDao();
         if (dao == null) {

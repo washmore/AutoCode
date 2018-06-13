@@ -12,8 +12,17 @@ import java.util.List;
 public class DataFile {
     private List<String> methodInclude;
     private Dao dao;
+    private Service service;
     private Mapper mapper;
     private List<String> methodExclude;
+
+    public Service getService() {
+        return service;
+    }
+
+    public void setService(Service service) {
+        this.service = service;
+    }
 
     public List<String> getMethodExclude() {
         return methodExclude;

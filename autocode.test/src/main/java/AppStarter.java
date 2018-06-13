@@ -1,4 +1,3 @@
-package washmore;
 
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
@@ -17,17 +16,17 @@ import org.springframework.scheduling.annotation.EnableAsync;
 @EnableAsync
 @SpringBootApplication(scanBasePackages = "washmore")
 @MapperScan("washmore.dao.ext")//使用单独的@Mapper更清晰
-public class EmployeeCareStarter extends SpringBootServletInitializer {
+public class AppStarter extends SpringBootServletInitializer {
 
     @Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
         // 注意这里要指向原先用main方法执行的Application启动类
-        return builder.sources(EmployeeCareStarter.class);
+        return builder.sources(AppStarter.class);
     }
 
     public static void main(String[] args) {
         try {
-            SpringApplication.run(EmployeeCareStarter.class, args);
+            SpringApplication.run(AppStarter.class, args);
             System.out.println("---------------正常启动--^_^------------#####################################");
         } catch (Exception e) {
             e.printStackTrace();
