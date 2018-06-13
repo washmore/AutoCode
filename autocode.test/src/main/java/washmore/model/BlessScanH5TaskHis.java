@@ -10,7 +10,7 @@ import java.util.Date;
  * @since 2018年06月13日
  */
 public class BlessScanH5TaskHis implements Serializable {
-	private static final long serialVersionUID = -1896889604667344735L;
+	private static final long serialVersionUID = -4543238945192147554L;
 	/**
 	 * 主键 默认值:null
 	 */

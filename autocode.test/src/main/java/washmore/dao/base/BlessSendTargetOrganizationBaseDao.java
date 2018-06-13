@@ -1,5 +1,7 @@
 package washmore.dao.base;
 
+import java.util.Map;
+import java.util.List;
 import washmore.model.BlessSendTargetOrganization;
 /**
  * @author Washmore
@@ -9,5 +11,25 @@ import washmore.model.BlessSendTargetOrganization;
  * @since 2018年06月13日
  */
 public interface BlessSendTargetOrganizationBaseDao {
+
+	List<BlessSendTargetOrganization> selectByParams(Map<String, Object> params);
+
+	int countByParams(Map<String, Object> params);
+
+	int insert(BlessSendTargetOrganization blessSendTargetOrganization);
+
+	int insertSelective(BlessSendTargetOrganization blessSendTargetOrganization);
+
+	int updateByPrimaryKey(BlessSendTargetOrganization blessSendTargetOrganization);
+
+	int updateByPrimaryKeySelective(BlessSendTargetOrganization blessSendTargetOrganization);
+
+	int deleteByPrimaryKey(Long id);
+
+	BlessSendTargetOrganization selectByPrimaryKey(Long id);
+
+	List<BlessSendTargetOrganization> selectByExample(BlessSendTargetOrganization example);
+
+	int countByExample(BlessSendTargetOrganization example);
 
 }

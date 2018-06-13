@@ -1,5 +1,7 @@
 package washmore.dao.base;
 
+import java.util.Map;
+import java.util.List;
 import washmore.model.BlessExtUserinfo;
 /**
  * @author Washmore
@@ -9,5 +11,25 @@ import washmore.model.BlessExtUserinfo;
  * @since 2018年06月13日
  */
 public interface BlessExtUserinfoBaseDao {
+
+	List<BlessExtUserinfo> selectByParams(Map<String, Object> params);
+
+	int countByParams(Map<String, Object> params);
+
+	int insert(BlessExtUserinfo blessExtUserinfo);
+
+	int insertSelective(BlessExtUserinfo blessExtUserinfo);
+
+	int updateByPrimaryKey(BlessExtUserinfo blessExtUserinfo);
+
+	int updateByPrimaryKeySelective(BlessExtUserinfo blessExtUserinfo);
+
+	int deleteByPrimaryKey(Long id);
+
+	BlessExtUserinfo selectByPrimaryKey(Long id);
+
+	List<BlessExtUserinfo> selectByExample(BlessExtUserinfo example);
+
+	int countByExample(BlessExtUserinfo example);
 
 }

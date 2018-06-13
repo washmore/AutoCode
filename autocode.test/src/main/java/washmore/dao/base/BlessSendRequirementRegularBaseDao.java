@@ -1,5 +1,7 @@
 package washmore.dao.base;
 
+import java.util.Map;
+import java.util.List;
 import washmore.model.BlessSendRequirementRegular;
 /**
  * @author Washmore
@@ -9,5 +11,25 @@ import washmore.model.BlessSendRequirementRegular;
  * @since 2018年06月13日
  */
 public interface BlessSendRequirementRegularBaseDao {
+
+	List<BlessSendRequirementRegular> selectByParams(Map<String, Object> params);
+
+	int countByParams(Map<String, Object> params);
+
+	int insert(BlessSendRequirementRegular blessSendRequirementRegular);
+
+	int insertSelective(BlessSendRequirementRegular blessSendRequirementRegular);
+
+	int updateByPrimaryKey(BlessSendRequirementRegular blessSendRequirementRegular);
+
+	int updateByPrimaryKeySelective(BlessSendRequirementRegular blessSendRequirementRegular);
+
+	int deleteByPrimaryKey(Long id);
+
+	BlessSendRequirementRegular selectByPrimaryKey(Long id);
+
+	List<BlessSendRequirementRegular> selectByExample(BlessSendRequirementRegular example);
+
+	int countByExample(BlessSendRequirementRegular example);
 
 }

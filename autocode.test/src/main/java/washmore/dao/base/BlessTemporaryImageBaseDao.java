@@ -1,5 +1,7 @@
 package washmore.dao.base;
 
+import java.util.Map;
+import java.util.List;
 import washmore.model.BlessTemporaryImage;
 /**
  * @author Washmore
@@ -9,5 +11,25 @@ import washmore.model.BlessTemporaryImage;
  * @since 2018年06月13日
  */
 public interface BlessTemporaryImageBaseDao {
+
+	List<BlessTemporaryImage> selectByParams(Map<String, Object> params);
+
+	int countByParams(Map<String, Object> params);
+
+	int insert(BlessTemporaryImage blessTemporaryImage);
+
+	int insertSelective(BlessTemporaryImage blessTemporaryImage);
+
+	int updateByPrimaryKey(BlessTemporaryImage blessTemporaryImage);
+
+	int updateByPrimaryKeySelective(BlessTemporaryImage blessTemporaryImage);
+
+	int deleteByPrimaryKey(Long id);
+
+	BlessTemporaryImage selectByPrimaryKey(Long id);
+
+	List<BlessTemporaryImage> selectByExample(BlessTemporaryImage example);
+
+	int countByExample(BlessTemporaryImage example);
 
 }

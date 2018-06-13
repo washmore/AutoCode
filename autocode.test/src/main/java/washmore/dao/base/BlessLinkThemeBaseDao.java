@@ -1,5 +1,7 @@
 package washmore.dao.base;
 
+import java.util.Map;
+import java.util.List;
 import washmore.model.BlessLinkTheme;
 /**
  * @author Washmore
@@ -9,5 +11,25 @@ import washmore.model.BlessLinkTheme;
  * @since 2018年06月13日
  */
 public interface BlessLinkThemeBaseDao {
+
+	List<BlessLinkTheme> selectByParams(Map<String, Object> params);
+
+	int countByParams(Map<String, Object> params);
+
+	int insert(BlessLinkTheme blessLinkTheme);
+
+	int insertSelective(BlessLinkTheme blessLinkTheme);
+
+	int updateByPrimaryKey(BlessLinkTheme blessLinkTheme);
+
+	int updateByPrimaryKeySelective(BlessLinkTheme blessLinkTheme);
+
+	int deleteByPrimaryKey(Long id);
+
+	BlessLinkTheme selectByPrimaryKey(Long id);
+
+	List<BlessLinkTheme> selectByExample(BlessLinkTheme example);
+
+	int countByExample(BlessLinkTheme example);
 
 }

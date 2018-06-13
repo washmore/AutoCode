@@ -1,5 +1,7 @@
 package washmore.dao.base;
 
+import java.util.Map;
+import java.util.List;
 import washmore.model.BlessSendMessageTaskHis;
 /**
  * @author Washmore
@@ -9,5 +11,25 @@ import washmore.model.BlessSendMessageTaskHis;
  * @since 2018年06月13日
  */
 public interface BlessSendMessageTaskHisBaseDao {
+
+	List<BlessSendMessageTaskHis> selectByParams(Map<String, Object> params);
+
+	int countByParams(Map<String, Object> params);
+
+	int insert(BlessSendMessageTaskHis blessSendMessageTaskHis);
+
+	int insertSelective(BlessSendMessageTaskHis blessSendMessageTaskHis);
+
+	int updateByPrimaryKey(BlessSendMessageTaskHis blessSendMessageTaskHis);
+
+	int updateByPrimaryKeySelective(BlessSendMessageTaskHis blessSendMessageTaskHis);
+
+	int deleteByPrimaryKey(Long id);
+
+	BlessSendMessageTaskHis selectByPrimaryKey(Long id);
+
+	List<BlessSendMessageTaskHis> selectByExample(BlessSendMessageTaskHis example);
+
+	int countByExample(BlessSendMessageTaskHis example);
 
 }

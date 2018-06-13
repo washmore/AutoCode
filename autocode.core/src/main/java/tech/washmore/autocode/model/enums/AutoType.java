@@ -8,5 +8,5 @@ package tech.washmore.autocode.model.enums;
  * @since 2018/6/12
  */
 public enum AutoType {
-    dao, model, mapper
+    dao, model, service, mapper
 }

@@ -1,5 +1,7 @@
 package washmore.dao.base;
 
+import java.util.Map;
+import java.util.List;
 import washmore.model.BlessSendRequirementYearly;
 /**
  * @author Washmore
@@ -9,5 +11,25 @@ import washmore.model.BlessSendRequirementYearly;
  * @since 2018年06月13日
  */
 public interface BlessSendRequirementYearlyBaseDao {
+
+	List<BlessSendRequirementYearly> selectByParams(Map<String, Object> params);
+
+	int countByParams(Map<String, Object> params);
+
+	int insert(BlessSendRequirementYearly blessSendRequirementYearly);
+
+	int insertSelective(BlessSendRequirementYearly blessSendRequirementYearly);
+
+	int updateByPrimaryKey(BlessSendRequirementYearly blessSendRequirementYearly);
+
+	int updateByPrimaryKeySelective(BlessSendRequirementYearly blessSendRequirementYearly);
+
+	int deleteByPrimaryKey(Long id);
+
+	BlessSendRequirementYearly selectByPrimaryKey(Long id);
+
+	List<BlessSendRequirementYearly> selectByExample(BlessSendRequirementYearly example);
+
+	int countByExample(BlessSendRequirementYearly example);
 
 }

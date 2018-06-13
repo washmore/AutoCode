@@ -354,7 +354,7 @@ public class MapperXmlGenerator {
         Mapper mapper = ConfigManager.getConfig().getDataFile().getMapper();
         StringBuffer sb = new StringBuffer();
         sb.append("\t<insert id=\"insertSelective\" parameterType=\"").append(model.getPackageName()).append(".").append(tm.getClsName()).append("\"");
-        if (mapper.getUsekeyProperty().booleanValue() && tm.getPrimaryKey() != null) {
+        if (mapper.getUsekeyProperty() && tm.getPrimaryKey() != null) {
             sb.append(" keyProperty = \"").append(tm.getPrimaryKey().getFieldName()).append("\"");
         }
         sb.append(">").append(System.lineSeparator());
@@ -383,7 +383,7 @@ public class MapperXmlGenerator {
         Mapper mapper = ConfigManager.getConfig().getDataFile().getMapper();
         StringBuffer sb = new StringBuffer();
         sb.append("\t<insert id=\"insert\" parameterType=\"").append(model.getPackageName()).append(".").append(tm.getClsName()).append("\"");
-        if (mapper.getUsekeyProperty().booleanValue() && tm.getPrimaryKey() != null) {
+        if (mapper.getUsekeyProperty() && tm.getPrimaryKey() != null) {
             sb.append(" keyProperty = \"").append(tm.getPrimaryKey().getFieldName()).append("\"");
         }
         sb.append(">").append(System.lineSeparator());

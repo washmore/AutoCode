@@ -12,15 +12,15 @@ public class Mapper {
     private String baseSuffix;
     private String suffix;
     private String basePath;
-    private Boolean usekeyProperty;
+    private boolean usekeyProperty = true;
 
     private String extendsPath;
 
-    public Boolean getUsekeyProperty() {
+    public boolean getUsekeyProperty() {
         return usekeyProperty;
     }
 
-    public void setUsekeyProperty(Boolean usekeyProperty) {
+    public void setUsekeyProperty(boolean usekeyProperty) {
         this.usekeyProperty = usekeyProperty;
     }
 

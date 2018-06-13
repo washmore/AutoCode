@@ -10,7 +10,7 @@ import java.util.Date;
  * @since 2018年06月13日
  */
 public class BlessMessageTemplate implements Serializable {
-	private static final long serialVersionUID = -7618604284758768475L;
+	private static final long serialVersionUID = -5951060014798201706L;
 	/**
 	 * 自增主键 默认值:null
 	 */

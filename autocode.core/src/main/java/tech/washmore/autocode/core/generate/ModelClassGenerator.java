@@ -85,7 +85,7 @@ public class ModelClassGenerator {
             }
             sb.append(System.lineSeparator());
             //重写toString方法
-            if (modelConfig.getToString().booleanValue()) {
+            if (modelConfig.getToString()) {
                 sb.append("\t@Override").append(System.lineSeparator());
                 sb.append("\tpublic String toString() {").append(System.lineSeparator());
                 sb.append("\t\treturn \"").append(tm.getClsName()).append("{\" +").append(System.lineSeparator());
@@ -113,7 +113,7 @@ public class ModelClassGenerator {
             sb.append(System.lineSeparator());
             //getter,setter
             for (ColumnModel cm : tm.getColumns()) {
-                if (modelConfig.getVisitorWithDoc().booleanValue()) {
+                if (modelConfig.getVisitorWithDoc()) {
                     sb.append("\t/**").append(System.lineSeparator());
                     sb.append("\t * ").append(cm.getComment()).append(" 默认值:").append(cm.getDefaultValue())
                             .append(System.lineSeparator());
@@ -126,7 +126,7 @@ public class ModelClassGenerator {
                         .append(";").append(System.lineSeparator());
                 sb.append("\t}").append(System.lineSeparator());
 
-                if (modelConfig.getVisitorWithDoc().booleanValue()) {
+                if (modelConfig.getVisitorWithDoc()) {
                     sb.append("\t/**").append(System.lineSeparator());
                     sb.append("\t * ").append(cm.getComment()).append(" 默认值:").append(cm.getDefaultValue())
                             .append(System.lineSeparator());

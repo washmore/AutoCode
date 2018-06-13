@@ -10,7 +10,7 @@ import java.util.Date;
  * @since 2018年06月13日
  */
 public class BlessLinkTheme implements Serializable {
-	private static final long serialVersionUID = -3401939957707180866L;
+	private static final long serialVersionUID = 835412921977845079L;
 	/**
 	 * 自增主键 默认值:null
 	 */

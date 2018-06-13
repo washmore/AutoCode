@@ -3,8 +3,8 @@ package tech.washmore.autocode.model.config;
 public class Model {
     private String packageName;
     private String packagePath;
-    private Boolean visitorWithDoc;
-    private Boolean toString;
+    private boolean visitorWithDoc;
+    private boolean toString = true;
 
     private String summary;
 
@@ -32,19 +32,19 @@ public class Model {
         this.packageName = packageName;
     }
 
-    public Boolean getVisitorWithDoc() {
+    public boolean getVisitorWithDoc() {
         return visitorWithDoc;
     }
 
-    public void setVisitorWithDoc(Boolean visitorWithDoc) {
+    public void setVisitorWithDoc(boolean visitorWithDoc) {
         this.visitorWithDoc = visitorWithDoc;
     }
 
-    public Boolean getToString() {
+    public boolean getToString() {
         return toString;
     }
 
-    public void setToString(Boolean toString) {
+    public void setToString(boolean toString) {
         this.toString = toString;
     }
 }

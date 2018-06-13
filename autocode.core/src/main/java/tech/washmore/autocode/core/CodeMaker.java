@@ -5,6 +5,7 @@ import tech.washmore.autocode.core.db.DataTableParser;
 import tech.washmore.autocode.core.generate.DaoClassGenerator;
 import tech.washmore.autocode.core.generate.MapperXmlGenerator;
 import tech.washmore.autocode.core.generate.ModelClassGenerator;
+import tech.washmore.autocode.core.generate.ServiceClassGenerator;
 import tech.washmore.autocode.model.enums.AutoType;
 import tech.washmore.autocode.model.mysql.TableModel;
 
@@ -16,7 +17,6 @@ public class CodeMaker {
     public static void main(String[] args) {
         generateFromFile("/Users/chenyuqing/IdeaProjects/AutoCode/autocode.test/config.json");
     }
-
 
 
     public static void generate() {
@@ -49,6 +49,12 @@ public class CodeMaker {
 
         for (AutoType autoType : AutoType.values()) {
             switch (autoType) {
+                case service:
+                    if (autoTypes.contains(autoType.name())) {
+                        System.out.println(System.lineSeparator() + "\t开始输出service文件:");
+                        ServiceClassGenerator.generateServices(tableModels);
+                    }
+                    break;
                 case dao:
                     if (autoTypes.contains(autoType.name())) {
                         System.out.println(System.lineSeparator() + "\t开始输出dao文件:");
