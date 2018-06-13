@@ -83,7 +83,11 @@ public class ModelClassGenerator {
             //属性列表
             for (ColumnModel cm : tm.getColumns()) {
                 sb.append("\t/**").append(System.lineSeparator());
-                sb.append("\t * ").append(cm.getComment()).append(" 默认值:").append(cm.getDefaultValue())
+                sb.append("\t * ");
+                if (cm.getComment() != null && cm.getComment().length() > 0) {
+                    sb.append(cm.getComment()).append(" ");
+                }
+                sb.append("默认值:").append(cm.getDefaultValue())
                         .append(System.lineSeparator());
                 sb.append("\t */").append(System.lineSeparator());
                 sb.append("\t").append("private ").append(cm.getFieldType()).append(" ").append(cm.getFieldName())
