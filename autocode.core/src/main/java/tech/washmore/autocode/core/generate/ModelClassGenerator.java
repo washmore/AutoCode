@@ -31,12 +31,15 @@ import static tech.washmore.autocode.util.StringUtils.underline2Camel;
 public class ModelClassGenerator {
 
     public static void generateModels(List<TableModel> tableModels) {
-        for (TableModel t : tableModels) {
-            try {
+        try {
+            Thread.sleep(2000);
+            for (TableModel t : tableModels) {
+                Thread.sleep((long) (Math.random() * 10));
                 generateModel(t);
-            } catch (IOException e) {
-                e.printStackTrace();
+
             }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -85,7 +88,7 @@ public class ModelClassGenerator {
             }
             sb.append(System.lineSeparator());
             //重写toString方法
-            if (modelConfig.getToString().booleanValue()) {
+            if (modelConfig.getToString()) {
                 sb.append("\t@Override").append(System.lineSeparator());
                 sb.append("\tpublic String toString() {").append(System.lineSeparator());
                 sb.append("\t\treturn \"").append(tm.getClsName()).append("{\" +").append(System.lineSeparator());
@@ -113,7 +116,7 @@ public class ModelClassGenerator {
             sb.append(System.lineSeparator());
             //getter,setter
             for (ColumnModel cm : tm.getColumns()) {
-                if (modelConfig.getVisitorWithDoc().booleanValue()) {
+                if (modelConfig.getVisitorWithDoc()) {
                     sb.append("\t/**").append(System.lineSeparator());
                     sb.append("\t * ").append(cm.getComment()).append(" 默认值:").append(cm.getDefaultValue())
                             .append(System.lineSeparator());
@@ -126,7 +129,7 @@ public class ModelClassGenerator {
                         .append(";").append(System.lineSeparator());
                 sb.append("\t}").append(System.lineSeparator());
 
-                if (modelConfig.getVisitorWithDoc().booleanValue()) {
+                if (modelConfig.getVisitorWithDoc()) {
                     sb.append("\t/**").append(System.lineSeparator());
                     sb.append("\t * ").append(cm.getComment()).append(" 默认值:").append(cm.getDefaultValue())
                             .append(System.lineSeparator());
@@ -157,6 +160,6 @@ public class ModelClassGenerator {
         ops.write(sb.toString().getBytes());
         ops.flush();
         ops.close();
-        System.out.println("输出文件:" + file.getPath().replace(new File(config.getProject().getPath()).getPath(), ""));
+        System.out.println("\t输出文件:" + file.getPath().replace(new File(config.getProject().getPath()).getPath(), ""));
     }
 }

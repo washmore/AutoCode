@@ -25,53 +25,57 @@ import static tech.washmore.autocode.util.StringUtils.underline2Camel;
  * @Copyright (c) 2018, Lianjia Group All Rights Reserved.
  * @since 2018/6/11
  */
-public class DaoClassGenerator {
+public class ServiceClassGenerator {
 
-    public static void generateDaos(List<TableModel> tableModels) {
+    public static void generateServices(List<TableModel> tableModels) {
         try {
             Thread.sleep(2000);
             for (TableModel t : tableModels) {
                 Thread.sleep((long) (Math.random() * 10));
-                generateDao(t);
+                generateService(t);
                 Thread.sleep((long) (Math.random() * 10));
-                generateDaoExtends(t);
+                generateServiceExtends(t);
+
             }
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
 
-    private static void generateDaoExtends(TableModel tm) throws IOException {
+    private static void generateServiceExtends(TableModel tm) throws IOException {
         Config config = ConfigManager.getConfig();
         Model modelConfig = config.getModel();
         DataFile dataFile = config.getDataFile();
         Dao dao = dataFile.getDao();
+        Service service = dataFile.getService();
         Doc doc = config.getDoc();
         Project project = config.getProject();
 
-        File dic = new File(project.getPath() + Constants.pathSplitor + project.getJavaRoot() + Constants.pathSplitor + dao.getExtendsPackagePath());
+        File dic = new File(project.getPath() + Constants.pathSplitor + project.getJavaRoot() + Constants.pathSplitor + service.getExtendsPackagePath());
         if (!dic.exists()) {
             dic.mkdirs();
         }
 
-        File file = new File(dic, tm.getClsName() + dao.getSuffix() + ".java");
+        File file = new File(dic, tm.getClsName() + service.getSuffix() + ".java");
         if (file.exists()) {
             return;
         }
         file.createNewFile();
 
         StringBuffer sb = new StringBuffer("");
-        sb.append("package ").append(dao.getExtendsPackageName()).append(";").append(System.lineSeparator()).append(System.lineSeparator());
-        sb.append("import ").append(dao.getBasePackageName()).append(".").append(tm.getClsName() + dao.getBaseSuffix()).append(";").append(System.lineSeparator());
+        sb.append("package ").append(service.getExtendsPackageName()).append(";").append(System.lineSeparator()).append(System.lineSeparator());
+        sb.append("import org.springframework.stereotype.Service;").append(System.lineSeparator());
+        sb.append("import ").append(service.getBasePackageName()).append(".").append(tm.getClsName() + service.getBaseSuffix()).append(";").append(System.lineSeparator());
         sb.append("/**").append(System.lineSeparator());
         sb.append(" * @author ").append(doc.getAuthor()).append(System.lineSeparator());
         sb.append(" * @version ").append(doc.getVersion()).append(System.lineSeparator());
-        sb.append(" * @summary ").append(dao.getSummary() != null && dao.getSummary().length() > 0 ? dao.getSummary() : String.format(Constants.daoSummaryTemplate, tm.getTbComment(), tm.getTbName())).append(System.lineSeparator());
+        sb.append(" * @summary ").append(service.getSummary() != null && service.getSummary().length() > 0 ? service.getSummary() : String.format(Constants.serviceSummaryTemplate, tm.getTbComment(), tm.getTbName())).append(System.lineSeparator());
         sb.append(" * @Copyright ").append(doc.getCopyright()).append(System.lineSeparator());
         sb.append(" * @since ").append(new SimpleDateFormat("yyyy年MM月dd日").format(new Date())).append(System.lineSeparator());
         sb.append(" */").append(System.lineSeparator());
-        sb.append("public interface ").append(tm.getClsName() + dao.getSuffix()).append(" extends ")
-                .append(tm.getClsName() + dao.getBaseSuffix())
+        sb.append("@Service").append(System.lineSeparator());
+        sb.append("public class ").append(tm.getClsName() + service.getSuffix()).append(" extends ")
+                .append(tm.getClsName() + service.getBaseSuffix())
                 .append(" {")
                 .append(System.lineSeparator())
                 .append(System.lineSeparator());
@@ -85,29 +89,39 @@ public class DaoClassGenerator {
         System.out.println("\t输出文件:" + file.getPath().replace(new File(config.getProject().getPath()).getPath(), ""));
     }
 
-    private static void generateDao(TableModel tm) throws IOException {
+    private static void generateService(TableModel tm) throws IOException {
         Config config = ConfigManager.getConfig();
         Model modelConfig = config.getModel();
         DataFile dataFile = config.getDataFile();
+        Service service = dataFile.getService();
         Dao dao = dataFile.getDao();
         Doc doc = config.getDoc();
         Project project = config.getProject();
         StringBuffer sb = new StringBuffer("");
-        sb.append("package ").append(dao.getBasePackageName()).append(";").append(System.lineSeparator()).append(System.lineSeparator());
+        sb.append("package ").append(service.getBasePackageName()).append(";").append(System.lineSeparator()).append(System.lineSeparator());
         if (tm.getPrimaryKey() != null && JavaDataType.时间.value.equals(tm.getPrimaryKey().getFieldType())) {
             sb.append("import java.util.Date;").append(System.lineSeparator());
         }
+
+        sb.append("import ").append(dao.getExtendsPackageName()).append(".").append(tm.getClsName() + dao.getSuffix()).append(";").append(System.lineSeparator());
         sb.append("import ").append(modelConfig.getPackageName()).append(".").append(tm.getClsName()).append(";").append(System.lineSeparator());
+        sb.append("import javax.annotation.Resource;").append(System.lineSeparator());
         sb.append("/**").append(System.lineSeparator());
         sb.append(" * @author ").append(doc.getAuthor()).append(System.lineSeparator());
         sb.append(" * @version ").append(doc.getVersion()).append(System.lineSeparator());
-        sb.append(" * @summary ").append(dao.getSummary() != null && dao.getSummary().length() > 0 ? dao.getSummary() : String.format(Constants.daoSummaryTemplate, tm.getTbComment(), tm.getTbName())).append(System.lineSeparator());
+        sb.append(" * @summary ").append(service.getSummary() != null && service.getSummary().length() > 0 ? service.getSummary() : String.format(Constants.serviceSummaryTemplate, tm.getTbComment(), tm.getTbName())).append(System.lineSeparator());
         sb.append(" * @Copyright ").append(doc.getCopyright()).append(System.lineSeparator());
         sb.append(" * @since ").append(new SimpleDateFormat("yyyy年MM月dd日").format(new Date())).append(System.lineSeparator());
         sb.append(" */").append(System.lineSeparator());
-        sb.append("public interface ").append(tm.getClsName() + dao.getBaseSuffix()).append(" {")
+        sb.append("public abstract class ").append(tm.getClsName() + service.getBaseSuffix()).append(" {")
                 .append(System.lineSeparator())
                 .append(System.lineSeparator());
+        sb.append("\t@Resource").append(System.lineSeparator());
+        sb.append("\tprotected ")
+                .append(tm.getClsName() + dao.getSuffix()).append(" ")
+                .append(underline2Camel(tm.getTbName(), false) + dao.getSuffix()).append(";")
+                .append(System.lineSeparator()).append(System.lineSeparator());
+
 
         List<String> methods = dataFile.getMethodInclude();
         if (methods != null && methods.size() > 0) {
@@ -167,12 +181,12 @@ public class DaoClassGenerator {
         }
 
         sb.append("}");
-        File dic = new File(project.getPath() + Constants.pathSplitor + project.getJavaRoot() + Constants.pathSplitor + dao.getBasePackagePath());
+        File dic = new File(project.getPath() + Constants.pathSplitor + project.getJavaRoot() + Constants.pathSplitor + service.getBasePackagePath());
         if (!dic.exists()) {
             dic.mkdirs();
         }
 
-        File file = new File(dic, tm.getClsName() + dao.getBaseSuffix() + ".java");
+        File file = new File(dic, tm.getClsName() + service.getBaseSuffix() + ".java");
         if (file.exists()) {
             file.delete();
         }
@@ -186,30 +200,50 @@ public class DaoClassGenerator {
 
 
     private static String appendCountByParams(TableModel tm) {
+        Dao dao = ConfigManager.getConfig().getDataFile().getDao();
         StringBuffer sb = new StringBuffer();
-        sb.append("\tint countByParams(Map<String, Object> params);")
-                .append(System.lineSeparator()).append(System.lineSeparator());
+        sb.append("\tpublic final int countByParams(Map<String, Object> params) {")
+                .append(System.lineSeparator());
+        sb.append("\t\treturn ").append(underline2Camel(tm.getTbName(), false) + dao.getSuffix())
+                .append(".").append("countByParams(params);")
+                .append(System.lineSeparator());
+        sb.append("\t}").append(System.lineSeparator()).append(System.lineSeparator());
         return sb.toString();
     }
 
     private static String appendCountByExample(TableModel tm) {
+        Dao dao = ConfigManager.getConfig().getDataFile().getDao();
         StringBuffer sb = new StringBuffer();
-        sb.append("\tint countByExample(").append(tm.getClsName()).append(" example);")
-                .append(System.lineSeparator()).append(System.lineSeparator());
+        sb.append("\tpublic final int countByExample(").append(tm.getClsName()).append(" example) {")
+                .append(System.lineSeparator());
+        sb.append("\t\treturn ").append(underline2Camel(tm.getTbName(), false) + dao.getSuffix())
+                .append(".").append("countByExample(example);")
+                .append(System.lineSeparator());
+        sb.append("\t}").append(System.lineSeparator()).append(System.lineSeparator());
         return sb.toString();
     }
 
     private static String appendSelectByParams(TableModel tm) {
+        Dao dao = ConfigManager.getConfig().getDataFile().getDao();
         StringBuffer sb = new StringBuffer();
-        sb.append("\tList<").append(tm.getClsName()).append("> selectByParams(Map<String, Object> params);")
-                .append(System.lineSeparator()).append(System.lineSeparator());
+        sb.append("\tpublic final List<").append(tm.getClsName()).append("> selectByParams(Map<String, Object> params) {")
+                .append(System.lineSeparator());
+        sb.append("\t\treturn ").append(underline2Camel(tm.getTbName(), false) + dao.getSuffix())
+                .append(".").append("selectByParams(params);")
+                .append(System.lineSeparator());
+        sb.append("\t}").append(System.lineSeparator()).append(System.lineSeparator());
         return sb.toString();
     }
 
     private static String appendSelectByExample(TableModel tm) {
+        Dao dao = ConfigManager.getConfig().getDataFile().getDao();
         StringBuffer sb = new StringBuffer();
-        sb.append("\tList<").append(tm.getClsName()).append("> selectByExample(").append(tm.getClsName()).append(" example);")
-                .append(System.lineSeparator()).append(System.lineSeparator());
+        sb.append("\tpublic final List<").append(tm.getClsName()).append("> selectByExample(").append(tm.getClsName()).append(" example) {")
+                .append(System.lineSeparator());
+        sb.append("\t\treturn ").append(underline2Camel(tm.getTbName(), false) + dao.getSuffix())
+                .append(".").append("selectByExample(example);")
+                .append(System.lineSeparator());
+        sb.append("\t}").append(System.lineSeparator()).append(System.lineSeparator());
         return sb.toString();
     }
 
@@ -218,12 +252,17 @@ public class DaoClassGenerator {
         if (pk == null) {
             return "";
         }
+        Dao dao = ConfigManager.getConfig().getDataFile().getDao();
         StringBuffer sb = new StringBuffer();
-        sb.append("\t").append(tm.getClsName()).append(" selectByPrimaryKey(")
+        sb.append("\tpublic final ").append(tm.getClsName()).append(" selectByPrimaryKey(")
                 .append(pk.getFieldType()).append(" ")
                 .append(pk.getFieldName())
-                .append(");")
-                .append(System.lineSeparator()).append(System.lineSeparator());
+                .append(") {")
+                .append(System.lineSeparator());
+        sb.append("\t\treturn ").append(underline2Camel(tm.getTbName(), false) + dao.getSuffix()).append(".").append("selectByPrimaryKey(")
+                .append(pk.getFieldName())
+                .append(");").append(System.lineSeparator());
+        sb.append("\t}").append(System.lineSeparator()).append(System.lineSeparator());
         return sb.toString();
     }
 
@@ -232,12 +271,17 @@ public class DaoClassGenerator {
         if (pk == null) {
             return "";
         }
+        Dao dao = ConfigManager.getConfig().getDataFile().getDao();
         StringBuffer sb = new StringBuffer();
-        sb.append("\tint updateByPrimaryKeySelective(")
+        sb.append("\tpublic final int updateByPrimaryKeySelective(")
                 .append(tm.getClsName()).append(" ")
                 .append(underline2Camel(tm.getTbName(), false))
-                .append(");")
-                .append(System.lineSeparator()).append(System.lineSeparator());
+                .append(") {")
+                .append(System.lineSeparator());
+        sb.append("\t\treturn ").append(underline2Camel(tm.getTbName(), false) + dao.getSuffix()).append(".").append("updateByPrimaryKeySelective(")
+                .append(underline2Camel(tm.getTbName(), false))
+                .append(");").append(System.lineSeparator());
+        sb.append("\t}").append(System.lineSeparator()).append(System.lineSeparator());
         return sb.toString();
     }
 
@@ -246,12 +290,17 @@ public class DaoClassGenerator {
         if (pk == null) {
             return "";
         }
+        Dao dao = ConfigManager.getConfig().getDataFile().getDao();
         StringBuffer sb = new StringBuffer();
-        sb.append("\tint updateByPrimaryKey(")
+        sb.append("\tpublic final int updateByPrimaryKey(")
                 .append(tm.getClsName()).append(" ")
                 .append(underline2Camel(tm.getTbName(), false))
-                .append(");")
-                .append(System.lineSeparator()).append(System.lineSeparator());
+                .append(") {")
+                .append(System.lineSeparator());
+        sb.append("\t\treturn ").append(underline2Camel(tm.getTbName(), false) + dao.getSuffix()).append(".").append("updateByPrimaryKey(")
+                .append(underline2Camel(tm.getTbName(), false))
+                .append(");").append(System.lineSeparator());
+        sb.append("\t}").append(System.lineSeparator()).append(System.lineSeparator());
         return sb.toString();
     }
 
@@ -260,32 +309,47 @@ public class DaoClassGenerator {
         if (pk == null) {
             return "";
         }
+        Dao dao = ConfigManager.getConfig().getDataFile().getDao();
         StringBuffer sb = new StringBuffer();
-        sb.append("\tint deleteByPrimaryKey(")
+        sb.append("\tpublic final int deleteByPrimaryKey(")
                 .append(pk.getFieldType()).append(" ")
                 .append(pk.getFieldName())
-                .append(");")
-                .append(System.lineSeparator()).append(System.lineSeparator());
+                .append(") {")
+                .append(System.lineSeparator());
+        sb.append("\t\treturn ").append(underline2Camel(tm.getTbName(), false) + dao.getSuffix()).append(".").append("deleteByPrimaryKey(")
+                .append(pk.getFieldName())
+                .append(");").append(System.lineSeparator());
+        sb.append("\t}").append(System.lineSeparator()).append(System.lineSeparator());
         return sb.toString();
     }
 
     private static String appendInsertSelective(TableModel tm) {
+        Dao dao = ConfigManager.getConfig().getDataFile().getDao();
         StringBuffer sb = new StringBuffer();
-        sb.append("\tint insertSelective(")
+        sb.append("\tpublic final int insertSelective(")
                 .append(tm.getClsName()).append(" ")
                 .append(underline2Camel(tm.getTbName(), false))
-                .append(");")
-                .append(System.lineSeparator()).append(System.lineSeparator());
+                .append(") {")
+                .append(System.lineSeparator());
+        sb.append("\t\treturn ").append(underline2Camel(tm.getTbName(), false) + dao.getSuffix()).append(".").append("insertSelective(")
+                .append(underline2Camel(tm.getTbName(), false))
+                .append(");").append(System.lineSeparator());
+        sb.append("\t}").append(System.lineSeparator()).append(System.lineSeparator());
         return sb.toString();
     }
 
     private static String appendInsert(TableModel tm) {
+        Dao dao = ConfigManager.getConfig().getDataFile().getDao();
         StringBuffer sb = new StringBuffer();
-        sb.append("\tint insert(")
+        sb.append("\tpublic final int insert(")
                 .append(tm.getClsName()).append(" ")
                 .append(underline2Camel(tm.getTbName(), false))
-                .append(");")
-                .append(System.lineSeparator()).append(System.lineSeparator());
+                .append(") {")
+                .append(System.lineSeparator());
+        sb.append("\t\treturn ").append(underline2Camel(tm.getTbName(), false) + dao.getSuffix()).append(".").append("insert(")
+                .append(underline2Camel(tm.getTbName(), false))
+                .append(");").append(System.lineSeparator());
+        sb.append("\t}").append(System.lineSeparator()).append(System.lineSeparator());
         return sb.toString();
     }
 }

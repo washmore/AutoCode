@@ -10,7 +10,7 @@ import java.util.regex.Pattern;
 public class StringUtils {
 
     public static String underline2Camel(String origin, boolean firstUpperCase) {
-        if (!ConfigManager.getConfig().getProject().getUnderline2Camel().booleanValue()) {
+        if (!ConfigManager.getConfig().getProject().getUnderline2Camel()) {
             if (firstUpperCase) {
                 return origin.substring(0, 1).toUpperCase() + origin.substring(1);
             }

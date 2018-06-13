@@ -1,11 +1,22 @@
 package tech.washmore.autocode.model.config;
 
+import java.util.List;
+
 public class Db {
     private String dbName;
     private String driver;
     private String url;
     private String username;
     private String password;
+    private List<String> tableNamePrefix;
+
+    public List<String> getTableNamePrefix() {
+        return tableNamePrefix;
+    }
+
+    public void setTableNamePrefix(List<String> tableNamePrefix) {
+        this.tableNamePrefix = tableNamePrefix;
+    }
 
     public String getDbName() {
         return dbName;

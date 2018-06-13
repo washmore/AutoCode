@@ -8,7 +8,7 @@ public class Project {
 
     private String javaRoot;
     private String resourcesRoot;
-    private Boolean underline2Camel;
+    private boolean underline2Camel = true;
     private List<String> exclude;
     private List<String> include;
 
@@ -44,11 +44,11 @@ public class Project {
         this.javaRoot = javaRoot;
     }
 
-    public Boolean getUnderline2Camel() {
+    public boolean getUnderline2Camel() {
         return underline2Camel;
     }
 
-    public void setUnderline2Camel(Boolean underline2Camel) {
+    public void setUnderline2Camel(boolean underline2Camel) {
         this.underline2Camel = underline2Camel;
     }
 

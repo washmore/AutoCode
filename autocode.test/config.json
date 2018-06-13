@@ -1,8 +1,7 @@
 {
   "autoTypes": [
-    "service",
-    "junitWithSpring",
     "model",
+    "service",
     "dao",
     "mapper"
   ],
@@ -41,6 +40,7 @@
       "suffix": "Dao"
     },
     "mapper": {
+      "fullParams": false,
       "usekeyProperty": true,
       "path": "mappers",
       "baseSuffix": "BaseMapper",
@@ -52,8 +52,12 @@
     ]
   },
   "db": {
+    "tableNamePrefix": [
+      "t_",
+      "x_"
+    ],
     "driver": "com.mysql.jdbc.Driver",
-    "url": "jdbc:mysql://localhost:3306/EmployeeCare?serverTimezone=Asia/Shanghai&useSSL=false&useUnicode=true&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true",
+    "url": "jdbc:mysql://localhost:3306/zhidao?serverTimezone=Asia/Shanghai&useSSL=false&useUnicode=true&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true",
     "username": "root",
     "password": ""
   },

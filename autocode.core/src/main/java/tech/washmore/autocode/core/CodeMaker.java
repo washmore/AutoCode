@@ -5,6 +5,7 @@ import tech.washmore.autocode.core.db.DataTableParser;
 import tech.washmore.autocode.core.generate.DaoClassGenerator;
 import tech.washmore.autocode.core.generate.MapperXmlGenerator;
 import tech.washmore.autocode.core.generate.ModelClassGenerator;
+import tech.washmore.autocode.core.generate.ServiceClassGenerator;
 import tech.washmore.autocode.model.enums.AutoType;
 import tech.washmore.autocode.model.mysql.TableModel;
 
@@ -16,7 +17,6 @@ public class CodeMaker {
     public static void main(String[] args) {
         generateFromFile("/Users/chenyuqing/IdeaProjects/AutoCode/autocode.test/config.json");
     }
-
 
 
     public static void generate() {
@@ -45,25 +45,35 @@ public class CodeMaker {
         System.out.println();
         System.out.println();
         System.out.println("-----------------------------------------------");
-        System.out.println("\t\t开始输出文件,根目录:" + new File(ConfigManager.getConfig().getProject().getPath()).getPath());
+        System.out.println("开始输出文件,根目录:" + new File(ConfigManager.getConfig().getProject().getPath()).getPath());
 
         for (AutoType autoType : AutoType.values()) {
             switch (autoType) {
+                case service:
+                    if (autoTypes.contains(autoType.name())) {
+                        System.out.println(System.lineSeparator() + "-----------------------------------------------");
+                        System.out.println("开始输出service文件:" + System.lineSeparator());
+                        ServiceClassGenerator.generateServices(tableModels);
+                    }
+                    break;
                 case dao:
                     if (autoTypes.contains(autoType.name())) {
-                        System.out.println(System.lineSeparator() + "\t开始输出dao文件:");
+                        System.out.println(System.lineSeparator() + "-----------------------------------------------");
+                        System.out.println("开始输出dao文件:" + System.lineSeparator());
                         DaoClassGenerator.generateDaos(tableModels);
                     }
                     break;
                 case model:
                     if (autoTypes.contains(autoType.name())) {
-                        System.out.println(System.lineSeparator() + "\t开始输出model文件:");
+                        System.out.println(System.lineSeparator() + "-----------------------------------------------");
+                        System.out.println("开始输出model文件:" + System.lineSeparator());
                         ModelClassGenerator.generateModels(tableModels);
                     }
                     break;
                 case mapper:
                     if (autoTypes.contains(autoType.name())) {
-                        System.out.println(System.lineSeparator() + "\t开始输出mapper文件:");
+                        System.out.println(System.lineSeparator() + "-----------------------------------------------");
+                        System.out.println("开始输出mapper文件:" + System.lineSeparator());
                         MapperXmlGenerator.generateMappers(tableModels);
                     }
                     break;
