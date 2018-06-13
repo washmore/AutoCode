@@ -94,7 +94,7 @@ public class DataTableParser {
                         String virtualTbName = tm.getTbName().substring(s.length());
                         String camel = underline2Camel(virtualTbName, true);
                         while (existClsNames.contains(camel.toUpperCase())) {
-                            virtualTbName = virtualTbName + (int) (Math.random() * 5000);
+                            virtualTbName = virtualTbName + "_copy";
                             camel = underline2Camel(virtualTbName, true);
                         }
                         if (camel.matches("[a-zA-Z_$][a-zA-Z0-9_$]*")) {
@@ -112,7 +112,7 @@ public class DataTableParser {
                 String virtualTbName = tm.getTbName();
                 String camel = underline2Camel(virtualTbName, true);
                 while (existClsNames.contains(camel.toUpperCase())) {
-                    virtualTbName = virtualTbName + (int) (Math.random() * 5000);
+                    virtualTbName = virtualTbName + "_copy";
                     camel = underline2Camel(virtualTbName, true);
                 }
                 tm.setClsName(camel);
