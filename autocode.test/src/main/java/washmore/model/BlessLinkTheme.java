@@ -7,10 +7,10 @@ import java.util.Date;
  * @version V1
  * @summary Link主题包
  * @Copyright (c) 2018, Washmore All Rights Reserved.
- * @since 2018年06月12日
+ * @since 2018年06月13日
  */
 public class BlessLinkTheme implements Serializable {
-	private static final long serialVersionUID = -7253278881207494395L;
+	private static final long serialVersionUID = 7920118335892650887L;
 	/**
 	 * 自增主键 默认值:null
 	 */

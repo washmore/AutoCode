@@ -34,7 +34,7 @@ public class RuleServiceTest extends BaseTest {
     @Test
     public void testSelectByParams() throws Exception {
         //TODO: Test goes here...
-        System.out.println(ruleService.selectByParams(null));
+      //  System.out.println(ruleService.selectByParams(null));
     }
 
     /**
@@ -105,11 +105,11 @@ public class RuleServiceTest extends BaseTest {
      */
     @Test
     public void testSelectByExample() throws Exception {
-        //TODO: Test goes here...
-        List<BlessSendRule> rules = ruleService.selectByParams(null);
-        System.out.println(rules);
-        System.out.println();
-        System.out.println(ruleService.selectByExample(rules.get(0)));
+//        //TODO: Test goes here...
+//        List<BlessSendRule> rules = ruleService.selectByParams(null);
+//        System.out.println(rules);
+//        System.out.println();
+//        System.out.println(ruleService.selectByExample(rules.get(0)));
     }
 
     /**
@@ -127,7 +127,7 @@ public class RuleServiceTest extends BaseTest {
     @Test
     public void testCountAll() throws Exception {
         //TODO: Test goes here...
-        System.out.println(ruleService.countAll());
+       // System.out.println(ruleService.countAll());
     }
 
     /**

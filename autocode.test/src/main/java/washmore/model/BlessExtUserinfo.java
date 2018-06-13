@@ -7,10 +7,10 @@ import java.util.Date;
  * @version V1
  * @summary 个人配置信息
  * @Copyright (c) 2018, Washmore All Rights Reserved.
- * @since 2018年06月12日
+ * @since 2018年06月13日
  */
 public class BlessExtUserinfo implements Serializable {
-	private static final long serialVersionUID = -1515589350097066536L;
+	private static final long serialVersionUID = 4704083729919085443L;
 	/**
 	 * 自增主键 默认值:null
 	 */
@@ -80,29 +80,6 @@ public class BlessExtUserinfo implements Serializable {
 	 */
 	private Date updateTime;
 
-//	@Override
-//	public String toString() {
-//		return "BlessExtUserinfo{" +
-//				"id=" + id +
-//				", userCode=" + userCode +
-//				", orgId=" + orgId +
-//				", companyId=" + companyId +
-//				", birthdayCalender=" + birthdayCalender +
-//				", birthday=" + birthday +
-//				", married=" + married +
-//				", weddingDayCalender=" + weddingDayCalender +
-//				", weddingDay=" + weddingDay +
-//				", spouseIsLianer=" + spouseIsLianer +
-//				", spouseUserCode=" + spouseUserCode +
-//				", creator=" + creator +
-//				", creatorName=\'" + creatorName + "\'" +
-//				", createTime=" + createTime +
-//				", updater=" + updater +
-//				", updaterName=\'" + updaterName + "\'" +
-//				", updateTime=" + updateTime +
-//			"}";
-//	}
-
 	@Override
 	public String toString() {
 		return "BlessExtUserinfo{" +
@@ -118,12 +95,12 @@ public class BlessExtUserinfo implements Serializable {
 				", spouseIsLianer=" + spouseIsLianer +
 				", spouseUserCode=" + spouseUserCode +
 				", creator=" + creator +
-				", creatorName='" + creatorName + '\'' +
+				", creatorName=\'" + creatorName + "\'" +
 				", createTime=" + createTime +
 				", updater=" + updater +
-				", updaterName='" + updaterName + '\'' +
+				", updaterName=\'" + updaterName + "\'" +
 				", updateTime=" + updateTime +
-				'}';
+			"}";
 	}
 
 	public void setId(Long id) {

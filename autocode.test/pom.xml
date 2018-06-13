@@ -57,6 +57,7 @@
             <artifactId>logback-core</artifactId>
         </dependency>
     </dependencies>
+
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -76,11 +77,13 @@
                 <version>0.0.1-SNAPSHOT</version>
                 <artifactId>maven-autocode-plugin</artifactId>
                 <configuration>
+                    <configLocation>/Users/chenyuqing/IdeaProjects/AutoCode/autocode.test/config.json</configLocation>
                 </configuration>
             </plugin>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>1.5.3.RELEASE</version>
                 <configuration>
                     <mainClass>washmore.EmployeeCareStarter</mainClass>
                 </configuration>

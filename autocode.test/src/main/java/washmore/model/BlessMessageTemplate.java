@@ -7,10 +7,10 @@ import java.util.Date;
  * @version V1
  * @summary 文案模板
  * @Copyright (c) 2018, Washmore All Rights Reserved.
- * @since 2018年06月12日
+ * @since 2018年06月13日
  */
 public class BlessMessageTemplate implements Serializable {
-	private static final long serialVersionUID = -7917810103779923612L;
+	private static final long serialVersionUID = 3950826029008227949L;
 	/**
 	 * 自增主键 默认值:null
 	 */

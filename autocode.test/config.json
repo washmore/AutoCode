@@ -7,12 +7,12 @@
     "mapper"
   ],
   "project": {
-    "path": "",
-    "subModule": "",
-    "javaRoot": "/src/main/java/",
-    "resourcesRoot": "/src/main/resources/",
-    "testJavaRoot": "/src/test/java/",
-    "testResourcesRoot": "/src/main/resources/",
+    "path": "/Users/chenyuqing/IdeaProjects/AutoCode/",
+    "subModule": "autocode.test",
+    "javaRoot": "src/main/java",
+    "resourcesRoot": "src/main/resources",
+    "testJavaRoot": "src/test/java/",
+    "testResourcesRoot": "src/main/resources",
     "underline2Camel": true,
     "generateOgnl": false,
     "exclude": [
@@ -27,6 +27,13 @@
     "toString": true
   },
   "dataFile": {
+    "service": {
+      "summary": "",
+      "packageName": "washmore.service",
+      "baseSuffix": "BaseService",
+      "abstractBase": true,
+      "suffix": "Service"
+    },
     "dao": {
       "summary": "",
       "packageName": "washmore.dao",
@@ -35,30 +42,14 @@
     },
     "mapper": {
       "usekeyProperty": true,
-      "path": "/mappers/",
+      "path": "mappers",
       "baseSuffix": "BaseMapper",
       "suffix": "Mapper"
     },
     "methodInclude": [
-      "insert",
-      "insertSelective",
-      "updateByPrimaryKey",
-      "updateByPrimaryKeySelective",
-      "deleteByPrimaryKey",
-      "selectByPrimaryKey",
-      "selectByExample",
-      "selectByParams",
-      "countByExample",
-      "countByParams"
     ],
     "methodExclude": [
     ]
-  },
-  "dbbak": {
-    "driver": "com.mysql.jdbc.Driver",
-    "url": "jdbc:mysql://192.168.2.88:3306/mytest?serverTimezone=Asia/Shanghai&useSSL=false&useUnicode=true&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true",
-    "username": "root",
-    "password": "wangyalan"
   },
   "db": {
     "driver": "com.mysql.jdbc.Driver",

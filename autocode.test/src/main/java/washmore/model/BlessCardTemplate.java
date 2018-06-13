@@ -7,10 +7,10 @@ import java.util.Date;
  * @version V1
  * @summary 贺卡模板
  * @Copyright (c) 2018, Washmore All Rights Reserved.
- * @since 2018年06月12日
+ * @since 2018年06月13日
  */
 public class BlessCardTemplate implements Serializable {
-	private static final long serialVersionUID = -2180539822256529269L;
+	private static final long serialVersionUID = 6921755774343769916L;
 	/**
 	 * 自增主键 默认值:null
 	 */

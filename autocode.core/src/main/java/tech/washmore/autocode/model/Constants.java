@@ -11,5 +11,8 @@ public interface Constants {
     String extendsDataFileSuffix = "ext";
     String baseDataFileSuffix = "base";
 
-    String daoSummaryTemplate = "针对%s(%s)表的操作";
+    String daoSummaryTemplate = "针对%s(%s)表的增删改查基础dao";
+    String serviceSummaryTemplate = "针对%s(%s)表的增删改查基础service";
+
+    String pathSplitor = "/";
 }

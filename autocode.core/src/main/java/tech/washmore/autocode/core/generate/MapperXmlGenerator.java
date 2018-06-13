@@ -1,6 +1,7 @@
 package tech.washmore.autocode.core.generate;
 
 import tech.washmore.autocode.core.config.ConfigManager;
+import tech.washmore.autocode.model.Constants;
 import tech.washmore.autocode.model.config.*;
 import tech.washmore.autocode.model.enums.DataFileMethod;
 import tech.washmore.autocode.model.mysql.ColumnModel;
@@ -42,7 +43,7 @@ public class MapperXmlGenerator {
         Doc doc = config.getDoc();
         Project project = config.getProject();
 
-        File dic = new File(project.getPath() + project.getResourcesRoot() + mapper.getExtendsPath());
+        File dic = new File(project.getPath() + Constants.pathSplitor + project.getResourcesRoot() + Constants.pathSplitor + mapper.getExtendsPath());
         if (!dic.exists()) {
             dic.mkdirs();
         }
@@ -61,12 +62,11 @@ public class MapperXmlGenerator {
         sb.append("</mapper>").append(System.lineSeparator());
 
 
-        System.out.println(sb.toString());
-
         OutputStream ops = new FileOutputStream(file);
         ops.write(sb.toString().getBytes());
         ops.flush();
-        ops.flush();
+        ops.close();
+        System.out.println("输出文件:" + file.getPath().replace(new File(config.getProject().getPath()).getPath(), ""));
     }
 
     private static void generateMapper(TableModel tm) throws IOException {
@@ -161,8 +161,7 @@ public class MapperXmlGenerator {
         sb.append("</mapper>").append(System.lineSeparator());
 
 
-        System.out.println(sb.toString());
-        File dic = new File(project.getPath() + project.getResourcesRoot() + mapper.getBasePath());
+        File dic = new File(project.getPath() + Constants.pathSplitor + project.getResourcesRoot() + Constants.pathSplitor + mapper.getBasePath());
         if (!dic.exists()) {
             dic.mkdirs();
         }
@@ -176,7 +175,8 @@ public class MapperXmlGenerator {
         OutputStream ops = new FileOutputStream(file);
         ops.write(sb.toString().getBytes());
         ops.flush();
-        ops.flush();
+        ops.close();
+        System.out.println("输出文件:" + file.getPath().replace(new File(config.getProject().getPath()).getPath(), ""));
     }
 
 
@@ -284,18 +284,6 @@ public class MapperXmlGenerator {
         sb.append("\t</select>").append(System.lineSeparator()).append(System.lineSeparator());
         return sb.toString();
     }
-
-    String xx =
-            "  update bless_image_template\n" +
-                    "        <set>\n" +
-                    "            <if test=\"updaterName != null\">\n" +
-                    "                updater_name = #{updaterName,jdbcType=VARCHAR},\n" +
-                    "            </if>\n" +
-                    "            <if test=\"updateTime != null\">\n" +
-                    "                update_time = #{updateTime,jdbcType=TIMESTAMP},\n" +
-                    "            </if>\n" +
-                    "        </set>\n" +
-                    "        where id = #{id,jdbcType=BIGINT}";
 
     private static String appendUpdateByPrimaryKeySelective(TableModel tm) {
         ColumnModel pk = tm.getPrimaryKey();

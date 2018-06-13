@@ -7,10 +7,10 @@ import java.util.Date;
  * @version V1
  * @summary Link主题包
  * @Copyright (c) 2018, Washmore All Rights Reserved.
- * @since 2018年06月12日
+ * @since 2018年06月13日
  */
 public class BlessJiaxinNoticeUser implements Serializable {
-	private static final long serialVersionUID = -631692694659272837L;
+	private static final long serialVersionUID = -5588270115828463796L;
 	/**
 	 * 自增主键 默认值:null
 	 */

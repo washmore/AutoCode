@@ -44,9 +44,9 @@ public class ConfigManager {
         }
         if (db.getUrl().contains("?")) {
             String sub = db.getUrl().substring(0, db.getUrl().indexOf("?"));
-            db.setDbName(sub.substring(sub.lastIndexOf("/") + 1));
+            db.setDbName(sub.substring(sub.lastIndexOf(Constants.pathSplitor) + 1));
         } else {
-            db.setDbName(db.getUrl().substring(db.getUrl().lastIndexOf("/") + 1));
+            db.setDbName(db.getUrl().substring(db.getUrl().lastIndexOf(Constants.pathSplitor) + 1));
         }
 
         Model model = config.getModel();
@@ -55,7 +55,7 @@ public class ConfigManager {
             config.setModel(model);
         }
         if (model.getPackageName() != null && model.getPackageName().length() > 0) {
-            model.setPackagePath(model.getPackageName().replace(".", "/"));
+            model.setPackagePath(model.getPackageName().replace(".", Constants.pathSplitor));
         } else {
             model.setPackagePath("");
         }
@@ -68,7 +68,7 @@ public class ConfigManager {
         if (project.getPath() == null || project.getPath().length() == 0) {
             project.setPath(System.getProperty("user.dir"));
         }
-        project.setPath(project.getPath() + "/" + project.getSubModule() + "/");
+        project.setPath(project.getPath() + Constants.pathSplitor + project.getSubModule() + Constants.pathSplitor);
 
         DataFile dataFile = config.getDataFile();
         if (dataFile == null) {
@@ -111,15 +111,15 @@ public class ConfigManager {
             dao.setExtendsPackageName(dao.getPackageName() + "." + Constants.extendsDataFileSuffix);
             dao.setBasePackageName(dao.getPackageName() + "." + Constants.baseDataFileSuffix);
 
-            dao.setPackagePath(dao.getPackageName().replace(".", "/"));
+            dao.setPackagePath(dao.getPackageName().replace(".", Constants.pathSplitor));
         } else {
             dao.setExtendsPackageName(Constants.extendsDataFileSuffix);
             dao.setBasePackageName(Constants.baseDataFileSuffix);
 
             dao.setPackagePath("");
         }
-        dao.setExtendsPackagePath(dao.getExtendsPackageName().replace(".", "/"));
-        dao.setBasePackagePath(dao.getBasePackageName().replace(".", "/"));
+        dao.setExtendsPackagePath(dao.getExtendsPackageName().replace(".", Constants.pathSplitor));
+        dao.setBasePackagePath(dao.getBasePackageName().replace(".", Constants.pathSplitor));
 
         Mapper mapper = dataFile.getMapper();
         if (mapper == null) {
@@ -127,8 +127,8 @@ public class ConfigManager {
             dataFile.setMapper(mapper);
         }
         if (mapper.getPath() != null && mapper.getPath().length() > 0) {
-            mapper.setBasePath(mapper.getPath() + "/" + Constants.baseDataFileSuffix);
-            mapper.setExtendsPath(mapper.getPath() + "/" + Constants.extendsDataFileSuffix);
+            mapper.setBasePath(mapper.getPath() + Constants.pathSplitor + Constants.baseDataFileSuffix);
+            mapper.setExtendsPath(mapper.getPath() + Constants.pathSplitor + Constants.extendsDataFileSuffix);
         } else {
             mapper.setBasePath(Constants.baseDataFileSuffix);
             mapper.setExtendsPath(Constants.extendsDataFileSuffix);

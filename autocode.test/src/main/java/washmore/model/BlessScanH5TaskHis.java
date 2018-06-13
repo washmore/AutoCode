@@ -7,10 +7,10 @@ import java.util.Date;
  * @version V1
  * @summary H5浏览任务_his
  * @Copyright (c) 2018, Washmore All Rights Reserved.
- * @since 2018年06月12日
+ * @since 2018年06月13日
  */
 public class BlessScanH5TaskHis implements Serializable {
-	private static final long serialVersionUID = 1227830928444839019L;
+	private static final long serialVersionUID = -5989707989846818701L;
 	/**
 	 * 主键 默认值:null
 	 */

@@ -7,10 +7,10 @@ import java.util.Date;
  * @version V1
  * @summary 临时图片文件
  * @Copyright (c) 2018, Washmore All Rights Reserved.
- * @since 2018年06月12日
+ * @since 2018年06月13日
  */
 public class BlessTemporaryImage implements Serializable {
-	private static final long serialVersionUID = 5576591556888596097L;
+	private static final long serialVersionUID = -1674294924927490514L;
 	/**
 	 * 自增主键 默认值:null
 	 */

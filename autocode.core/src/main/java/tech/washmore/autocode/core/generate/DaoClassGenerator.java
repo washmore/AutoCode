@@ -47,7 +47,7 @@ public class DaoClassGenerator {
         Doc doc = config.getDoc();
         Project project = config.getProject();
 
-        File dic = new File(project.getPath() + project.getJavaRoot() + dao.getExtendsPackagePath());
+        File dic = new File(project.getPath() + Constants.pathSplitor + project.getJavaRoot() + Constants.pathSplitor + dao.getExtendsPackagePath());
         if (!dic.exists()) {
             dic.mkdirs();
         }
@@ -74,14 +74,13 @@ public class DaoClassGenerator {
                 .append(System.lineSeparator())
                 .append(System.lineSeparator());
 
-
         sb.append("}");
-        System.out.println(sb.toString());
 
         OutputStream ops = new FileOutputStream(file);
         ops.write(sb.toString().getBytes());
         ops.flush();
-        ops.flush();
+        ops.close();
+        System.out.println("输出文件:" + file.getPath().replace(new File(config.getProject().getPath()).getPath(), ""));
     }
 
     private static void generateDao(TableModel tm) throws IOException {
@@ -160,14 +159,13 @@ public class DaoClassGenerator {
                             break;
                     }
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    throw new RuntimeException(e);
                 }
             }
         }
 
         sb.append("}");
-        System.out.println(sb.toString());
-        File dic = new File(project.getPath() + project.getJavaRoot() + dao.getBasePackagePath());
+        File dic = new File(project.getPath() + Constants.pathSplitor + project.getJavaRoot() + Constants.pathSplitor + dao.getBasePackagePath());
         if (!dic.exists()) {
             dic.mkdirs();
         }
@@ -180,7 +178,8 @@ public class DaoClassGenerator {
         OutputStream ops = new FileOutputStream(file);
         ops.write(sb.toString().getBytes());
         ops.flush();
-        ops.flush();
+        ops.close();
+        System.out.println("输出文件:" + file.getPath().replace(new File(config.getProject().getPath()).getPath(), ""));
     }
 
 

@@ -7,10 +7,10 @@ import java.util.Date;
  * @version V1
  * @summary 文案发送任务历史表
  * @Copyright (c) 2018, Washmore All Rights Reserved.
- * @since 2018年06月12日
+ * @since 2018年06月13日
  */
 public class BlessSendMessageTaskHis implements Serializable {
-	private static final long serialVersionUID = 5309883970196439417L;
+	private static final long serialVersionUID = 6797000864006018042L;
 	/**
 	 * 主键 默认值:null
 	 */

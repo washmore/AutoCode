@@ -1,6 +1,7 @@
 package tech.washmore.autocode.core.generate;
 
 import tech.washmore.autocode.core.config.ConfigManager;
+import tech.washmore.autocode.model.Constants;
 import tech.washmore.autocode.model.config.Config;
 import tech.washmore.autocode.model.config.Doc;
 import tech.washmore.autocode.model.config.Model;
@@ -139,9 +140,8 @@ public class ModelClassGenerator {
             }
         }
         sb.append("}");
-        System.out.println(sb.toString());
         //生成类文件
-        File dic = new File(project.getPath() + project.getJavaRoot() + modelConfig.getPackagePath());
+        File dic = new File(project.getPath() + Constants.pathSplitor + project.getJavaRoot() + Constants.pathSplitor + modelConfig.getPackagePath());
         if (!dic.exists()) {
             dic.mkdirs();
         }
@@ -156,6 +156,7 @@ public class ModelClassGenerator {
         OutputStream ops = new FileOutputStream(file);
         ops.write(sb.toString().getBytes());
         ops.flush();
-        ops.flush();
+        ops.close();
+        System.out.println("输出文件:" + file.getPath().replace(new File(config.getProject().getPath()).getPath(), ""));
     }
 }
