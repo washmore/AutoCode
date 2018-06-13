@@ -31,12 +31,15 @@ import static tech.washmore.autocode.util.StringUtils.underline2Camel;
 public class ModelClassGenerator {
 
     public static void generateModels(List<TableModel> tableModels) {
-        for (TableModel t : tableModels) {
-            try {
+        try {
+            Thread.sleep(2000);
+            for (TableModel t : tableModels) {
+                Thread.sleep((long) (Math.random() * 10));
                 generateModel(t);
-            } catch (IOException e) {
-                e.printStackTrace();
+
             }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -157,6 +160,6 @@ public class ModelClassGenerator {
         ops.write(sb.toString().getBytes());
         ops.flush();
         ops.close();
-        System.out.println("输出文件:" + file.getPath().replace(new File(config.getProject().getPath()).getPath(), ""));
+        System.out.println("\t输出文件:" + file.getPath().replace(new File(config.getProject().getPath()).getPath(), ""));
     }
 }

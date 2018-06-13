@@ -85,7 +85,7 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <version>1.5.3.RELEASE</version>
                 <configuration>
-                    <mainClass>EmployeeCareStarter</mainClass>
+                    <mainClass>AppStarter</mainClass>
                 </configuration>
                 <executions>
                     <execution>

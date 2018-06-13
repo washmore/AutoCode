@@ -2,14 +2,12 @@ package tech.washmore.autocode.core.db;
 
 import tech.washmore.autocode.core.config.ConfigManager;
 import tech.washmore.autocode.model.config.Config;
+import tech.washmore.autocode.model.config.Db;
 import tech.washmore.autocode.model.enums.JdbcType;
 import tech.washmore.autocode.model.mysql.ColumnModel;
 import tech.washmore.autocode.model.mysql.TableModel;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -27,14 +25,18 @@ import static tech.washmore.autocode.util.StringUtils.underline2Camel;
  */
 public class DataTableParser {
     public static List<ColumnModel> parseColumn(String dbname, String tableName) throws SQLException {
+        System.out.println("当前解析:" + tableName);
         String sql = "SELECT * FROM information_schema.columns  WHERE TABLE_SCHEMA=? AND table_name=?";
-        PreparedStatement stat = ConnManager.getConn().prepareStatement(sql);
+
+        Connection c = ConnManager.getConn();
+        PreparedStatement stat = c.prepareStatement(sql);
         stat.setString(1, dbname);
         stat.setString(2, tableName);
         ResultSet rs = stat.executeQuery();
 
         String sql2 = "SELECT * FROM " + tableName;
-        PreparedStatement stat2 = ConnManager.getConn().prepareStatement(sql2);
+        Connection c2 = ConnManager.getConn();
+        PreparedStatement stat2 = c2.prepareStatement(sql2);
         ResultSet rs2 = stat2.executeQuery();
         ResultSetMetaData data = rs2.getMetaData();
 
@@ -59,6 +61,8 @@ public class DataTableParser {
             cm.setJdbcType(JdbcType.forCode(data.getColumnType(index)).name());
             columnModels.add(cm);
         }
+        c.close();
+        c2.close();
         Collections.sort(columnModels, new Comparator<ColumnModel>() {
             @Override
             public int compare(ColumnModel o1, ColumnModel o2) {
@@ -72,8 +76,10 @@ public class DataTableParser {
     }
 
     private static TableModel parseTable(String dbname, String tableName) throws SQLException {
-        String sql = "SELECT * FROM information_schema.tables  WHERE TABLE_SCHEMA=? AND table_name=?";
-        PreparedStatement stat = ConnManager.getConn().prepareStatement(sql);
+        Db db = ConfigManager.getConfig().getDb();
+        String sql = "SELECT * FROM information_schema.tables WHERE TABLE_SCHEMA=? AND table_name=?";
+        Connection c = ConnManager.getConn();
+        PreparedStatement stat = c.prepareStatement(sql);
         stat.setString(1, dbname);
         stat.setString(2, tableName);
         TableModel tm = new TableModel();
@@ -82,8 +88,25 @@ public class DataTableParser {
         if (rs.next()) {
             tm.setTbName(rs.getString("TABLE_NAME"));
             tm.setTbComment(rs.getString("TABLE_COMMENT"));
-            tm.setClsName(underline2Camel(tm.getTbName(), true));
+            boolean hasTableNamePrefix = false;
+            if (db.getTableNamePrefix() != null && db.getTableNamePrefix().size() > 0) {
+                for (String s : db.getTableNamePrefix()) {
+                    if (tm.getTbName().startsWith(s)) {
+                        String camel = underline2Camel(tm.getTbName().substring(s.length()), true);
+                        if (camel.matches("[a-zA-Z_$][a-zA-Z0-9_$]*")) {
+                            tm.setClsName(camel);
+                            hasTableNamePrefix = true;
+                            break;
+                        }
+                    }
+                }
+            }
+
+            if (!hasTableNamePrefix) {
+                tm.setClsName(underline2Camel(tm.getTbName(), true));
+            }
         }
+        c.close();
         tm.setColumns(parseColumn(dbname, tableName));
 
         List<ColumnModel> columnsWithoutPK = new ArrayList<>();
@@ -102,11 +125,13 @@ public class DataTableParser {
         try {
             List<String> tablenames = new ArrayList<String>();
             String sql = "SHOW TABLES";
-            PreparedStatement stat = ConnManager.getConn().prepareStatement(sql);
+            Connection c = ConnManager.getConn();
+            PreparedStatement stat = c.prepareStatement(sql);
             ResultSet rs = stat.executeQuery();
             while (rs.next()) {
                 tablenames.add(rs.getString(1));
             }
+            c.close();
             return tablenames;
         } catch (Exception e) {
             throw new RuntimeException(e);

@@ -14,7 +14,17 @@ public class Mapper {
     private String basePath;
     private boolean usekeyProperty = true;
 
+    private boolean fullParams = false;
+
     private String extendsPath;
+
+    public void setFullParams(boolean fullParams) {
+        this.fullParams = fullParams;
+    }
+
+    public boolean getFullParams() {
+        return fullParams;
+    }
 
     public boolean getUsekeyProperty() {
         return usekeyProperty;

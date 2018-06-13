@@ -23,13 +23,16 @@ import java.util.List;
 public class MapperXmlGenerator {
 
     public static void generateMappers(List<TableModel> tableModels) {
-        for (TableModel t : tableModels) {
-            try {
+        try {
+            Thread.sleep(2000);
+            for (TableModel t : tableModels) {
+                Thread.sleep((long) (Math.random() * 10));
                 generateMapper(t);
+                Thread.sleep((long) (Math.random() * 10));
                 generateMapperExtends(t);
-            } catch (IOException e) {
-                e.printStackTrace();
             }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -66,7 +69,7 @@ public class MapperXmlGenerator {
         ops.write(sb.toString().getBytes());
         ops.flush();
         ops.close();
-        System.out.println("输出文件:" + file.getPath().replace(new File(config.getProject().getPath()).getPath(), ""));
+        System.out.println("\t输出文件:" + file.getPath().replace(new File(config.getProject().getPath()).getPath(), ""));
     }
 
     private static void generateMapper(TableModel tm) throws IOException {
@@ -176,18 +179,25 @@ public class MapperXmlGenerator {
         ops.write(sb.toString().getBytes());
         ops.flush();
         ops.close();
-        System.out.println("输出文件:" + file.getPath().replace(new File(config.getProject().getPath()).getPath(), ""));
+        System.out.println("\t输出文件:" + file.getPath().replace(new File(config.getProject().getPath()).getPath(), ""));
     }
 
 
     private static String appendCountByParams(TableModel tm) {
+        Mapper mapper = ConfigManager.getConfig().getDataFile().getMapper();
         ColumnModel pk = tm.getPrimaryKey();
         StringBuffer sb = new StringBuffer();
         sb.append("\t<select id=\"countByParams\" parameterType=\"map\" resultType=\"int\">").append(System.lineSeparator());
         sb.append("\t\tSELECT COUNT(*) FROM ").append(tm.getTbName()).append(System.lineSeparator());
         sb.append("\t\t<where>").append(System.lineSeparator());
 
-        if (pk != null) {
+        if (mapper.getFullParams()) {
+            for (ColumnModel cm : tm.getColumns()) {
+                sb.append("\t\t\t<if test=\"").append(cm.getFieldName()).append(" != null\">").append(System.lineSeparator());
+                sb.append("\t\t\t\tAND ").append(cm.getColumnName()).append(" = ").append("#{").append(cm.getFieldName()).append(",jdbcType=").append(cm.getJdbcType()).append("}").append(System.lineSeparator());
+                sb.append("\t\t\t</if>").append(System.lineSeparator());
+            }
+        } else if (pk != null) {
             sb.append("\t\t\t<if test=\"").append(pk.getFieldName()).append(" != null\">").append(System.lineSeparator());
             sb.append("\t\t\t\tAND ").append(pk.getColumnName()).append(" = ").append("#{").append(pk.getFieldName()).append(",jdbcType=").append(pk.getJdbcType()).append("}").append(System.lineSeparator());
             sb.append("\t\t\t</if>").append(System.lineSeparator());
@@ -220,8 +230,8 @@ public class MapperXmlGenerator {
 
 
     private static String appendSelectByParams(TableModel tm) {
+        Mapper mapper = ConfigManager.getConfig().getDataFile().getMapper();
         ColumnModel pk = tm.getPrimaryKey();
-
         StringBuffer sb = new StringBuffer();
         sb.append("\t<select id=\"selectByParams\" parameterType=\"map\" resultMap=\"BaseResultMap\">").append(System.lineSeparator());
         sb.append("\t\tSELECT").append(System.lineSeparator());
@@ -229,7 +239,13 @@ public class MapperXmlGenerator {
         sb.append("\t\tFROM ").append(tm.getTbName()).append(System.lineSeparator());
         sb.append("\t\t<where>").append(System.lineSeparator());
 
-        if (pk != null) {
+        if (mapper.getFullParams()) {
+            for (ColumnModel cm : tm.getColumns()) {
+                sb.append("\t\t\t<if test=\"").append(cm.getFieldName()).append(" != null\">").append(System.lineSeparator());
+                sb.append("\t\t\t\tAND ").append(cm.getColumnName()).append(" = ").append("#{").append(cm.getFieldName()).append(",jdbcType=").append(cm.getJdbcType()).append("}").append(System.lineSeparator());
+                sb.append("\t\t\t</if>").append(System.lineSeparator());
+            }
+        } else if (pk != null) {
             sb.append("\t\t\t<if test=\"").append(pk.getFieldName()).append(" != null\">").append(System.lineSeparator());
             sb.append("\t\t\t\tAND ").append(pk.getColumnName()).append(" = ").append("#{").append(pk.getFieldName()).append(",jdbcType=").append(pk.getJdbcType()).append("}").append(System.lineSeparator());
             sb.append("\t\t\t</if>").append(System.lineSeparator());
