@@ -69,7 +69,7 @@ public class ServiceClassGenerator {
         sb.append("/**").append(System.lineSeparator());
         sb.append(" * @author ").append(doc.getAuthor()).append(System.lineSeparator());
         sb.append(" * @version ").append(doc.getVersion()).append(System.lineSeparator());
-        sb.append(" * @summary ").append(service.getSummary() != null && service.getSummary().length() > 0 ? service.getSummary() : String.format(Constants.serviceSummaryTemplate, tm.getTbComment(), tm.getTbName())).append(System.lineSeparator());
+        sb.append(" * @summary ").append(service.getSummary() != null && service.getSummary().length() > 0 ? service.getSummary() : String.format(Constants.serviceSummaryTemplate, tm.getTbComment(), tm.getVirtualTbName())).append(System.lineSeparator());
         sb.append(" * @Copyright ").append(doc.getCopyright()).append(System.lineSeparator());
         sb.append(" * @since ").append(new SimpleDateFormat("yyyy年MM月dd日").format(new Date())).append(System.lineSeparator());
         sb.append(" */").append(System.lineSeparator());
@@ -79,7 +79,6 @@ public class ServiceClassGenerator {
                 .append(" {")
                 .append(System.lineSeparator())
                 .append(System.lineSeparator());
-
         sb.append("}");
 
         OutputStream ops = new FileOutputStream(file);
@@ -109,7 +108,7 @@ public class ServiceClassGenerator {
         sb.append("/**").append(System.lineSeparator());
         sb.append(" * @author ").append(doc.getAuthor()).append(System.lineSeparator());
         sb.append(" * @version ").append(doc.getVersion()).append(System.lineSeparator());
-        sb.append(" * @summary ").append(service.getSummary() != null && service.getSummary().length() > 0 ? service.getSummary() : String.format(Constants.serviceSummaryTemplate, tm.getTbComment(), tm.getTbName())).append(System.lineSeparator());
+        sb.append(" * @summary ").append(service.getSummary() != null && service.getSummary().length() > 0 ? service.getSummary() : String.format(Constants.serviceSummaryTemplate, tm.getTbComment(), tm.getVirtualTbName())).append(System.lineSeparator());
         sb.append(" * @Copyright ").append(doc.getCopyright()).append(System.lineSeparator());
         sb.append(" * @since ").append(new SimpleDateFormat("yyyy年MM月dd日").format(new Date())).append(System.lineSeparator());
         sb.append(" */").append(System.lineSeparator());
@@ -119,7 +118,7 @@ public class ServiceClassGenerator {
         sb.append("\t@Resource").append(System.lineSeparator());
         sb.append("\tprotected ")
                 .append(tm.getClsName() + dao.getSuffix()).append(" ")
-                .append(underline2Camel(tm.getTbName(), false) + dao.getSuffix()).append(";")
+                .append(underline2Camel(tm.getVirtualTbName(), false) + dao.getSuffix()).append(";")
                 .append(System.lineSeparator()).append(System.lineSeparator());
 
 
@@ -204,7 +203,7 @@ public class ServiceClassGenerator {
         StringBuffer sb = new StringBuffer();
         sb.append("\tpublic final int countByParams(Map<String, Object> params) {")
                 .append(System.lineSeparator());
-        sb.append("\t\treturn ").append(underline2Camel(tm.getTbName(), false) + dao.getSuffix())
+        sb.append("\t\treturn ").append(underline2Camel(tm.getVirtualTbName(), false) + dao.getSuffix())
                 .append(".").append("countByParams(params);")
                 .append(System.lineSeparator());
         sb.append("\t}").append(System.lineSeparator()).append(System.lineSeparator());
@@ -216,7 +215,7 @@ public class ServiceClassGenerator {
         StringBuffer sb = new StringBuffer();
         sb.append("\tpublic final int countByExample(").append(tm.getClsName()).append(" example) {")
                 .append(System.lineSeparator());
-        sb.append("\t\treturn ").append(underline2Camel(tm.getTbName(), false) + dao.getSuffix())
+        sb.append("\t\treturn ").append(underline2Camel(tm.getVirtualTbName(), false) + dao.getSuffix())
                 .append(".").append("countByExample(example);")
                 .append(System.lineSeparator());
         sb.append("\t}").append(System.lineSeparator()).append(System.lineSeparator());
@@ -228,7 +227,7 @@ public class ServiceClassGenerator {
         StringBuffer sb = new StringBuffer();
         sb.append("\tpublic final List<").append(tm.getClsName()).append("> selectByParams(Map<String, Object> params) {")
                 .append(System.lineSeparator());
-        sb.append("\t\treturn ").append(underline2Camel(tm.getTbName(), false) + dao.getSuffix())
+        sb.append("\t\treturn ").append(underline2Camel(tm.getVirtualTbName(), false) + dao.getSuffix())
                 .append(".").append("selectByParams(params);")
                 .append(System.lineSeparator());
         sb.append("\t}").append(System.lineSeparator()).append(System.lineSeparator());
@@ -240,7 +239,7 @@ public class ServiceClassGenerator {
         StringBuffer sb = new StringBuffer();
         sb.append("\tpublic final List<").append(tm.getClsName()).append("> selectByExample(").append(tm.getClsName()).append(" example) {")
                 .append(System.lineSeparator());
-        sb.append("\t\treturn ").append(underline2Camel(tm.getTbName(), false) + dao.getSuffix())
+        sb.append("\t\treturn ").append(underline2Camel(tm.getVirtualTbName(), false) + dao.getSuffix())
                 .append(".").append("selectByExample(example);")
                 .append(System.lineSeparator());
         sb.append("\t}").append(System.lineSeparator()).append(System.lineSeparator());
@@ -259,7 +258,7 @@ public class ServiceClassGenerator {
                 .append(pk.getFieldName())
                 .append(") {")
                 .append(System.lineSeparator());
-        sb.append("\t\treturn ").append(underline2Camel(tm.getTbName(), false) + dao.getSuffix()).append(".").append("selectByPrimaryKey(")
+        sb.append("\t\treturn ").append(underline2Camel(tm.getVirtualTbName(), false) + dao.getSuffix()).append(".").append("selectByPrimaryKey(")
                 .append(pk.getFieldName())
                 .append(");").append(System.lineSeparator());
         sb.append("\t}").append(System.lineSeparator()).append(System.lineSeparator());
@@ -275,11 +274,11 @@ public class ServiceClassGenerator {
         StringBuffer sb = new StringBuffer();
         sb.append("\tpublic final int updateByPrimaryKeySelective(")
                 .append(tm.getClsName()).append(" ")
-                .append(underline2Camel(tm.getTbName(), false))
+                .append(underline2Camel(tm.getVirtualTbName(), false))
                 .append(") {")
                 .append(System.lineSeparator());
-        sb.append("\t\treturn ").append(underline2Camel(tm.getTbName(), false) + dao.getSuffix()).append(".").append("updateByPrimaryKeySelective(")
-                .append(underline2Camel(tm.getTbName(), false))
+        sb.append("\t\treturn ").append(underline2Camel(tm.getVirtualTbName(), false) + dao.getSuffix()).append(".").append("updateByPrimaryKeySelective(")
+                .append(underline2Camel(tm.getVirtualTbName(), false))
                 .append(");").append(System.lineSeparator());
         sb.append("\t}").append(System.lineSeparator()).append(System.lineSeparator());
         return sb.toString();
@@ -294,11 +293,11 @@ public class ServiceClassGenerator {
         StringBuffer sb = new StringBuffer();
         sb.append("\tpublic final int updateByPrimaryKey(")
                 .append(tm.getClsName()).append(" ")
-                .append(underline2Camel(tm.getTbName(), false))
+                .append(underline2Camel(tm.getVirtualTbName(), false))
                 .append(") {")
                 .append(System.lineSeparator());
-        sb.append("\t\treturn ").append(underline2Camel(tm.getTbName(), false) + dao.getSuffix()).append(".").append("updateByPrimaryKey(")
-                .append(underline2Camel(tm.getTbName(), false))
+        sb.append("\t\treturn ").append(underline2Camel(tm.getVirtualTbName(), false) + dao.getSuffix()).append(".").append("updateByPrimaryKey(")
+                .append(underline2Camel(tm.getVirtualTbName(), false))
                 .append(");").append(System.lineSeparator());
         sb.append("\t}").append(System.lineSeparator()).append(System.lineSeparator());
         return sb.toString();
@@ -316,7 +315,7 @@ public class ServiceClassGenerator {
                 .append(pk.getFieldName())
                 .append(") {")
                 .append(System.lineSeparator());
-        sb.append("\t\treturn ").append(underline2Camel(tm.getTbName(), false) + dao.getSuffix()).append(".").append("deleteByPrimaryKey(")
+        sb.append("\t\treturn ").append(underline2Camel(tm.getVirtualTbName(), false) + dao.getSuffix()).append(".").append("deleteByPrimaryKey(")
                 .append(pk.getFieldName())
                 .append(");").append(System.lineSeparator());
         sb.append("\t}").append(System.lineSeparator()).append(System.lineSeparator());
@@ -328,11 +327,11 @@ public class ServiceClassGenerator {
         StringBuffer sb = new StringBuffer();
         sb.append("\tpublic final int insertSelective(")
                 .append(tm.getClsName()).append(" ")
-                .append(underline2Camel(tm.getTbName(), false))
+                .append(underline2Camel(tm.getVirtualTbName(), false))
                 .append(") {")
                 .append(System.lineSeparator());
-        sb.append("\t\treturn ").append(underline2Camel(tm.getTbName(), false) + dao.getSuffix()).append(".").append("insertSelective(")
-                .append(underline2Camel(tm.getTbName(), false))
+        sb.append("\t\treturn ").append(underline2Camel(tm.getVirtualTbName(), false) + dao.getSuffix()).append(".").append("insertSelective(")
+                .append(underline2Camel(tm.getVirtualTbName(), false))
                 .append(");").append(System.lineSeparator());
         sb.append("\t}").append(System.lineSeparator()).append(System.lineSeparator());
         return sb.toString();
@@ -343,11 +342,11 @@ public class ServiceClassGenerator {
         StringBuffer sb = new StringBuffer();
         sb.append("\tpublic final int insert(")
                 .append(tm.getClsName()).append(" ")
-                .append(underline2Camel(tm.getTbName(), false))
+                .append(underline2Camel(tm.getVirtualTbName(), false))
                 .append(") {")
                 .append(System.lineSeparator());
-        sb.append("\t\treturn ").append(underline2Camel(tm.getTbName(), false) + dao.getSuffix()).append(".").append("insert(")
-                .append(underline2Camel(tm.getTbName(), false))
+        sb.append("\t\treturn ").append(underline2Camel(tm.getVirtualTbName(), false) + dao.getSuffix()).append(".").append("insert(")
+                .append(underline2Camel(tm.getVirtualTbName(), false))
                 .append(");").append(System.lineSeparator());
         sb.append("\t}").append(System.lineSeparator()).append(System.lineSeparator());
         return sb.toString();

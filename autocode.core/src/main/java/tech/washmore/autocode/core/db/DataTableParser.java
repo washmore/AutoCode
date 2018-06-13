@@ -75,7 +75,7 @@ public class DataTableParser {
         return columnModels;
     }
 
-    private static TableModel parseTable(String dbname, String tableName) throws SQLException {
+    private static TableModel parseTable(String dbname, String tableName, List<String> existClsNames) throws SQLException {
         Db db = ConfigManager.getConfig().getDb();
         String sql = "SELECT * FROM information_schema.tables WHERE TABLE_SCHEMA=? AND table_name=?";
         Connection c = ConnManager.getConn();
@@ -83,7 +83,6 @@ public class DataTableParser {
         stat.setString(1, dbname);
         stat.setString(2, tableName);
         TableModel tm = new TableModel();
-
         ResultSet rs = stat.executeQuery();
         if (rs.next()) {
             tm.setTbName(rs.getString("TABLE_NAME"));
@@ -92,9 +91,16 @@ public class DataTableParser {
             if (db.getTableNamePrefix() != null && db.getTableNamePrefix().size() > 0) {
                 for (String s : db.getTableNamePrefix()) {
                     if (tm.getTbName().startsWith(s)) {
-                        String camel = underline2Camel(tm.getTbName().substring(s.length()), true);
+                        String virtualTbName = tm.getTbName().substring(s.length());
+                        String camel = underline2Camel(virtualTbName, true);
+                        while (existClsNames.contains(camel.toUpperCase())) {
+                            virtualTbName = virtualTbName + (int) (Math.random() * 5000);
+                            camel = underline2Camel(virtualTbName, true);
+                        }
                         if (camel.matches("[a-zA-Z_$][a-zA-Z0-9_$]*")) {
                             tm.setClsName(camel);
+                            tm.setVirtualTbName(virtualTbName);
+                            existClsNames.add(camel.toUpperCase());
                             hasTableNamePrefix = true;
                             break;
                         }
@@ -103,7 +109,15 @@ public class DataTableParser {
             }
 
             if (!hasTableNamePrefix) {
-                tm.setClsName(underline2Camel(tm.getTbName(), true));
+                String virtualTbName = tm.getTbName();
+                String camel = underline2Camel(virtualTbName, true);
+                while (existClsNames.contains(camel.toUpperCase())) {
+                    virtualTbName = virtualTbName + (int) (Math.random() * 5000);
+                    camel = underline2Camel(virtualTbName, true);
+                }
+                tm.setClsName(camel);
+                tm.setVirtualTbName(virtualTbName);
+                existClsNames.add(camel.toUpperCase());
             }
         }
         c.close();
@@ -162,9 +176,10 @@ public class DataTableParser {
             tables = temp;
         }
         List<TableModel> tableModels = new ArrayList<>();
+        List<String> existClsNames = new ArrayList<>();
         for (String t : tables) {
             try {
-                tableModels.add(parseTable(config.getDb().getDbName(), t));
+                tableModels.add(parseTable(config.getDb().getDbName(), t, existClsNames));
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }

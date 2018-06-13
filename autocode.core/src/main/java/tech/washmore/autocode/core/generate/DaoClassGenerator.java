@@ -66,7 +66,7 @@ public class DaoClassGenerator {
         sb.append("/**").append(System.lineSeparator());
         sb.append(" * @author ").append(doc.getAuthor()).append(System.lineSeparator());
         sb.append(" * @version ").append(doc.getVersion()).append(System.lineSeparator());
-        sb.append(" * @summary ").append(dao.getSummary() != null && dao.getSummary().length() > 0 ? dao.getSummary() : String.format(Constants.daoSummaryTemplate, tm.getTbComment(), tm.getTbName())).append(System.lineSeparator());
+        sb.append(" * @summary ").append(dao.getSummary() != null && dao.getSummary().length() > 0 ? dao.getSummary() : String.format(Constants.daoSummaryTemplate, tm.getTbComment(), tm.getVirtualTbName())).append(System.lineSeparator());
         sb.append(" * @Copyright ").append(doc.getCopyright()).append(System.lineSeparator());
         sb.append(" * @since ").append(new SimpleDateFormat("yyyy年MM月dd日").format(new Date())).append(System.lineSeparator());
         sb.append(" */").append(System.lineSeparator());
@@ -101,7 +101,7 @@ public class DaoClassGenerator {
         sb.append("/**").append(System.lineSeparator());
         sb.append(" * @author ").append(doc.getAuthor()).append(System.lineSeparator());
         sb.append(" * @version ").append(doc.getVersion()).append(System.lineSeparator());
-        sb.append(" * @summary ").append(dao.getSummary() != null && dao.getSummary().length() > 0 ? dao.getSummary() : String.format(Constants.daoSummaryTemplate, tm.getTbComment(), tm.getTbName())).append(System.lineSeparator());
+        sb.append(" * @summary ").append(dao.getSummary() != null && dao.getSummary().length() > 0 ? dao.getSummary() : String.format(Constants.daoSummaryTemplate, tm.getTbComment(), tm.getVirtualTbName())).append(System.lineSeparator());
         sb.append(" * @Copyright ").append(doc.getCopyright()).append(System.lineSeparator());
         sb.append(" * @since ").append(new SimpleDateFormat("yyyy年MM月dd日").format(new Date())).append(System.lineSeparator());
         sb.append(" */").append(System.lineSeparator());
@@ -235,7 +235,7 @@ public class DaoClassGenerator {
         StringBuffer sb = new StringBuffer();
         sb.append("\tint updateByPrimaryKeySelective(")
                 .append(tm.getClsName()).append(" ")
-                .append(underline2Camel(tm.getTbName(), false))
+                .append(underline2Camel(tm.getVirtualTbName(), false))
                 .append(");")
                 .append(System.lineSeparator()).append(System.lineSeparator());
         return sb.toString();
@@ -249,7 +249,7 @@ public class DaoClassGenerator {
         StringBuffer sb = new StringBuffer();
         sb.append("\tint updateByPrimaryKey(")
                 .append(tm.getClsName()).append(" ")
-                .append(underline2Camel(tm.getTbName(), false))
+                .append(underline2Camel(tm.getVirtualTbName(), false))
                 .append(");")
                 .append(System.lineSeparator()).append(System.lineSeparator());
         return sb.toString();
@@ -273,7 +273,7 @@ public class DaoClassGenerator {
         StringBuffer sb = new StringBuffer();
         sb.append("\tint insertSelective(")
                 .append(tm.getClsName()).append(" ")
-                .append(underline2Camel(tm.getTbName(), false))
+                .append(underline2Camel(tm.getVirtualTbName(), false))
                 .append(");")
                 .append(System.lineSeparator()).append(System.lineSeparator());
         return sb.toString();
@@ -283,7 +283,7 @@ public class DaoClassGenerator {
         StringBuffer sb = new StringBuffer();
         sb.append("\tint insert(")
                 .append(tm.getClsName()).append(" ")
-                .append(underline2Camel(tm.getTbName(), false))
+                .append(underline2Camel(tm.getVirtualTbName(), false))
                 .append(");")
                 .append(System.lineSeparator()).append(System.lineSeparator());
         return sb.toString();

@@ -4,11 +4,19 @@ import java.util.List;
 
 public class TableModel {
     private String tbName;
+    private String virtualTbName;
     private String clsName;
     private String tbComment;
     private List<ColumnModel> columns;
     private List<ColumnModel> columnsWithoutPK;
 
+    public String getVirtualTbName() {
+        return virtualTbName;
+    }
+
+    public void setVirtualTbName(String virtualTbName) {
+        this.virtualTbName = virtualTbName;
+    }
 
     private ColumnModel primaryKey;
 
@@ -19,6 +27,7 @@ public class TableModel {
     public void setColumnsWithoutPK(List<ColumnModel> columnsWithoutPK) {
         this.columnsWithoutPK = columnsWithoutPK;
     }
+
     public ColumnModel getPrimaryKey() {
         return primaryKey;
     }

@@ -17,6 +17,8 @@
     "exclude": [
     ],
     "include": [
+      "t_test_add_table",
+      "t_test_addtable"
     ]
   },
   "model": {
