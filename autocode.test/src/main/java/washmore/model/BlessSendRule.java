@@ -10,7 +10,7 @@ import java.util.Date;
  * @since 2018年06月13日
  */
 public class BlessSendRule implements Serializable {
-	private static final long serialVersionUID = -1742508402054513532L;
+	private static final long serialVersionUID = -333998037463188638L;
 	/**
 	 * 主键 默认值:null
 	 */

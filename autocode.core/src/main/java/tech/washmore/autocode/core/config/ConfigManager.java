@@ -16,12 +16,16 @@ public class ConfigManager {
     private static Config config;
 
 
-    public static void initConfig(String fileName) {
+    public static void initConfigFromFile(String fileName) {
         try {
             config = adapte(load(fileName));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public static void initConfigFromJson(String configJson) {
+        config = adapte(JSON.parseObject(configJson.toString(), Config.class));
     }
 
     public static Config getConfig() {

@@ -10,7 +10,7 @@ import java.util.Date;
  * @since 2018年06月13日
  */
 public class BlessJiaxinNoticeUser implements Serializable {
-	private static final long serialVersionUID = -5588270115828463796L;
+	private static final long serialVersionUID = -2519484906194671189L;
 	/**
 	 * 自增主键 默认值:null
 	 */

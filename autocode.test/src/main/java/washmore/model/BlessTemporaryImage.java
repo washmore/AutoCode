@@ -10,7 +10,7 @@ import java.util.Date;
  * @since 2018年06月13日
  */
 public class BlessTemporaryImage implements Serializable {
-	private static final long serialVersionUID = -1674294924927490514L;
+	private static final long serialVersionUID = -1044609571685170285L;
 	/**
 	 * 自增主键 默认值:null
 	 */

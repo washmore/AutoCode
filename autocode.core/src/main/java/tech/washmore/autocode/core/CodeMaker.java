@@ -14,15 +14,28 @@ import java.util.List;
 public class CodeMaker {
 
     public static void main(String[] args) {
-        generate("/Users/chenyuqing/IdeaProjects/AutoCode/autocode.test/config.json");
+        generateFromFile("/Users/chenyuqing/IdeaProjects/AutoCode/autocode.test/config.json");
     }
+
+
 
     public static void generate() {
-        generate(System.getProperty("user.dir") + "/config.json");
+        generateFromFile(System.getProperty("user.dir") + "/config.json");
     }
 
-    public static void generate(String configFile) {
-        ConfigManager.initConfig(configFile);
+
+    public static void generateFromJson(String configJson) {
+        ConfigManager.initConfigFromJson(configJson);
+        handle();
+    }
+
+    public static void generateFromFile(String configLocation) {
+        ConfigManager.initConfigFromFile(configLocation);
+        handle();
+    }
+
+
+    private static void handle() {
         List<TableModel> tableModels = DataTableParser.finalTableModels();
 
         if (tableModels == null || tableModels.size() == 0) {

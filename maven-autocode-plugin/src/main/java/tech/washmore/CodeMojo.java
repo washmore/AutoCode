@@ -22,7 +22,7 @@ public class CodeMojo extends AbstractMojo {
                 configLocation = System.getProperty("user.dir") + "/config.json";
             }
             System.out.println("configPath:" + configLocation);
-            CodeMaker.generate(configLocation);
+            CodeMaker.generateFromFile(configLocation);
         } catch (Exception e) {
             e.printStackTrace();
         }
