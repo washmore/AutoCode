@@ -6,3 +6,5 @@ target/
 .settings/
 logs/
 *.log
+/autocode.test/src/main/java/
+/autocode.test/src/main/resources/mappers/
