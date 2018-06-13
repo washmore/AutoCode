@@ -42,7 +42,7 @@
       "suffix": "Dao"
     },
     "mapper": {
-      "fullParams": false,
+      "fullParams": true,
       "usekeyProperty": true,
       "path": "mappers",
       "baseSuffix": "BaseMapper",

@@ -59,11 +59,14 @@ public class ModelClassGenerator {
         sb.append("package ").append(modelConfig.getPackageName()).append(";").append(System.lineSeparator()).append(System.lineSeparator());
         //引入依赖项
         sb.append("import java.io.Serializable;").append(System.lineSeparator());
-        // if (tm.getColumns().stream().map(ColumnModel::getFieldType).anyMatch(ft -> JavaDataType.时间.value.equals(ft))) {
-        sb.append("import java.util.Date;").append(System.lineSeparator());
-        // }
+        for (ColumnModel cm : tm.getColumns()) {
+            if (cm.getFieldType().equals(JavaDataType.时间.value)) {
+                sb.append("import java.util.Date;").append(System.lineSeparator());
+                break;
+            }
+        }
         //添加类文件注释
-        sb.append("/**").append(System.lineSeparator());
+        sb.append(System.lineSeparator()).append("/**").append(System.lineSeparator());
         sb.append(" * @author ").append(doc.getAuthor()).append(System.lineSeparator());
         sb.append(" * @version ").append(doc.getVersion()).append(System.lineSeparator());
         sb.append(" * @summary ").append(modelConfig.getSummary() != null && modelConfig.getSummary().length() > 0 ? modelConfig.getSummary() : tm.getTbComment()).append(System.lineSeparator());
@@ -109,7 +112,7 @@ public class ModelClassGenerator {
                     sb.append(System.lineSeparator());
 
                 }
-                sb.append("\t\t\t\"}\";").append(System.lineSeparator());
+                sb.append("\t\t\t\t\"}\";").append(System.lineSeparator());
                 sb.append("\t}").append(System.lineSeparator());
 
             }
@@ -127,7 +130,7 @@ public class ModelClassGenerator {
                         .append(System.lineSeparator());
                 sb.append("\t\t").append("this.").append(cm.getFieldName()).append(" = ").append(cm.getFieldName())
                         .append(";").append(System.lineSeparator());
-                sb.append("\t}").append(System.lineSeparator());
+                sb.append("\t}").append(System.lineSeparator()).append(System.lineSeparator());
 
                 if (modelConfig.getVisitorWithDoc()) {
                     sb.append("\t/**").append(System.lineSeparator());
@@ -139,7 +142,7 @@ public class ModelClassGenerator {
                         .append(underline2Camel(cm.getColumnName(), true)).append("() {").append(System.lineSeparator());
                 sb.append("\t\t").append("return this.").append(cm.getFieldName()).append(";")
                         .append(System.lineSeparator());
-                sb.append("\t}").append(System.lineSeparator());
+                sb.append("\t}").append(System.lineSeparator()).append(System.lineSeparator());
             }
         }
         sb.append("}");
