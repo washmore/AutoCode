@@ -101,6 +101,9 @@ public class MapperXmlGenerator {
                     case deleteByPrimaryKey:
                         sb.append(appendDeleteByPrimaryKey(tm));
                         break;
+                    case batchDeleteByPrimaryKey:
+                        sb.append(appendBatchDeleteByPrimaryKey(tm));
+                        break;
                     case updateByPrimaryKey:
                         sb.append(appendUpdateByPrimaryKey(tm));
                         break;
@@ -385,6 +388,24 @@ public class MapperXmlGenerator {
 
         sb.append("\t\tWHERE ").append(pk.getColumnName()).append(" = #{").append(pk.getFieldName()).append(",jdbcType=").append(pk.getJdbcType()).append("}").append(System.lineSeparator());
         sb.append("\t</update>").append(System.lineSeparator()).append(System.lineSeparator());
+        return sb.toString();
+    }
+
+    private static String appendBatchDeleteByPrimaryKey(TableModel tm) {
+        ColumnModel pk = tm.getPrimaryKey();
+        if (pk == null) {
+            return "";
+        }
+        StringBuffer sb = new StringBuffer();
+        sb.append("\t<delete id=\"batchDeleteByPrimaryKey\" parameterType=\"").append(pk.getFieldType()).append("\">").append(System.lineSeparator());
+        sb.append("\t\tDELETE FROM ").append(tm.getTbName()).append(System.lineSeparator());
+        sb.append("\t\t<where>").append(System.lineSeparator());
+        sb.append("\t\t\t").append(pk.getColumnName()).append(" IN").append(System.lineSeparator());
+        sb.append("\t\t\t<foreach collection=\"list\" item=\"item\" separator=\",\" open=\"(\" close=\")\">").append(System.lineSeparator());
+        sb.append("\t\t\t\t#{item.").append(pk.getColumnName()).append("}").append(System.lineSeparator());
+        sb.append("\t\t\t</foreach>").append(System.lineSeparator());
+        sb.append("\t\t</where>").append(System.lineSeparator());
+        sb.append("\t</delete>").append(System.lineSeparator()).append(System.lineSeparator());
         return sb.toString();
     }
 

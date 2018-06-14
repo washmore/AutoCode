@@ -14,6 +14,7 @@ public enum DataFileMethod {
     batchInsert,
     batchInsertSelective,
     batchUpdateByPrimaryKeySelective,
+    batchDeleteByPrimaryKey,
 
     insert,
     insertSelective,

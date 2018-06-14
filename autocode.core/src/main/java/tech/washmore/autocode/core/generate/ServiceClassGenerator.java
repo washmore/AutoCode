@@ -133,6 +133,9 @@ public class ServiceClassGenerator {
                     case deleteByPrimaryKey:
                         sb.append(appendDeleteByPrimaryKey(tm));
                         break;
+                    case batchDeleteByPrimaryKey:
+                        sb.append(appendBatchDeleteByPrimaryKey(tm));
+                        break;
                     case updateByPrimaryKey:
                         sb.append(appendUpdateByPrimaryKey(tm));
                         break;
@@ -251,17 +254,6 @@ public class ServiceClassGenerator {
         return sb.toString();
     }
 
-    String x = "        if (list == null || list.size() == 0) {\n" +
-            "            return 0;\n" +
-            "        }\n" +
-            "        if (list.size() > 100) {\n" +
-            "            int result = 0;\n" +
-            "            for (int i = 0; i < list.size(); i += 100) {\n" +
-            "                result += testAddtableCopyDao.batchUpdateByPrimaryKeySelective(list.subList(i, i + 100 > list.size() ? list.size() : i + 100));\n" +
-            "            }\n" +
-            "            return result;\n" +
-            "        }";
-
     private static String appendBatchUpdateByPrimaryKeySelective(TableModel tm) {
         ColumnModel pk = tm.getPrimaryKey();
         if (pk == null) {
@@ -338,6 +330,22 @@ public class ServiceClassGenerator {
         sb.append("\t\treturn ").append(underline2Camel(tm.getVirtualTbName(), false) + dao.getSuffix()).append(".").append("updateByPrimaryKey(")
                 .append(underline2Camel(tm.getVirtualTbName(), false))
                 .append(");").append(System.lineSeparator());
+        sb.append("\t}").append(System.lineSeparator()).append(System.lineSeparator());
+        return sb.toString();
+    }
+
+    private static String appendBatchDeleteByPrimaryKey(TableModel tm) {
+        ColumnModel pk = tm.getPrimaryKey();
+        if (pk == null) {
+            return "";
+        }
+        Dao dao = ConfigManager.getConfig().getDataFile().getDao();
+        StringBuffer sb = new StringBuffer();
+        sb.append("\tpublic final int batchDeleteByPrimaryKey(List<")
+                .append(pk.getFieldType()).append("> list) {")
+                .append(System.lineSeparator());
+        sb.append("\t\treturn ").append(underline2Camel(tm.getVirtualTbName(), false) + dao.getSuffix())
+                .append(".").append("batchDeleteByPrimaryKey(list);").append(System.lineSeparator());
         sb.append("\t}").append(System.lineSeparator()).append(System.lineSeparator());
         return sb.toString();
     }
@@ -484,10 +492,12 @@ public class ServiceClassGenerator {
                 case batchInsertSelective:
                     StringUtils.appendAtline3IfNotExist(source, "import org.springframework.transaction.annotation.Transactional;");
                     StringUtils.appendAtline3IfNotExist(source, "import java.util.List;");
-                    StringUtils.appendAtline3IfNotExist(source, "import java.util.List;");
                     StringUtils.appendAtline3IfNotExist(source, new StringBuffer().append("import ").append(model.getPackageName()).append(".").append(tm.getClsName()).append(";").toString());
                     break;
                 case deleteByPrimaryKey:
+                    break;
+                case batchDeleteByPrimaryKey:
+                    StringUtils.appendAtline3IfNotExist(source, "import java.util.List;");
                     break;
                 case updateByPrimaryKey:
                     StringUtils.appendAtline3IfNotExist(source, new StringBuffer().append("import ").append(model.getPackageName()).append(".").append(tm.getClsName()).append(";").toString());

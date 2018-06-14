@@ -120,6 +120,9 @@ public class DaoClassGenerator {
                         case deleteByPrimaryKey:
                             sb.append(appendDeleteByPrimaryKey(tm));
                             break;
+                        case batchDeleteByPrimaryKey:
+                            sb.append(appendBatchDeleteByPrimaryKey(tm));
+                            break;
                         case updateByPrimaryKey:
                             sb.append(appendUpdateByPrimaryKey(tm));
                             break;
@@ -255,6 +258,18 @@ public class DaoClassGenerator {
         return sb.toString();
     }
 
+    private static String appendBatchDeleteByPrimaryKey(TableModel tm) {
+        ColumnModel pk = tm.getPrimaryKey();
+        if (pk == null) {
+            return "";
+        }
+        StringBuffer sb = new StringBuffer();
+        sb.append("\tint batchDeleteByPrimaryKey(List<")
+                .append(pk.getFieldType()).append("> list);")
+                .append(System.lineSeparator()).append(System.lineSeparator());
+        return sb.toString();
+    }
+
     private static String appendDeleteByPrimaryKey(TableModel tm) {
         ColumnModel pk = tm.getPrimaryKey();
         if (pk == null) {
@@ -324,6 +339,9 @@ public class DaoClassGenerator {
                     StringUtils.appendAtline3IfNotExist(source, new StringBuffer().append("import ").append(model.getPackageName()).append(".").append(tm.getClsName()).append(";").toString());
                     break;
                 case deleteByPrimaryKey:
+                    break;
+                case batchDeleteByPrimaryKey:
+                    StringUtils.appendAtline3IfNotExist(source, "import java.util.List;");
                     break;
                 case updateByPrimaryKey:
                     StringUtils.appendAtline3IfNotExist(source, new StringBuffer().append("import ").append(model.getPackageName()).append(".").append(tm.getClsName()).append(";").toString());
