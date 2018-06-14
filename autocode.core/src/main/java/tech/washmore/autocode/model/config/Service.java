@@ -14,13 +14,21 @@ public class Service {
     private String packageName;
     private String packagePath;
     private boolean abstractBase = true;
-
+    private Integer batchLimit;
     private String basePackageName;
     private String basePackagePath;
 
     private String extendsPackageName;
     private String extendsPackagePath;
     private String summary;
+
+    public Integer getBatchLimit() {
+        return batchLimit;
+    }
+
+    public void setBatchLimit(Integer batchLimit) {
+        this.batchLimit = batchLimit;
+    }
 
     public boolean getAbstractBase() {
         return abstractBase;

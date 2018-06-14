@@ -11,11 +11,17 @@ public enum DataFileMethod {
     selectByParams,
     countByParams,
 
+    batchInsert,
+    batchInsertSelective,
+    batchUpdateByPrimaryKeySelective,
+    batchDeleteByPrimaryKey,
+
     insert,
     insertSelective,
     updateByPrimaryKey,
     updateByPrimaryKeySelective,
     deleteByPrimaryKey,
+
     selectByPrimaryKey,
     selectByExample,
     countByExample;

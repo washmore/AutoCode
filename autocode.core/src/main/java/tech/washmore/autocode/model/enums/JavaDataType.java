@@ -1,5 +1,8 @@
 package tech.washmore.autocode.model.enums;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author Washmore
  * @version V1.0
@@ -16,7 +19,16 @@ public enum JavaDataType {
 
     public String value;
 
+
     JavaDataType(String value) {
         this.value = value;
+    }
+
+    public static List<String> strValues() {
+        List<String> strValues = new ArrayList<>();
+        for (JavaDataType javaDataType : JavaDataType.values()) {
+            strValues.add(javaDataType.value);
+        }
+        return strValues;
     }
 }

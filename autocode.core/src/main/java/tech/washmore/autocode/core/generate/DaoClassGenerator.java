@@ -7,6 +7,7 @@ import tech.washmore.autocode.model.enums.DataFileMethod;
 import tech.washmore.autocode.model.enums.JavaDataType;
 import tech.washmore.autocode.model.mysql.ColumnModel;
 import tech.washmore.autocode.model.mysql.TableModel;
+import tech.washmore.autocode.util.StringUtils;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -29,11 +30,8 @@ public class DaoClassGenerator {
 
     public static void generateDaos(List<TableModel> tableModels) {
         try {
-            Thread.sleep(2000);
             for (TableModel t : tableModels) {
-                Thread.sleep((long) (Math.random() * 10));
                 generateDao(t);
-                Thread.sleep((long) (Math.random() * 10));
                 generateDaoExtends(t);
             }
         } catch (Exception e) {
@@ -94,14 +92,10 @@ public class DaoClassGenerator {
         Project project = config.getProject();
         StringBuffer sb = new StringBuffer("");
         sb.append("package ").append(dao.getBasePackageName()).append(";").append(System.lineSeparator()).append(System.lineSeparator());
-        if (tm.getPrimaryKey() != null && JavaDataType.时间.value.equals(tm.getPrimaryKey().getFieldType())) {
-            sb.append("import java.util.Date;").append(System.lineSeparator());
-        }
-        sb.append("import ").append(modelConfig.getPackageName()).append(".").append(tm.getClsName()).append(";").append(System.lineSeparator());
         sb.append(System.lineSeparator()).append("/**").append(System.lineSeparator());
         sb.append(" * @author ").append(doc.getAuthor()).append(System.lineSeparator());
         sb.append(" * @version ").append(doc.getVersion()).append(System.lineSeparator());
-        sb.append(" * @summary ").append(dao.getSummary() != null && dao.getSummary().length() > 0 ? dao.getSummary() : String.format(Constants.daoSummaryTemplate, tm.getTbComment(), tm.getVirtualTbName())).append(System.lineSeparator());
+        sb.append(" * @summary ").append(dao.getSummary() != null && dao.getSummary().length() > 0 ? dao.getSummary() : String.format(Constants.daoSummaryTemplate, tm.getTbComment(), tm.getTbName())).append(System.lineSeparator());
         sb.append(" * @Copyright ").append(doc.getCopyright()).append(System.lineSeparator());
         sb.append(" * @since ").append(new SimpleDateFormat("yyyy年MM月dd日").format(new Date())).append(System.lineSeparator());
         sb.append(" */").append(System.lineSeparator());
@@ -120,8 +114,14 @@ public class DaoClassGenerator {
                         case insertSelective:
                             sb.append(appendInsertSelective(tm));
                             break;
+                        case batchInsert:
+                            sb.append(appendBatchInsert(tm));
+                            break;
                         case deleteByPrimaryKey:
                             sb.append(appendDeleteByPrimaryKey(tm));
+                            break;
+                        case batchDeleteByPrimaryKey:
+                            sb.append(appendBatchDeleteByPrimaryKey(tm));
                             break;
                         case updateByPrimaryKey:
                             sb.append(appendUpdateByPrimaryKey(tm));
@@ -129,35 +129,23 @@ public class DaoClassGenerator {
                         case updateByPrimaryKeySelective:
                             sb.append(appendUpdateByPrimaryKeySelective(tm));
                             break;
+                        case batchUpdateByPrimaryKeySelective:
+                            sb.append(appendBatchUpdateByPrimaryKeySelective(tm));
+                            break;
                         case selectByPrimaryKey:
                             sb.append(appendSelectByPrimaryKey(tm));
                             break;
                         case selectByExample:
                             sb.append(appendSelectByExample(tm));
-                            if (sb.indexOf("import java.util.Map;") == -1) {
-                                sb.insert(sb.lastIndexOf("import "), "import java.util.Map;" + System.lineSeparator());
-                            }
-                            if (sb.indexOf("import java.util.List;") == -1) {
-                                sb.insert(sb.lastIndexOf("import "), "import java.util.List;" + System.lineSeparator());
-                            }
                             break;
                         case selectByParams:
                             sb.append(appendSelectByParams(tm));
-                            if (sb.indexOf("import java.util.Map;") == -1) {
-                                sb.insert(sb.lastIndexOf("import "), "import java.util.Map;" + System.lineSeparator());
-                            }
-                            if (sb.indexOf("import java.util.List;") == -1) {
-                                sb.insert(sb.lastIndexOf("import "), "import java.util.List;" + System.lineSeparator());
-                            }
                             break;
                         case countByExample:
                             sb.append(appendCountByExample(tm));
                             break;
                         case countByParams:
                             sb.append(appendCountByParams(tm));
-                            if (sb.indexOf("import java.util.Map;") == -1) {
-                                sb.insert(sb.lastIndexOf("import "), "import java.util.Map;" + System.lineSeparator());
-                            }
                             break;
                     }
                 } catch (Exception e) {
@@ -167,6 +155,9 @@ public class DaoClassGenerator {
         }
 
         sb.append("}");
+
+        insertDependencies(sb, tm);
+
         File dic = new File(project.getPath() + Constants.pathSplitor + project.getJavaRoot() + Constants.pathSplitor + dao.getBasePackagePath());
         if (!dic.exists()) {
             dic.mkdirs();
@@ -241,6 +232,18 @@ public class DaoClassGenerator {
         return sb.toString();
     }
 
+    private static String appendBatchUpdateByPrimaryKeySelective(TableModel tm) {
+        ColumnModel pk = tm.getPrimaryKey();
+        if (pk == null) {
+            return "";
+        }
+        StringBuffer sb = new StringBuffer();
+        sb.append("\tint batchUpdateByPrimaryKeySelective(List<")
+                .append(tm.getClsName()).append("> list);")
+                .append(System.lineSeparator()).append(System.lineSeparator());
+        return sb.toString();
+    }
+
     private static String appendUpdateByPrimaryKey(TableModel tm) {
         ColumnModel pk = tm.getPrimaryKey();
         if (pk == null) {
@@ -255,6 +258,18 @@ public class DaoClassGenerator {
         return sb.toString();
     }
 
+    private static String appendBatchDeleteByPrimaryKey(TableModel tm) {
+        ColumnModel pk = tm.getPrimaryKey();
+        if (pk == null) {
+            return "";
+        }
+        StringBuffer sb = new StringBuffer();
+        sb.append("\tint batchDeleteByPrimaryKey(List<")
+                .append(pk.getFieldType()).append("> list);")
+                .append(System.lineSeparator()).append(System.lineSeparator());
+        return sb.toString();
+    }
+
     private static String appendDeleteByPrimaryKey(TableModel tm) {
         ColumnModel pk = tm.getPrimaryKey();
         if (pk == null) {
@@ -265,6 +280,14 @@ public class DaoClassGenerator {
                 .append(pk.getFieldType()).append(" ")
                 .append(pk.getFieldName())
                 .append(");")
+                .append(System.lineSeparator()).append(System.lineSeparator());
+        return sb.toString();
+    }
+
+    private static String appendBatchInsert(TableModel tm) {
+        StringBuffer sb = new StringBuffer();
+        sb.append("\tint batchInsert(List<")
+                .append(tm.getClsName()).append("> list);")
                 .append(System.lineSeparator()).append(System.lineSeparator());
         return sb.toString();
     }
@@ -287,5 +310,67 @@ public class DaoClassGenerator {
                 .append(");")
                 .append(System.lineSeparator()).append(System.lineSeparator());
         return sb.toString();
+    }
+
+    private static void insertDependencies(StringBuffer source, TableModel tm) {
+        Config config = ConfigManager.getConfig();
+        DataFile dataFile = config.getDataFile();
+        Dao dao = dataFile.getDao();
+        Service service = dataFile.getService();
+        Model model = config.getModel();
+
+        StringUtils.appendAtline3IfNotExist(source, "import javax.annotation.Resource;");
+        StringUtils.appendAtline3IfNotExist(source, new StringBuffer().append("import ").append(dao.getExtendsPackageName()).append(".").append(tm.getClsName() + dao.getSuffix()).append(";").toString());
+        List<String> methods = dataFile.getMethodInclude();
+        for (String m : methods) {
+            if (m.toUpperCase().contains("PrimaryKey" .toUpperCase()) &&
+                    tm.getPrimaryKey() != null && JavaDataType.时间.value.equals(tm.getPrimaryKey().getFieldType())) {
+                StringUtils.appendAtline3IfNotExist(source, "import java.util.Date;");
+            }
+            switch (DataFileMethod.valueOf(m)) {
+                case insert:
+                    StringUtils.appendAtline3IfNotExist(source, new StringBuffer().append("import ").append(model.getPackageName()).append(".").append(tm.getClsName()).append(";").toString());
+                    break;
+                case insertSelective:
+                    StringUtils.appendAtline3IfNotExist(source, new StringBuffer().append("import ").append(model.getPackageName()).append(".").append(tm.getClsName()).append(";").toString());
+                    break;
+                case batchInsert:
+                    StringUtils.appendAtline3IfNotExist(source, "import java.util.List;");
+                    StringUtils.appendAtline3IfNotExist(source, new StringBuffer().append("import ").append(model.getPackageName()).append(".").append(tm.getClsName()).append(";").toString());
+                    break;
+                case deleteByPrimaryKey:
+                    break;
+                case batchDeleteByPrimaryKey:
+                    StringUtils.appendAtline3IfNotExist(source, "import java.util.List;");
+                    break;
+                case updateByPrimaryKey:
+                    StringUtils.appendAtline3IfNotExist(source, new StringBuffer().append("import ").append(model.getPackageName()).append(".").append(tm.getClsName()).append(";").toString());
+                    break;
+                case updateByPrimaryKeySelective:
+                    StringUtils.appendAtline3IfNotExist(source, new StringBuffer().append("import ").append(model.getPackageName()).append(".").append(tm.getClsName()).append(";").toString());
+                    break;
+                case batchUpdateByPrimaryKeySelective:
+                    StringUtils.appendAtline3IfNotExist(source, "import java.util.List;");
+                    StringUtils.appendAtline3IfNotExist(source, new StringBuffer().append("import ").append(model.getPackageName()).append(".").append(tm.getClsName()).append(";").toString());
+                    break;
+                case selectByPrimaryKey:
+                    StringUtils.appendAtline3IfNotExist(source, new StringBuffer().append("import ").append(model.getPackageName()).append(".").append(tm.getClsName()).append(";").toString());
+                    break;
+                case selectByExample:
+                    StringUtils.appendAtline3IfNotExist(source, new StringBuffer().append("import ").append(model.getPackageName()).append(".").append(tm.getClsName()).append(";").toString());
+                    StringUtils.appendAtline3IfNotExist(source, "import java.util.List;");
+                    break;
+                case selectByParams:
+                    StringUtils.appendAtline3IfNotExist(source, "import java.util.Map;");
+                    StringUtils.appendAtline3IfNotExist(source, "import java.util.List;");
+                    break;
+                case countByExample:
+                    StringUtils.appendAtline3IfNotExist(source, new StringBuffer().append("import ").append(model.getPackageName()).append(".").append(tm.getClsName()).append(";").toString());
+                    break;
+                case countByParams:
+                    StringUtils.appendAtline3IfNotExist(source, "import java.util.Map;");
+                    break;
+            }
+        }
     }
 }

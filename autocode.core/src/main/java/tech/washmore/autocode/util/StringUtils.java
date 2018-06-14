@@ -66,4 +66,21 @@ public class StringUtils {
         return null;
     }
 
+    public static void appendAtline3IfNotExist(StringBuffer source, String appendText) {
+        if (source.indexOf(appendText) != -1) {
+            return;
+        }
+        String rgex = "([" + System.lineSeparator() + "]{1})";
+        Pattern pattern = Pattern.compile(rgex);
+        Matcher m = pattern.matcher(source);
+        int index = 0;
+        while (m.find()) {
+            if (index++ == 1) {
+                source.insert(m.end(), appendText + System.lineSeparator());
+                return;
+            }
+        }
+        throw new RuntimeException("生成文本内容异常!未找到合适的位置插入import内容");
+    }
+
 }
