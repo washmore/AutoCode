@@ -32,11 +32,8 @@ public class ModelClassGenerator {
 
     public static void generateModels(List<TableModel> tableModels) {
         try {
-            Thread.sleep(2000);
             for (TableModel t : tableModels) {
-                Thread.sleep((long) (Math.random() * 10));
                 generateModel(t);
-
             }
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -69,7 +66,7 @@ public class ModelClassGenerator {
         sb.append(System.lineSeparator()).append("/**").append(System.lineSeparator());
         sb.append(" * @author ").append(doc.getAuthor()).append(System.lineSeparator());
         sb.append(" * @version ").append(doc.getVersion()).append(System.lineSeparator());
-        sb.append(" * @summary ").append(modelConfig.getSummary() != null && modelConfig.getSummary().length() > 0 ? modelConfig.getSummary() : tm.getTbComment()).append(System.lineSeparator());
+        sb.append(" * @summary ").append(modelConfig.getSummary() != null && modelConfig.getSummary().length() > 0 ? modelConfig.getSummary() : String.format(Constants.modelSummaryTemplate, tm.getTbComment(), tm.getTbName())).append(System.lineSeparator());
         sb.append(" * @Copyright ").append(doc.getCopyright()).append(System.lineSeparator());
         sb.append(" * @since ").append(new SimpleDateFormat("yyyy年MM月dd日").format(new Date())).append(System.lineSeparator());
         sb.append(" */").append(System.lineSeparator());

@@ -24,11 +24,8 @@ public class MapperXmlGenerator {
 
     public static void generateMappers(List<TableModel> tableModels) {
         try {
-            Thread.sleep(2000);
             for (TableModel t : tableModels) {
-                Thread.sleep((long) (Math.random() * 10));
                 generateMapper(t);
-                Thread.sleep((long) (Math.random() * 10));
                 generateMapperExtends(t);
             }
         } catch (Exception e) {
@@ -91,42 +88,45 @@ public class MapperXmlGenerator {
         List<String> methods = dataFile.getMethodInclude();
         if (methods != null && methods.size() > 0) {
             for (String method : methods) {
-                try {
-                    switch (DataFileMethod.valueOf(method)) {
-                        case insert:
-                            sb.append(appendInsert(tm));
-                            break;
-                        case insertSelective:
-                            sb.append(appendInsertSelective(tm));
-                            break;
-                        case deleteByPrimaryKey:
-                            sb.append(appendDeleteByPrimaryKey(tm));
-                            break;
-                        case updateByPrimaryKey:
-                            sb.append(appendUpdateByPrimaryKey(tm));
-                            break;
-                        case updateByPrimaryKeySelective:
-                            sb.append(appendUpdateByPrimaryKeySelective(tm));
-                            break;
-                        case selectByPrimaryKey:
-                            sb.append(appendSelectByPrimaryKey(tm));
-                            break;
-                        case selectByExample:
-                            sb.append(appendSelectByExample(tm));
-                            break;
-                        case selectByParams:
-                            sb.append(appendSelectByParams(tm));
-                            break;
-                        case countByExample:
-                            sb.append(appendCountByExample(tm));
-                            break;
-                        case countByParams:
-                            sb.append(appendCountByParams(tm));
-                            break;
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
+                switch (DataFileMethod.valueOf(method)) {
+                    case insert:
+                        sb.append(appendInsert(tm));
+                        break;
+                    case batchInsert:
+                        sb.append(appendBatchInsert(tm));
+                        break;
+                    case insertSelective:
+                        sb.append(appendInsertSelective(tm));
+                        break;
+                    case deleteByPrimaryKey:
+                        sb.append(appendDeleteByPrimaryKey(tm));
+                        break;
+                    case updateByPrimaryKey:
+                        sb.append(appendUpdateByPrimaryKey(tm));
+                        break;
+                    case updateByPrimaryKeySelective:
+                        sb.append(appendUpdateByPrimaryKeySelective(tm));
+                        break;
+                    case batchUpdateByPrimaryKeySelective:
+                        sb.append(appendBatchUpdateByPrimaryKeySelective(tm));
+                        break;
+                    case selectByPrimaryKey:
+                        sb.append(appendSelectByPrimaryKey(tm));
+                        break;
+                    case selectByExample:
+                        sb.append(appendSelectByExample(tm));
+                        break;
+                    case selectByParams:
+                        sb.append(appendSelectByParams(tm));
+                        break;
+                    case countByExample:
+                        sb.append(appendCountByExample(tm));
+                        break;
+                    case countByParams:
+                        sb.append(appendCountByParams(tm));
+                        break;
                 }
+
             }
         }
 
@@ -301,6 +301,42 @@ public class MapperXmlGenerator {
         return sb.toString();
     }
 
+    private static String appendBatchUpdateByPrimaryKeySelective(TableModel tm) {
+        ColumnModel pk = tm.getPrimaryKey();
+        if (pk == null) {
+            return "";
+        }
+        Model model = ConfigManager.getConfig().getModel();
+
+        StringBuffer sb = new StringBuffer();
+        sb.append("\t<update id=\"batchUpdateByPrimaryKeySelective\" parameterType=\"list\">").append(System.lineSeparator());
+        sb.append("\t\tUPDATE ").append(tm.getTbName()).append(System.lineSeparator());
+        sb.append("\t\t<trim prefix=\"SET\" suffixOverrides=\",\">").append(System.lineSeparator());
+
+        for (int i = 0; i < tm.getColumnsWithoutPK().size(); i++) {
+            ColumnModel cm = tm.getColumnsWithoutPK().get(i);
+            sb.append("\t\t\t<trim prefix=\"").append(cm.getColumnName()).append(" = CASE\" suffix=\"END,\">").append(System.lineSeparator());
+            sb.append("\t\t\t\t<foreach collection=\"list\" item=\"item\">").append(System.lineSeparator());
+            sb.append("\t\t\t\t\t<if test=\"item.").append(cm.getFieldName()).append(" != null\">").append(System.lineSeparator());
+            sb.append("\t\t\t\t\t\tWHEN ")
+                    .append(pk.getColumnName()).append(" = ").append("#{item.").append(pk.getFieldName()).append(",jdbcType=").append(pk.getJdbcType()).append("} THEN ")
+                    .append("#{item.").append(cm.getFieldName()).append(",jdbcType=").append(cm.getJdbcType()).append("} ").append(System.lineSeparator());
+            sb.append("\t\t\t\t\t</if>").append(System.lineSeparator());
+            sb.append("\t\t\t\t</foreach>").append(System.lineSeparator());
+            sb.append("\t\t\t</trim>").append(System.lineSeparator());
+        }
+        sb.append("\t\t</trim>").append(System.lineSeparator());
+
+        sb.append("\t\t<where>").append(System.lineSeparator());
+        sb.append("\t\t\t").append(pk.getColumnName()).append(" IN").append(System.lineSeparator());
+        sb.append("\t\t\t<foreach collection=\"list\" item=\"item\" separator=\",\" open=\"(\" close=\")\">").append(System.lineSeparator());
+        sb.append("\t\t\t\t#{item.").append(pk.getColumnName()).append("}").append(System.lineSeparator());
+        sb.append("\t\t\t</foreach>").append(System.lineSeparator());
+        sb.append("\t\t</where>").append(System.lineSeparator());
+        sb.append("\t</update>").append(System.lineSeparator()).append(System.lineSeparator());
+        return sb.toString();
+    }
+
     private static String appendUpdateByPrimaryKeySelective(TableModel tm) {
         ColumnModel pk = tm.getPrimaryKey();
         if (pk == null) {
@@ -390,6 +426,49 @@ public class MapperXmlGenerator {
             sb.append("\t\t\t</if>").append(System.lineSeparator());
         }
         sb.append("\t\t</trim>").append(System.lineSeparator());
+        sb.append("\t</insert>").append(System.lineSeparator()).append(System.lineSeparator());
+        return sb.toString();
+    }
+
+    private static String appendBatchInsert(TableModel tm) {
+        Model model = ConfigManager.getConfig().getModel();
+        Mapper mapper = ConfigManager.getConfig().getDataFile().getMapper();
+        StringBuffer sb = new StringBuffer();
+        sb.append("\t<insert id=\"batchInsert\" parameterType=\"").append(model.getPackageName()).append(".").append(tm.getClsName()).append("\"");
+        if (mapper.getUsekeyProperty() && tm.getPrimaryKey() != null) {
+            sb.append(" keyProperty = \"").append(tm.getPrimaryKey().getFieldName()).append("\"");
+        }
+        sb.append(">").append(System.lineSeparator());
+        sb.append("\t\tINSERT INTO ").append(tm.getTbName()).append(System.lineSeparator());
+        sb.append("\t\t\t(");
+        for (int i = 0; i < tm.getColumns().size(); i++) {
+            ColumnModel cm = tm.getColumns().get(i);
+            sb.append(cm.getColumnName());
+            if (i == tm.getColumns().size() - 1) {
+                sb.append(")").append(System.lineSeparator());
+            } else {
+                sb.append(", ");
+                if ((i + 1) % 6 == 0) {
+                    sb.append(System.lineSeparator()).append("\t\t\t");
+                }
+            }
+        }
+        sb.append("\t\tVALUES").append(System.lineSeparator());
+        sb.append("\t\t<foreach collection=\"list\" item=\"item\" separator=\",\">").append(System.lineSeparator());
+        sb.append("\t\t\t(");
+        for (int i = 0; i < tm.getColumns().size(); i++) {
+            ColumnModel cm = tm.getColumns().get(i);
+            sb.append("#{item.").append(cm.getFieldName()).append(",jdbcType=").append(cm.getJdbcType()).append("}");
+            if (i == tm.getColumns().size() - 1) {
+                sb.append(")").append(System.lineSeparator());
+            } else {
+                sb.append(", ");
+                if ((i + 1) % 3 == 0) {
+                    sb.append(System.lineSeparator()).append("\t\t\t");
+                }
+            }
+        }
+        sb.append("\t\t</foreach>").append(System.lineSeparator());
         sb.append("\t</insert>").append(System.lineSeparator()).append(System.lineSeparator());
         return sb.toString();
     }

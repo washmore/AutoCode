@@ -13,6 +13,7 @@ public interface Constants {
 
     String daoSummaryTemplate = "针对%s(%s)表的增删改查基础dao";
     String serviceSummaryTemplate = "针对%s(%s)表的增删改查基础service";
+    String modelSummaryTemplate = "%s(%s)表的model";
 
     String pathSplitor = "/";
 }
