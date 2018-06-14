@@ -58,6 +58,7 @@ public class DataTableParser {
             } else {
                 cm.setFieldType(data.getColumnClassName(index));
             }
+            cm.setFieldTypeFullName(data.getColumnClassName(index));
             cm.setJdbcType(JdbcType.forCode(data.getColumnType(index)).name());
             columnModels.add(cm);
         }

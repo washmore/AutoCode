@@ -15,10 +15,10 @@
     "underline2Camel": true,
     "generateOgnl": false,
     "exclude": [
-    ],
-    "include": [
       "t_test_add_table",
       "t_test_addtable"
+    ],
+    "include": [
     ]
   },
   "model": {
@@ -33,6 +33,7 @@
       "packageName": "washmore.service",
       "baseSuffix": "BaseService",
       "abstractBase": true,
+      "batchLimit": 100,
       "suffix": "Service"
     },
     "dao": {
@@ -42,7 +43,7 @@
       "suffix": "Dao"
     },
     "mapper": {
-      "fullParams": true,
+      "fullParams": false,
       "usekeyProperty": true,
       "path": "mappers",
       "baseSuffix": "BaseMapper",
@@ -59,7 +60,7 @@
       "x_"
     ],
     "driver": "com.mysql.jdbc.Driver",
-    "url": "jdbc:mysql://localhost:3306/zhidao?serverTimezone=Asia/Shanghai&useSSL=false&useUnicode=true&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true",
+    "url": "jdbc:mysql://localhost:3306/EmployeeCare?serverTimezone=Asia/Shanghai&useSSL=false&useUnicode=true&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true",
     "username": "root",
     "password": ""
   },

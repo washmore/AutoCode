@@ -8,12 +8,20 @@ public class ColumnModel {
     private String defaultValue;
     private String fieldName;
     private String fieldType;
+    private String fieldTypeFullName;
 
     private String jdbcType;
     private Integer order;
 
     private boolean primaryKey;
 
+    public String getFieldTypeFullName() {
+        return fieldTypeFullName;
+    }
+
+    public void setFieldTypeFullName(String fieldTypeFullName) {
+        this.fieldTypeFullName = fieldTypeFullName;
+    }
 
     public Integer getOrder() {
         return order;
