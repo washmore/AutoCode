@@ -2,10 +2,11 @@ package tech.washmore.autocode.core;
 
 import tech.washmore.autocode.core.config.ConfigManager;
 import tech.washmore.autocode.core.db.DataTableParser;
-import tech.washmore.autocode.core.generate.DaoClassGenerator;
-import tech.washmore.autocode.core.generate.MapperXmlGenerator;
-import tech.washmore.autocode.core.generate.ModelClassGenerator;
-import tech.washmore.autocode.core.generate.ServiceClassGenerator;
+import tech.washmore.autocode.core.generator.mysql.MysqlAbstractDaoClassGenerator;
+import tech.washmore.autocode.core.generator.mysql.impl.MysqlDefaultDaoClassGenerator;
+import tech.washmore.autocode.core.generator.mysql.impl.MysqlDefaultMapperXmlGenerator;
+import tech.washmore.autocode.core.generator.mysql.impl.MysqlDefaultModelClassGenerator;
+import tech.washmore.autocode.core.generator.mysql.impl.MysqlDefaultServiceClassGenerator;
 import tech.washmore.autocode.model.enums.AutoType;
 import tech.washmore.autocode.model.mysql.TableModel;
 
@@ -18,12 +19,6 @@ public class CodeMaker {
         generateFromFile("/Users/chenyuqing/IdeaProjects/AutoCode/autocode.test/config.json");
     }
 
-
-    public static void generate() {
-        generateFromFile(System.getProperty("user.dir") + "/config.json");
-    }
-
-
     public static void generateFromJson(String configJson) {
         ConfigManager.initConfigFromJson(configJson);
         handle();
@@ -34,6 +29,11 @@ public class CodeMaker {
         handle();
     }
 
+    public static void generateFromFileWithPluginClassLoader(String configLocation, ClassLoader classLoader) {
+        ConfigManager.initConfigFromFile(configLocation);
+        ConfigManager.setClassLoader(classLoader);
+        handle();
+    }
 
     private static void handle() {
         List<TableModel> tableModels = DataTableParser.finalTableModels();
@@ -47,39 +47,48 @@ public class CodeMaker {
         System.out.println("-----------------------------------------------");
         System.out.println("开始输出文件,根目录:" + new File(ConfigManager.getConfig().getProject().getPath()).getPath());
 
+        MysqlAbstractDaoClassGenerator daoClassGenerator = null;
+        try {
+            daoClassGenerator = (MysqlAbstractDaoClassGenerator) ConfigManager.getClassLoader().loadClass(ConfigManager.getConfig().getDataFile().getDao().getUserGeneratorClass()).newInstance();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        if (daoClassGenerator == null) {
+            daoClassGenerator = new MysqlDefaultDaoClassGenerator();
+        }
+
+
         for (AutoType autoType : AutoType.values()) {
             switch (autoType) {
                 case service:
                     if (autoTypes.contains(autoType.name())) {
                         System.out.println(System.lineSeparator() + "-----------------------------------------------");
                         System.out.println("开始输出service文件:" + System.lineSeparator());
-                        ServiceClassGenerator.generateServices(tableModels);
+                        MysqlDefaultServiceClassGenerator.generateServices(tableModels);
                     }
                     break;
                 case dao:
                     if (autoTypes.contains(autoType.name())) {
                         System.out.println(System.lineSeparator() + "-----------------------------------------------");
                         System.out.println("开始输出dao文件:" + System.lineSeparator());
-                        DaoClassGenerator.generateDaos(tableModels);
+                        daoClassGenerator.generateDaos(tableModels);
                     }
                     break;
                 case model:
                     if (autoTypes.contains(autoType.name())) {
                         System.out.println(System.lineSeparator() + "-----------------------------------------------");
                         System.out.println("开始输出model文件:" + System.lineSeparator());
-                        ModelClassGenerator.generateModels(tableModels);
+                        MysqlDefaultModelClassGenerator.generateModels(tableModels);
                     }
                     break;
                 case mapper:
                     if (autoTypes.contains(autoType.name())) {
                         System.out.println(System.lineSeparator() + "-----------------------------------------------");
                         System.out.println("开始输出mapper文件:" + System.lineSeparator());
-                        MapperXmlGenerator.generateMappers(tableModels);
+                        MysqlDefaultMapperXmlGenerator.generateMappers(tableModels);
                     }
                     break;
             }
         }
     }
-
-
 }

@@ -1,4 +1,4 @@
-package tech.washmore.autocode.core.generate;
+package tech.washmore.autocode.core.generator.mysql.impl;
 
 import tech.washmore.autocode.core.config.ConfigManager;
 import tech.washmore.autocode.model.Constants;
@@ -26,7 +26,7 @@ import static tech.washmore.autocode.util.StringUtils.underline2Camel;
  * @Copyright (c) 2018, Lianjia Group All Rights Reserved.
  * @since 2018/6/11
  */
-public class ServiceClassGenerator {
+public class MysqlDefaultServiceClassGenerator {
 
     public static void generateServices(List<TableModel> tableModels) {
         try {

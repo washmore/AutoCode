@@ -1,4 +1,4 @@
-package tech.washmore.autocode.core.generate;
+package tech.washmore.autocode.core.generator.mysql.impl;
 
 import tech.washmore.autocode.core.config.ConfigManager;
 import tech.washmore.autocode.model.Constants;
@@ -20,7 +20,7 @@ import java.util.List;
  * @Copyright (c) 2018, Lianjia Group All Rights Reserved.
  * @since 2018/6/11
  */
-public class MapperXmlGenerator {
+public class MysqlDefaultMapperXmlGenerator {
 
     public static void generateMappers(List<TableModel> tableModels) {
         try {

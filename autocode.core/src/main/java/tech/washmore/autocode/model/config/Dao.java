@@ -21,6 +21,16 @@ public class Dao {
     private String extendsPackagePath;
     private String summary;
 
+    private String userGeneratorClass;
+
+    public String getUserGeneratorClass() {
+        return userGeneratorClass;
+    }
+
+    public void setUserGeneratorClass(String userGeneratorClass) {
+        this.userGeneratorClass = userGeneratorClass;
+    }
+
     public String getBaseSuffix() {
         return baseSuffix;
     }

@@ -4,6 +4,24 @@ public class Doc {
     private String author;
     private String version;
     private String copyright;
+    private String summary;
+    private String userGeneratorClass;
+
+    public String getUserGeneratorClass() {
+        return userGeneratorClass;
+    }
+
+    public void setUserGeneratorClass(String userGeneratorClass) {
+        this.userGeneratorClass = userGeneratorClass;
+    }
+
+    public String getSummary() {
+        return summary;
+    }
+
+    public void setSummary(String summary) {
+        this.summary = summary;
+    }
 
     public String getAuthor() {
         return author;
