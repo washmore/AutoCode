@@ -2,8 +2,7 @@ package tech.washmore.autocode.core;
 
 import tech.washmore.autocode.core.config.ConfigManager;
 import tech.washmore.autocode.core.db.DataTableParser;
-import tech.washmore.autocode.core.generator.mysql.MysqlAbstractDaoClassGenerator;
-import tech.washmore.autocode.core.generator.mysql.impl.MysqlDefaultDaoClassGenerator;
+import tech.washmore.autocode.core.generator.factory.MysqlGeneratorFactory;
 import tech.washmore.autocode.core.generator.mysql.impl.MysqlDefaultMapperXmlGenerator;
 import tech.washmore.autocode.core.generator.mysql.impl.MysqlDefaultModelClassGenerator;
 import tech.washmore.autocode.core.generator.mysql.impl.MysqlDefaultServiceClassGenerator;
@@ -47,17 +46,6 @@ public class CodeMaker {
         System.out.println("-----------------------------------------------");
         System.out.println("开始输出文件,根目录:" + new File(ConfigManager.getConfig().getProject().getPath()).getPath());
 
-        MysqlAbstractDaoClassGenerator daoClassGenerator = null;
-        try {
-            daoClassGenerator = (MysqlAbstractDaoClassGenerator) ConfigManager.getClassLoader().loadClass(ConfigManager.getConfig().getDataFile().getDao().getUserGeneratorClass()).newInstance();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        if (daoClassGenerator == null) {
-            daoClassGenerator = new MysqlDefaultDaoClassGenerator();
-        }
-
-
         for (AutoType autoType : AutoType.values()) {
             switch (autoType) {
                 case service:
@@ -71,14 +59,14 @@ public class CodeMaker {
                     if (autoTypes.contains(autoType.name())) {
                         System.out.println(System.lineSeparator() + "-----------------------------------------------");
                         System.out.println("开始输出dao文件:" + System.lineSeparator());
-                        daoClassGenerator.generateDaos(tableModels);
+                        MysqlGeneratorFactory.daoClassGenerator().generateDaos(tableModels);
                     }
                     break;
                 case model:
                     if (autoTypes.contains(autoType.name())) {
                         System.out.println(System.lineSeparator() + "-----------------------------------------------");
                         System.out.println("开始输出model文件:" + System.lineSeparator());
-                        MysqlDefaultModelClassGenerator.generateModels(tableModels);
+                        new MysqlDefaultModelClassGenerator().generateModels(tableModels);
                     }
                     break;
                 case mapper:

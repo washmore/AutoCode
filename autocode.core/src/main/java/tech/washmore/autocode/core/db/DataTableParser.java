@@ -25,7 +25,6 @@ import static tech.washmore.autocode.util.StringUtils.underline2Camel;
  */
 public class DataTableParser {
     public static List<ColumnModel> parseColumn(String dbname, String tableName) throws SQLException {
-        System.out.println("当前解析:" + tableName);
         String sql = "SELECT * FROM information_schema.columns  WHERE TABLE_SCHEMA=? AND table_name=?";
 
         Connection c = ConnManager.getConn();
@@ -77,6 +76,7 @@ public class DataTableParser {
     }
 
     private static TableModel parseTable(String dbname, String tableName, List<String> existClsNames) throws SQLException {
+        System.out.println("当前解析:" + tableName);
         Db db = ConfigManager.getConfig().getDb();
         String sql = "SELECT * FROM information_schema.tables WHERE TABLE_SCHEMA=? AND table_name=?";
         Connection c = ConnManager.getConn();

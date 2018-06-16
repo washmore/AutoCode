@@ -24,7 +24,7 @@ public class JavaDocBasicAdapter {
                             .loadClass(ConfigManager.getConfig().getDoc().getUserGeneratorClass())
                             .newInstance();
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("javaDocGenerator未找到用户指定类,使用默认配置!");
         }
         if (javaDocGenerator == null) {
             javaDocGenerator = new JavaDocBasicGenerator();
