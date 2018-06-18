@@ -26,7 +26,7 @@ import static tech.washmore.autocode.util.StringUtils.underline2Camel;
  * @Copyright (c) 2018, Lianjia Group All Rights Reserved.
  * @since 2018/6/11
  */
-public class MysqlAbstractServiceClassGenerator {
+public abstract class MysqlAbstractServiceClassGenerator {
 
     public void generateServices(List<TableModel> tableModels) {
         try {

@@ -20,7 +20,7 @@ import java.util.List;
  * @Copyright (c) 2018, Lianjia Group All Rights Reserved.
  * @since 2018/6/11
  */
-public class MysqlAbstractMapperXmlGenerator {
+public abstract class MysqlAbstractMapperXmlGenerator {
 
     public void generateMappers(List<TableModel> tableModels) {
         try {
