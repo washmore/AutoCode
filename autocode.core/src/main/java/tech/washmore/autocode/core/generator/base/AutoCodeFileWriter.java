@@ -10,7 +10,7 @@ import java.io.OutputStream;
 /**
  * @author Washmore
  * @version V1.0
- * @summary TODO
+ * @summary 将生成的代码写入文件的工具类
  * @Copyright (c) 2018, Lianjia Group All Rights Reserved.
  * @since 2018/6/15
  */

@@ -25,7 +25,7 @@ import static tech.washmore.autocode.util.StringUtils.underline2Camel;
 /**
  * @author Washmore
  * @version V1.0
- * @summary TODO
+ * @summary 默认的model生成器
  * @Copyright (c) 2018, Lianjia Group All Rights Reserved.
  * @since 2018/6/11
  */

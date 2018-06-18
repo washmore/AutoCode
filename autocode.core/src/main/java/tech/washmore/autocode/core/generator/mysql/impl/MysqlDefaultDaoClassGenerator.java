@@ -5,7 +5,7 @@ import tech.washmore.autocode.core.generator.mysql.MysqlAbstractDaoClassGenerato
 /**
  * @author Washmore
  * @version V1.0
- * @summary TODO
+ * @summary 默认的dao生成器
  * @Copyright (c) 2018, Lianjia Group All Rights Reserved.
  * @since 2018/6/11
  */

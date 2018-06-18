@@ -16,7 +16,7 @@ import java.util.List;
 /**
  * @author Washmore
  * @version V1.0
- * @summary TODO
+ * @summary 抽象的mapper.xml生成器
  * @Copyright (c) 2018, Lianjia Group All Rights Reserved.
  * @since 2018/6/11
  */

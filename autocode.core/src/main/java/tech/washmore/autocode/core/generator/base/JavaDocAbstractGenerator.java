@@ -11,7 +11,7 @@ import java.util.Date;
 /**
  * @author Washmore
  * @version V1.0
- * @summary TODO
+ * @summary 抽象的javadoc生成器, 如果用户需要自定义内容 ,继承此类然后重写相应的方法即可;
  * @Copyright (c) 2018, Lianjia Group All Rights Reserved.
  * @since 2018/6/15
  */
@@ -34,23 +34,54 @@ public abstract class JavaDocAbstractGenerator {
         return sb.toString();
     }
 
+    /**
+     * 通用的model类注释
+     *
+     * @param ti
+     * @return
+     */
     public String generateModelTypeDoc(TableDocInfo ti) {
         return generateCommonTypeDoc(String.format(Constants.modelSummaryTemplate, ti.getTableComment(), ti.getTableName()));
     }
 
+    /**
+     * 通用的baseService注释
+     *
+     * @param ti
+     * @return
+     */
     public String generateBaseServiceTypeDoc(TableDocInfo ti) {
         return generateCommonTypeDoc(String.format(Constants.serviceSummaryTemplate, ti.getTableComment(), ti.getTableName()));
     }
 
+    /**
+     * 通用的service注释
+     *
+     * @param ti
+     * @return
+     */
     public String generateServiceTypeDoc(TableDocInfo ti) {
         return generateCommonTypeDoc(String.format(Constants.serviceSummaryTemplate, ti.getTableComment(), ti.getTableName()));
     }
 
+    /**
+     * 通用的dao注释
+     *
+     * @param ti
+     * @return
+     */
     public String generateDaoTypeDoc(TableDocInfo ti) {
         return generateCommonTypeDoc(String.format(Constants.daoSummaryTemplate, ti.getTableComment(), ti.getTableName()));
     }
 
+    /**
+     * 通用的baseDao注释
+     *
+     * @param ti
+     * @return
+     */
     public String generateBaseDaoTypeDoc(TableDocInfo ti) {
         return generateCommonTypeDoc(String.format(Constants.daoSummaryTemplate, ti.getTableComment(), ti.getTableName()));
     }
+    //TODO 后续继续提供getter注释,serviceMethod,daoMethod注释等
 }

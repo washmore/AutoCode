@@ -3,9 +3,6 @@ package tech.washmore.autocode.core;
 import tech.washmore.autocode.core.config.ConfigManager;
 import tech.washmore.autocode.core.db.DataTableParser;
 import tech.washmore.autocode.core.generator.factory.MysqlGeneratorFactory;
-import tech.washmore.autocode.core.generator.mysql.impl.MysqlDefaultMapperXmlGenerator;
-import tech.washmore.autocode.core.generator.mysql.impl.MysqlDefaultModelClassGenerator;
-import tech.washmore.autocode.core.generator.mysql.impl.MysqlDefaultServiceClassGenerator;
 import tech.washmore.autocode.model.enums.AutoType;
 import tech.washmore.autocode.model.mysql.TableModel;
 
@@ -52,7 +49,7 @@ public class CodeMaker {
                     if (autoTypes.contains(autoType.name())) {
                         System.out.println(System.lineSeparator() + "-----------------------------------------------");
                         System.out.println("开始输出service文件:" + System.lineSeparator());
-                        MysqlDefaultServiceClassGenerator.generateServices(tableModels);
+                        MysqlGeneratorFactory.serviceClassGenerator().generateServices(tableModels);
                     }
                     break;
                 case dao:
@@ -66,14 +63,14 @@ public class CodeMaker {
                     if (autoTypes.contains(autoType.name())) {
                         System.out.println(System.lineSeparator() + "-----------------------------------------------");
                         System.out.println("开始输出model文件:" + System.lineSeparator());
-                        new MysqlDefaultModelClassGenerator().generateModels(tableModels);
+                        MysqlGeneratorFactory.modelClassGenerator().generateModels(tableModels);
                     }
                     break;
                 case mapper:
                     if (autoTypes.contains(autoType.name())) {
                         System.out.println(System.lineSeparator() + "-----------------------------------------------");
                         System.out.println("开始输出mapper文件:" + System.lineSeparator());
-                        MysqlDefaultMapperXmlGenerator.generateMappers(tableModels);
+                        MysqlGeneratorFactory.mapperXmlGenerator().generateMappers(tableModels);
                     }
                     break;
             }

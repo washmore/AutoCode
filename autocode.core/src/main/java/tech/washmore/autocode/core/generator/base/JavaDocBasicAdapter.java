@@ -7,11 +7,11 @@ import tech.washmore.autocode.model.mysql.TableModel;
 /**
  * @author Washmore
  * @version V1.0
- * @summary TODO
+ * @summary 在暴露给用户便于重写javadoc前将原始的数据库信息进行删减后仅提供给javaDocGenerator需要的内容
  * @Copyright (c) 2018, Lianjia Group All Rights Reserved.
  * @since 2018/6/15
  */
-public class JavaDocBasicAdapter {
+public final class JavaDocBasicAdapter {
     private static JavaDocAbstractGenerator javaDocGenerator;
 
     static {

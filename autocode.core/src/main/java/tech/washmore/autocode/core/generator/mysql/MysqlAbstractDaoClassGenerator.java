@@ -20,7 +20,7 @@ import static tech.washmore.autocode.util.StringUtils.underline2Camel;
 /**
  * @author Washmore
  * @version V1.0
- * @summary TODO
+ * @summary 抽象的dao生成器//TODO 有待进一步封装,提供多种dao形式,另外将方法生成暴露给用户用于重写
  * @Copyright (c) 2018, Lianjia Group All Rights Reserved.
  * @since 2018/6/11
  */
@@ -296,8 +296,6 @@ public abstract class MysqlAbstractDaoClassGenerator implements DaoClassGenerato
         Service service = dataFile.getService();
         Model model = config.getModel();
 
-        StringUtils.appendAtline3IfNotExist(source, "import javax.annotation.Resource;");
-        StringUtils.appendAtline3IfNotExist(source, new StringBuffer().append("import ").append(dao.getExtendsPackageName()).append(".").append(tm.getClsName() + dao.getSuffix()).append(";").toString());
         List<String> methods = dataFile.getMethodInclude();
         for (String m : methods) {
             if (m.toUpperCase().contains("PrimaryKey" .toUpperCase()) &&

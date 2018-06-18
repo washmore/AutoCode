@@ -28,7 +28,7 @@ import static tech.washmore.autocode.util.StringUtils.underline2Camel;
  */
 public class MysqlAbstractServiceClassGenerator {
 
-    public static void generateServices(List<TableModel> tableModels) {
+    public void generateServices(List<TableModel> tableModels) {
         try {
             for (TableModel t : tableModels) {
                 generateService(t);
@@ -39,7 +39,7 @@ public class MysqlAbstractServiceClassGenerator {
         }
     }
 
-    private static void generateServiceExtends(TableModel tm) throws IOException {
+    private void generateServiceExtends(TableModel tm) throws IOException {
         Config config = ConfigManager.getConfig();
         Model modelConfig = config.getModel();
         DataFile dataFile = config.getDataFile();
@@ -85,7 +85,7 @@ public class MysqlAbstractServiceClassGenerator {
         System.out.println("\t输出文件:" + file.getPath().replace(new File(config.getProject().getPath()).getPath(), ""));
     }
 
-    private static void generateService(TableModel tm) throws IOException {
+    private void generateService(TableModel tm) throws IOException {
         Config config = ConfigManager.getConfig();
         Model modelConfig = config.getModel();
         DataFile dataFile = config.getDataFile();
@@ -187,7 +187,7 @@ public class MysqlAbstractServiceClassGenerator {
     }
 
 
-    private static String appendCountByParams(TableModel tm) {
+    private String appendCountByParams(TableModel tm) {
         Dao dao = ConfigManager.getConfig().getDataFile().getDao();
         StringBuffer sb = new StringBuffer();
         sb.append("\tpublic final int countByParams(Map<String, Object> params) {")
@@ -199,7 +199,7 @@ public class MysqlAbstractServiceClassGenerator {
         return sb.toString();
     }
 
-    private static String appendCountByExample(TableModel tm) {
+    private String appendCountByExample(TableModel tm) {
         Dao dao = ConfigManager.getConfig().getDataFile().getDao();
         StringBuffer sb = new StringBuffer();
         sb.append("\tpublic final int countByExample(").append(tm.getClsName()).append(" example) {")
@@ -211,7 +211,7 @@ public class MysqlAbstractServiceClassGenerator {
         return sb.toString();
     }
 
-    private static String appendSelectByParams(TableModel tm) {
+    private String appendSelectByParams(TableModel tm) {
         Dao dao = ConfigManager.getConfig().getDataFile().getDao();
         StringBuffer sb = new StringBuffer();
         sb.append("\tpublic final List<").append(tm.getClsName()).append("> selectByParams(Map<String, Object> params) {")
@@ -223,7 +223,7 @@ public class MysqlAbstractServiceClassGenerator {
         return sb.toString();
     }
 
-    private static String appendSelectByExample(TableModel tm) {
+    private String appendSelectByExample(TableModel tm) {
         Dao dao = ConfigManager.getConfig().getDataFile().getDao();
         StringBuffer sb = new StringBuffer();
         sb.append("\tpublic final List<").append(tm.getClsName()).append("> selectByExample(").append(tm.getClsName()).append(" example) {")
@@ -235,7 +235,7 @@ public class MysqlAbstractServiceClassGenerator {
         return sb.toString();
     }
 
-    private static String appendSelectByPrimaryKey(TableModel tm) {
+    private String appendSelectByPrimaryKey(TableModel tm) {
         ColumnModel pk = tm.getPrimaryKey();
         if (pk == null) {
             return "";
@@ -254,7 +254,7 @@ public class MysqlAbstractServiceClassGenerator {
         return sb.toString();
     }
 
-    private static String appendBatchUpdateByPrimaryKeySelective(TableModel tm) {
+    private String appendBatchUpdateByPrimaryKeySelective(TableModel tm) {
         ColumnModel pk = tm.getPrimaryKey();
         if (pk == null) {
             return "";
@@ -296,7 +296,7 @@ public class MysqlAbstractServiceClassGenerator {
         return sb.toString();
     }
 
-    private static String appendUpdateByPrimaryKeySelective(TableModel tm) {
+    private String appendUpdateByPrimaryKeySelective(TableModel tm) {
         ColumnModel pk = tm.getPrimaryKey();
         if (pk == null) {
             return "";
@@ -315,7 +315,7 @@ public class MysqlAbstractServiceClassGenerator {
         return sb.toString();
     }
 
-    private static String appendUpdateByPrimaryKey(TableModel tm) {
+    private String appendUpdateByPrimaryKey(TableModel tm) {
         ColumnModel pk = tm.getPrimaryKey();
         if (pk == null) {
             return "";
@@ -334,7 +334,7 @@ public class MysqlAbstractServiceClassGenerator {
         return sb.toString();
     }
 
-    private static String appendBatchDeleteByPrimaryKey(TableModel tm) {
+    private String appendBatchDeleteByPrimaryKey(TableModel tm) {
         ColumnModel pk = tm.getPrimaryKey();
         if (pk == null) {
             return "";
@@ -350,7 +350,7 @@ public class MysqlAbstractServiceClassGenerator {
         return sb.toString();
     }
 
-    private static String appendDeleteByPrimaryKey(TableModel tm) {
+    private String appendDeleteByPrimaryKey(TableModel tm) {
         ColumnModel pk = tm.getPrimaryKey();
         if (pk == null) {
             return "";
@@ -369,7 +369,7 @@ public class MysqlAbstractServiceClassGenerator {
         return sb.toString();
     }
 
-    private static String appendBatchInsertSelective(TableModel tm) {
+    private String appendBatchInsertSelective(TableModel tm) {
         DataFile dataFile = ConfigManager.getConfig().getDataFile();
         Dao dao = dataFile.getDao();
         Mapper mapper = dataFile.getMapper();
@@ -391,7 +391,7 @@ public class MysqlAbstractServiceClassGenerator {
         return sb.toString();
     }
 
-    private static String appendBatchInsert(TableModel tm) {
+    private String appendBatchInsert(TableModel tm) {
         DataFile dataFile = ConfigManager.getConfig().getDataFile();
         Dao dao = dataFile.getDao();
         Service service = dataFile.getService();
@@ -429,7 +429,7 @@ public class MysqlAbstractServiceClassGenerator {
         return sb.toString();
     }
 
-    private static String appendInsertSelective(TableModel tm) {
+    private String appendInsertSelective(TableModel tm) {
         Dao dao = ConfigManager.getConfig().getDataFile().getDao();
         StringBuffer sb = new StringBuffer();
         sb.append("\tpublic final int insertSelective(")
@@ -444,7 +444,7 @@ public class MysqlAbstractServiceClassGenerator {
         return sb.toString();
     }
 
-    private static String appendInsert(TableModel tm) {
+    private String appendInsert(TableModel tm) {
         Dao dao = ConfigManager.getConfig().getDataFile().getDao();
         StringBuffer sb = new StringBuffer();
         sb.append("\tpublic final int insert(")
@@ -459,7 +459,7 @@ public class MysqlAbstractServiceClassGenerator {
         return sb.toString();
     }
 
-    private static void insertDependencies(StringBuffer source, TableModel tm) {
+    private void insertDependencies(StringBuffer source, TableModel tm) {
         Config config = ConfigManager.getConfig();
         DataFile dataFile = config.getDataFile();
         Dao dao = dataFile.getDao();
@@ -470,7 +470,7 @@ public class MysqlAbstractServiceClassGenerator {
         StringUtils.appendAtline3IfNotExist(source, new StringBuffer().append("import ").append(dao.getExtendsPackageName()).append(".").append(tm.getClsName() + dao.getSuffix()).append(";").toString());
         List<String> methods = dataFile.getMethodInclude();
         for (String m : methods) {
-            if (m.toUpperCase().contains("PrimaryKey" .toUpperCase()) &&
+            if (m.toUpperCase().contains("PrimaryKey".toUpperCase()) &&
                     tm.getPrimaryKey() != null && JavaDataType.时间.value.equals(tm.getPrimaryKey().getFieldType())) {
                 StringUtils.appendAtline3IfNotExist(source, "import java.util.Date;");
             }
