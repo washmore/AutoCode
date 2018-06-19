@@ -84,7 +84,6 @@
                 <configuration>
                     <configLocation>/Users/chenyuqing/IdeaProjects/AutoCode/autocode.test/config.json</configLocation>
                     <databaseDriver>com.mysql.jdbc.Driver</databaseDriver>
-                    <databaseName>EmployeeCare</databaseName>
                     <databaseUrl>jdbc:mysql://localhost:3306/EmployeeCare</databaseUrl>
                     <databaseUsername>root</databaseUsername>
                     <databasePassword></databasePassword>

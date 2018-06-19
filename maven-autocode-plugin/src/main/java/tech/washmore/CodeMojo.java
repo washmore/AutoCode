@@ -32,10 +32,6 @@ public class CodeMojo extends AbstractMojo {
      */
     private String databaseDriver;
     /**
-     * @parameter expression="${databaseName}"
-     */
-    private String databaseName;
-    /**
      * @parameter expression="${databaseUrl}"
      */
     private String databaseUrl;
@@ -77,7 +73,6 @@ public class CodeMojo extends AbstractMojo {
                 Config config = new Config();
                 String base = project.getModel().getGroupId() + "." + project.getModel().getArtifactId();
                 Db db = config.getDb();
-                db.setDbName(databaseName);
                 db.setUrl(databaseUrl);
                 db.setDriver(databaseDriver);
                 db.setUsername(databaseUsername);
