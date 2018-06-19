@@ -1,5 +1,6 @@
 package tech.washmore.autocode.model.config;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -10,11 +11,11 @@ import java.util.List;
  * @since 2018/6/11
  */
 public class DataFile {
-    private List<String> methodInclude;
-    private Dao dao;
-    private Service service;
-    private Mapper mapper;
-    private List<String> methodExclude;
+    private List<String> methodInclude = new ArrayList<>();
+    private Dao dao = new Dao();
+    private Service service = new Service();
+    private Mapper mapper = new Mapper();
+    private List<String> methodExclude = new ArrayList<>();
 
     public Service getService() {
         return service;

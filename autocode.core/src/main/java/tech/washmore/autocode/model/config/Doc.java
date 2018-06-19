@@ -1,11 +1,11 @@
 package tech.washmore.autocode.model.config;
 
 public class Doc {
-    private String author;
-    private String version;
-    private String copyright;
-    private String summary;
-    private String userGeneratorClass;
+    private String author = "Wahsmore";
+    private String version = "V1.0";
+    private String copyright = "(c) 2018, Washmore All Rights Reserved.";
+    private String summary = "";
+    private String userGeneratorClass = "";
 
     public String getUserGeneratorClass() {
         return userGeneratorClass;

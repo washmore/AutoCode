@@ -8,8 +8,8 @@ package tech.washmore.autocode.model.config;
  * @since 2018/6/11
  */
 public class Dao {
-    private String suffix;
-    private String baseSuffix;
+    private String suffix = "Dao";
+    private String baseSuffix = "BaseDao";
 
     private String packageName;
     private String packagePath;

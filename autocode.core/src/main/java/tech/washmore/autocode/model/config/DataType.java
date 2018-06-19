@@ -1,13 +1,14 @@
 package tech.washmore.autocode.model.config;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class DataType {
-    private List<String> date;
-    private List<String> string;
-    private List<String> integer;
-    private List<String> longL;
-    private List<String> doubleD;
+    private List<String> date = Arrays.asList("timestamp", "datetime");
+    private List<String> string = Arrays.asList("char", "varchar", "text");
+    private List<String> integer = Arrays.asList("int", "smallint", "tinyint");
+    private List<String> longL = Arrays.asList("bigint");
+    private List<String> doubleD = Arrays.asList("double", "float");
 
     public List<String> getDate() {
         return date;

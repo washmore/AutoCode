@@ -18,7 +18,14 @@
             <url>http://maven.washmore.tech/nexus/content/repositories/public/</url>
         </repository>
     </repositories>
-
+    <distributionManagement>
+        <snapshotRepository>
+            <id>deploymentRepo</id>
+            <name>washmore_snapshots</name>
+            <url>http://maven.washmore.tech/nexus/content/repositories/snapshots/</url>
+            <uniqueVersion>false</uniqueVersion>
+        </snapshotRepository>
+    </distributionManagement>
     <pluginRepositories>
         <pluginRepository>
             <id>washmore</id>

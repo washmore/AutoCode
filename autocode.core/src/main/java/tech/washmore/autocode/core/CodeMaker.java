@@ -12,11 +12,12 @@ import java.util.List;
 public class CodeMaker {
 
     public static void main(String[] args) throws Exception {
-       generateFromFile("/Users/chenyuqing/IdeaProjects/AutoCode/autocode.test/config.json");
+        generateFromFile("/Users/chenyuqing/IdeaProjects/AutoCode/autocode.test/config.json");
     }
 
-    public static void generateFromJson(String configJson) {
+    public static void generateFromJsonWithPluginClassLoader(String configJson, ClassLoader classLoader) {
         ConfigManager.initConfigFromJson(configJson);
+        ConfigManager.setClassLoader(classLoader);
         handle();
     }
 

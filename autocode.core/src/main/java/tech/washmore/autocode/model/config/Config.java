@@ -1,15 +1,16 @@
 package tech.washmore.autocode.model.config;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class Config {
-    private List<String> autoTypes;
-    private Project project;
-    private Db db;
-    private Doc doc;
-    private Model model;
-    private DataType dataType;
-    private DataFile dataFile;
+    private List<String> autoTypes = Arrays.asList("service", "dao", "mapper", "model");
+    private Project project = new Project();
+    private Db db = new Db();
+    private Doc doc = new Doc();
+    private Model model = new Model();
+    private DataType dataType = new DataType();
+    private DataFile dataFile = new DataFile();
 
     public List<String> getAutoTypes() {
         return autoTypes;

@@ -3,7 +3,7 @@ package tech.washmore.autocode.model.config;
 public class Model {
     private String packageName;
     private String packagePath;
-    private boolean visitorWithDoc;
+    private boolean visitorWithDoc = false;
     private boolean toString = true;
 
     private String summary;

@@ -1,5 +1,6 @@
 package tech.washmore.autocode.model.config;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Db {
@@ -8,7 +9,7 @@ public class Db {
     private String url;
     private String username;
     private String password;
-    private List<String> tableNamePrefix;
+    private List<String> tableNamePrefix = new ArrayList<>();
 
     public List<String> getTableNamePrefix() {
         return tableNamePrefix;

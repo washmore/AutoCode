@@ -1,16 +1,17 @@
 package tech.washmore.autocode.model.config;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Project {
-    private String path;
-    private String subModule;
+    private String path = "";
+    private String subModule = "";
 
-    private String javaRoot;
-    private String resourcesRoot;
+    private String javaRoot = "/src/main/java/";
+    private String resourcesRoot = "/src/main/resources/";
     private boolean underline2Camel = true;
-    private List<String> exclude;
-    private List<String> include;
+    private List<String> exclude = new ArrayList<>();
+    private List<String> include = new ArrayList<>();
 
     public String getSubModule() {
         return subModule;

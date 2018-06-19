@@ -167,6 +167,8 @@ public class ConfigManager {
             mapper.setExtendsPath(Constants.extendsDataFileSuffix);
         }
 
+        System.out.println("最终生效配置内容:" + System.lineSeparator() + JSON.toJSONString(config, true));
+
         return config;
     }
 

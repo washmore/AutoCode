@@ -6,5 +6,6 @@ target/
 .settings/
 logs/
 *.log
-/autocode.test/src/main/java/washmore/
+/autocode.test/src/main/java/
+!/autocode.test/src/main/java/AppStarter.java
 /autocode.test/src/main/resources/mappers/

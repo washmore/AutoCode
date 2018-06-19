@@ -9,8 +9,8 @@ package tech.washmore.autocode.model.config;
  */
 public class Mapper {
     private String path;
-    private String baseSuffix;
-    private String suffix;
+    private String baseSuffix = "BaseMapper";
+    private String suffix = "Mapper";
     private String basePath;
     private boolean usekeyProperty = true;
 
