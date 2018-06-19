@@ -7,8 +7,6 @@ import tech.washmore.autocode.model.enums.AutoType;
 import tech.washmore.autocode.model.mysql.TableModel;
 
 import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.util.List;
 
 public class CodeMaker {

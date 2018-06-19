@@ -60,7 +60,7 @@ mvn clean install -X -e -Dmaven.test.skip=true
     </configuration>
 </plugin>
 ```
-#### 3.在上一步指定的位置编写`config.json`文件(~~可选,如不配置此文件,则应用默认配置(暂未实现缺省配置功能)~~),内容可参考git仓库根目录的`confi_example.json`文件,只需修改db相关配置,其他使用默认值即可;`config.json`各配置项意义详情参考博文:[详解AutoCode插件的配置文件](https://blog.washmoretech.com)
+#### 3.在上一步指定的位置编写`config.json`文件(~~可选,如不配置此文件,则应用默认配置(暂未实现缺省配置功能)~~),内容可参考git仓库根目录的`confi_example.json`文件,只需修改db相关配置,其他使用默认值即可;`config.json`各配置项意义详情参考博文:[详解AutoCode插件的配置文件](https://blog.washmoretech.com/articles/2018/06/15/1529054506993.html)
 #### 4.执行插件命令生成代码
 ```
 mvn autcode:code
