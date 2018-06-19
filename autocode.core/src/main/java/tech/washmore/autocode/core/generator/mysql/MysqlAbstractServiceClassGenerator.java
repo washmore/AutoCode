@@ -190,7 +190,7 @@ public abstract class MysqlAbstractServiceClassGenerator {
     private String appendCountByParams(TableModel tm) {
         Dao dao = ConfigManager.getConfig().getDataFile().getDao();
         StringBuffer sb = new StringBuffer();
-        sb.append("\tpublic final int countByParams(Map<String, Object> params) {")
+        sb.append("\tpublic int countByParams(Map<String, Object> params) {")
                 .append(System.lineSeparator());
         sb.append("\t\treturn ").append(underline2Camel(tm.getVirtualTbName(), false) + dao.getSuffix())
                 .append(".").append("countByParams(params);")
@@ -202,7 +202,7 @@ public abstract class MysqlAbstractServiceClassGenerator {
     private String appendCountByExample(TableModel tm) {
         Dao dao = ConfigManager.getConfig().getDataFile().getDao();
         StringBuffer sb = new StringBuffer();
-        sb.append("\tpublic final int countByExample(").append(tm.getClsName()).append(" example) {")
+        sb.append("\tpublic int countByExample(").append(tm.getClsName()).append(" example) {")
                 .append(System.lineSeparator());
         sb.append("\t\treturn ").append(underline2Camel(tm.getVirtualTbName(), false) + dao.getSuffix())
                 .append(".").append("countByExample(example);")
@@ -214,7 +214,7 @@ public abstract class MysqlAbstractServiceClassGenerator {
     private String appendSelectByParams(TableModel tm) {
         Dao dao = ConfigManager.getConfig().getDataFile().getDao();
         StringBuffer sb = new StringBuffer();
-        sb.append("\tpublic final List<").append(tm.getClsName()).append("> selectByParams(Map<String, Object> params) {")
+        sb.append("\tpublic List<").append(tm.getClsName()).append("> selectByParams(Map<String, Object> params) {")
                 .append(System.lineSeparator());
         sb.append("\t\treturn ").append(underline2Camel(tm.getVirtualTbName(), false) + dao.getSuffix())
                 .append(".").append("selectByParams(params);")
@@ -226,7 +226,7 @@ public abstract class MysqlAbstractServiceClassGenerator {
     private String appendSelectByExample(TableModel tm) {
         Dao dao = ConfigManager.getConfig().getDataFile().getDao();
         StringBuffer sb = new StringBuffer();
-        sb.append("\tpublic final List<").append(tm.getClsName()).append("> selectByExample(").append(tm.getClsName()).append(" example) {")
+        sb.append("\tpublic List<").append(tm.getClsName()).append("> selectByExample(").append(tm.getClsName()).append(" example) {")
                 .append(System.lineSeparator());
         sb.append("\t\treturn ").append(underline2Camel(tm.getVirtualTbName(), false) + dao.getSuffix())
                 .append(".").append("selectByExample(example);")
@@ -242,7 +242,7 @@ public abstract class MysqlAbstractServiceClassGenerator {
         }
         Dao dao = ConfigManager.getConfig().getDataFile().getDao();
         StringBuffer sb = new StringBuffer();
-        sb.append("\tpublic final ").append(tm.getClsName()).append(" selectByPrimaryKey(")
+        sb.append("\tpublic ").append(tm.getClsName()).append(" selectByPrimaryKey(")
                 .append(pk.getFieldType()).append(" ")
                 .append(pk.getFieldName())
                 .append(") {")
@@ -269,7 +269,7 @@ public abstract class MysqlAbstractServiceClassGenerator {
                     .append(tm.getClsName()).append("> list) {")
                     .append(System.lineSeparator());
         } else {
-            sb.append("\tpublic final int batchUpdateByPrimaryKeySelective(List<")
+            sb.append("\tpublic int batchUpdateByPrimaryKeySelective(List<")
                     .append(tm.getClsName()).append("> list) {")
                     .append(System.lineSeparator());
         }
@@ -303,7 +303,7 @@ public abstract class MysqlAbstractServiceClassGenerator {
         }
         Dao dao = ConfigManager.getConfig().getDataFile().getDao();
         StringBuffer sb = new StringBuffer();
-        sb.append("\tpublic final int updateByPrimaryKeySelective(")
+        sb.append("\tpublic int updateByPrimaryKeySelective(")
                 .append(tm.getClsName()).append(" ")
                 .append(underline2Camel(tm.getVirtualTbName(), false))
                 .append(") {")
@@ -322,7 +322,7 @@ public abstract class MysqlAbstractServiceClassGenerator {
         }
         Dao dao = ConfigManager.getConfig().getDataFile().getDao();
         StringBuffer sb = new StringBuffer();
-        sb.append("\tpublic final int updateByPrimaryKey(")
+        sb.append("\tpublic int updateByPrimaryKey(")
                 .append(tm.getClsName()).append(" ")
                 .append(underline2Camel(tm.getVirtualTbName(), false))
                 .append(") {")
@@ -341,7 +341,7 @@ public abstract class MysqlAbstractServiceClassGenerator {
         }
         Dao dao = ConfigManager.getConfig().getDataFile().getDao();
         StringBuffer sb = new StringBuffer();
-        sb.append("\tpublic final int batchDeleteByPrimaryKey(List<")
+        sb.append("\tpublic int batchDeleteByPrimaryKey(List<")
                 .append(pk.getFieldType()).append("> list) {")
                 .append(System.lineSeparator());
         sb.append("\t\treturn ").append(underline2Camel(tm.getVirtualTbName(), false) + dao.getSuffix())
@@ -357,7 +357,7 @@ public abstract class MysqlAbstractServiceClassGenerator {
         }
         Dao dao = ConfigManager.getConfig().getDataFile().getDao();
         StringBuffer sb = new StringBuffer();
-        sb.append("\tpublic final int deleteByPrimaryKey(")
+        sb.append("\tpublic int deleteByPrimaryKey(")
                 .append(pk.getFieldType()).append(" ")
                 .append(pk.getFieldName())
                 .append(") {")
@@ -402,7 +402,7 @@ public abstract class MysqlAbstractServiceClassGenerator {
                     .append(tm.getClsName()).append("> list) {")
                     .append(System.lineSeparator());
         } else {
-            sb.append("\tpublic final int batchInsert(List<")
+            sb.append("\tpublic int batchInsert(List<")
                     .append(tm.getClsName()).append("> list) {")
                     .append(System.lineSeparator());
         }
@@ -432,7 +432,7 @@ public abstract class MysqlAbstractServiceClassGenerator {
     private String appendInsertSelective(TableModel tm) {
         Dao dao = ConfigManager.getConfig().getDataFile().getDao();
         StringBuffer sb = new StringBuffer();
-        sb.append("\tpublic final int insertSelective(")
+        sb.append("\tpublic int insertSelective(")
                 .append(tm.getClsName()).append(" ")
                 .append(underline2Camel(tm.getVirtualTbName(), false))
                 .append(") {")
@@ -447,7 +447,7 @@ public abstract class MysqlAbstractServiceClassGenerator {
     private String appendInsert(TableModel tm) {
         Dao dao = ConfigManager.getConfig().getDataFile().getDao();
         StringBuffer sb = new StringBuffer();
-        sb.append("\tpublic final int insert(")
+        sb.append("\tpublic int insert(")
                 .append(tm.getClsName()).append(" ")
                 .append(underline2Camel(tm.getVirtualTbName(), false))
                 .append(") {")

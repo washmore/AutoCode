@@ -8,7 +8,7 @@
 	"dataFile":{
 		"dao":{
 			"baseSuffix":"BaseDao",
-			"packageName":"tech.washmore.autocode.test.dao",
+			"packageName":"washmore.dao",
 			"suffix":"Dao"
 		},
 		"mapper":{
@@ -23,8 +23,8 @@
 		"service":{
 			"abstractBase":true,
 			"baseSuffix":"BaseService",
-			"packageName":"tech.washmore.autocode.test.service",
-			"suffix":""
+			"packageName":"washmore.service",
+			"suffix":"Service"
 		}
 	},
 	"dataType":{
@@ -51,7 +51,6 @@
 		]
 	},
 	"db":{
-		"dbName":"EmployeeCare",
 		"driver":"com.mysql.jdbc.Driver",
 		"tableNamePrefix":[],
 		"url":"jdbc:mysql://localhost:3306/EmployeeCare",
@@ -65,7 +64,7 @@
 		"version":"V1.0"
 	},
 	"model":{
-		"packageName":"tech.washmore.autocode.test.model",
+		"packageName":"washmore.model",
 		"toString":true,
 		"visitorWithDoc":false
 	},
