@@ -7,7 +7,7 @@ import java.util.List;
  * @author Washmore
  * @version V1.0
  * @summary TODO
- * @Copyright (c) 2018, Lianjia Group All Rights Reserved.
+ * @Copyright (c) 2018, Washmore All Rights Reserved.
  * @since 2018/6/15
  */
 public class ColumnDocInfo extends TableDocInfo {

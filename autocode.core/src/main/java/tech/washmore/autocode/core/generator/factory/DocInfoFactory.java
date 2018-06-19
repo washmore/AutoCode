@@ -12,7 +12,7 @@ import tech.washmore.autocode.model.mysql.TableModel;
  * @author Washmore
  * @version V1.0
  * @summary 用于将数据库原始信息转化为仅包含javadoc需要的信息实体
- * @Copyright (c) 2018, Lianjia Group All Rights Reserved.
+ * @Copyright (c) 2018, Washmore All Rights Reserved.
  * @since 2018/6/15
  */
 public class DocInfoFactory {

@@ -12,7 +12,7 @@ import java.util.Date;
  * @author Washmore
  * @version V1.0
  * @summary 抽象的javadoc生成器, 如果用户需要自定义内容 ,继承此类然后重写相应的方法即可;
- * @Copyright (c) 2018, Lianjia Group All Rights Reserved.
+ * @Copyright (c) 2018, Washmore All Rights Reserved.
  * @since 2018/6/15
  */
 public abstract class JavaDocAbstractGenerator {

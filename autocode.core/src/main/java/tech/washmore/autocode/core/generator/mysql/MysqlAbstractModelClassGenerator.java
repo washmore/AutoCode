@@ -22,7 +22,7 @@ import static tech.washmore.autocode.util.StringUtils.underline2Camel;
  * @author Washmore
  * @version V1.0
  * @summary 抽象的model生成器, 后续考虑将方法公有化便于用户重写
- * @Copyright (c) 2018, Lianjia Group All Rights Reserved.
+ * @Copyright (c) 2018, Washmore All Rights Reserved.
  * @since 2018/6/11
  */
 public abstract class MysqlAbstractModelClassGenerator {
