@@ -4,7 +4,7 @@ package tech.washmore.autocode.model.config;
  * @author Washmore
  * @version V1.0
  * @summary TODO
- * @Copyright (c) 2018, Lianjia Group All Rights Reserved.
+ * @Copyright (c) 2018, Washmore All Rights Reserved.
  * @since 2018/6/11
  */
 public class Dao {
@@ -20,6 +20,16 @@ public class Dao {
     private String extendsPackageName;
     private String extendsPackagePath;
     private String summary;
+
+    private String userGeneratorClass;
+
+    public String getUserGeneratorClass() {
+        return userGeneratorClass;
+    }
+
+    public void setUserGeneratorClass(String userGeneratorClass) {
+        this.userGeneratorClass = userGeneratorClass;
+    }
 
     public String getBaseSuffix() {
         return baseSuffix;

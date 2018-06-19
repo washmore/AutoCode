@@ -1,4 +1,4 @@
-package tech.washmore.autocode.core.generate;
+package tech.washmore.autocode.core.generator.mysql;
 
 import tech.washmore.autocode.core.config.ConfigManager;
 import tech.washmore.autocode.model.Constants;
@@ -16,13 +16,13 @@ import java.util.List;
 /**
  * @author Washmore
  * @version V1.0
- * @summary TODO
- * @Copyright (c) 2018, Lianjia Group All Rights Reserved.
+ * @summary 抽象的mapper.xml生成器
+ * @Copyright (c) 2018, Washmore All Rights Reserved.
  * @since 2018/6/11
  */
-public class MapperXmlGenerator {
+public abstract class MysqlAbstractMapperXmlGenerator {
 
-    public static void generateMappers(List<TableModel> tableModels) {
+    public void generateMappers(List<TableModel> tableModels) {
         try {
             for (TableModel t : tableModels) {
                 generateMapper(t);
@@ -34,7 +34,7 @@ public class MapperXmlGenerator {
     }
 
 
-    private static void generateMapperExtends(TableModel tm) throws IOException {
+    private void generateMapperExtends(TableModel tm) throws IOException {
         Config config = ConfigManager.getConfig();
         Model modelConfig = config.getModel();
         DataFile dataFile = config.getDataFile();
@@ -69,7 +69,7 @@ public class MapperXmlGenerator {
         System.out.println("\t输出文件:" + file.getPath().replace(new File(config.getProject().getPath()).getPath(), ""));
     }
 
-    private static void generateMapper(TableModel tm) throws IOException {
+    private void generateMapper(TableModel tm) throws IOException {
         ColumnModel pk = tm.getPrimaryKey();
         Config config = ConfigManager.getConfig();
         Model modelConfig = config.getModel();
@@ -186,7 +186,7 @@ public class MapperXmlGenerator {
     }
 
 
-    private static String appendCountByParams(TableModel tm) {
+    public String appendCountByParams(TableModel tm) {
         Mapper mapper = ConfigManager.getConfig().getDataFile().getMapper();
         ColumnModel pk = tm.getPrimaryKey();
         StringBuffer sb = new StringBuffer();
@@ -212,7 +212,7 @@ public class MapperXmlGenerator {
         return sb.toString();
     }
 
-    private static String appendCountByExample(TableModel tm) {
+    public String appendCountByExample(TableModel tm) {
         Model model = ConfigManager.getConfig().getModel();
 
         StringBuffer sb = new StringBuffer();
@@ -232,7 +232,7 @@ public class MapperXmlGenerator {
     }
 
 
-    private static String appendSelectByParams(TableModel tm) {
+    public String appendSelectByParams(TableModel tm) {
         Mapper mapper = ConfigManager.getConfig().getDataFile().getMapper();
         ColumnModel pk = tm.getPrimaryKey();
         StringBuffer sb = new StringBuffer();
@@ -265,7 +265,7 @@ public class MapperXmlGenerator {
         return sb.toString();
     }
 
-    private static String appendSelectByExample(TableModel tm) {
+    public String appendSelectByExample(TableModel tm) {
         ColumnModel pk = tm.getPrimaryKey();
         Model model = ConfigManager.getConfig().getModel();
 
@@ -288,7 +288,7 @@ public class MapperXmlGenerator {
         return sb.toString();
     }
 
-    private static String appendSelectByPrimaryKey(TableModel tm) {
+    public String appendSelectByPrimaryKey(TableModel tm) {
         ColumnModel pk = tm.getPrimaryKey();
         if (pk == null) {
             return "";
@@ -304,7 +304,7 @@ public class MapperXmlGenerator {
         return sb.toString();
     }
 
-    private static String appendBatchUpdateByPrimaryKeySelective(TableModel tm) {
+    public String appendBatchUpdateByPrimaryKeySelective(TableModel tm) {
         ColumnModel pk = tm.getPrimaryKey();
         if (pk == null) {
             return "";
@@ -340,7 +340,7 @@ public class MapperXmlGenerator {
         return sb.toString();
     }
 
-    private static String appendUpdateByPrimaryKeySelective(TableModel tm) {
+    public String appendUpdateByPrimaryKeySelective(TableModel tm) {
         ColumnModel pk = tm.getPrimaryKey();
         if (pk == null) {
             return "";
@@ -365,7 +365,7 @@ public class MapperXmlGenerator {
         return sb.toString();
     }
 
-    private static String appendUpdateByPrimaryKey(TableModel tm) {
+    public String appendUpdateByPrimaryKey(TableModel tm) {
         ColumnModel pk = tm.getPrimaryKey();
         if (pk == null) {
             return "";
@@ -391,7 +391,7 @@ public class MapperXmlGenerator {
         return sb.toString();
     }
 
-    private static String appendBatchDeleteByPrimaryKey(TableModel tm) {
+    public String appendBatchDeleteByPrimaryKey(TableModel tm) {
         ColumnModel pk = tm.getPrimaryKey();
         if (pk == null) {
             return "";
@@ -409,7 +409,7 @@ public class MapperXmlGenerator {
         return sb.toString();
     }
 
-    private static String appendDeleteByPrimaryKey(TableModel tm) {
+    public String appendDeleteByPrimaryKey(TableModel tm) {
         ColumnModel pk = tm.getPrimaryKey();
         if (pk == null) {
             return "";
@@ -422,7 +422,7 @@ public class MapperXmlGenerator {
         return sb.toString();
     }
 
-    private static String appendInsertSelective(TableModel tm) {
+    public String appendInsertSelective(TableModel tm) {
         Model model = ConfigManager.getConfig().getModel();
         Mapper mapper = ConfigManager.getConfig().getDataFile().getMapper();
         StringBuffer sb = new StringBuffer();
@@ -451,7 +451,7 @@ public class MapperXmlGenerator {
         return sb.toString();
     }
 
-    private static String appendBatchInsert(TableModel tm) {
+    public String appendBatchInsert(TableModel tm) {
         Model model = ConfigManager.getConfig().getModel();
         Mapper mapper = ConfigManager.getConfig().getDataFile().getMapper();
         StringBuffer sb = new StringBuffer();
@@ -494,7 +494,7 @@ public class MapperXmlGenerator {
         return sb.toString();
     }
 
-    private static String appendInsert(TableModel tm) {
+    public String appendInsert(TableModel tm) {
         Model model = ConfigManager.getConfig().getModel();
         Mapper mapper = ConfigManager.getConfig().getDataFile().getMapper();
         StringBuffer sb = new StringBuffer();
