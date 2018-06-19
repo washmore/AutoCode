@@ -10,7 +10,7 @@ import org.springframework.scheduling.annotation.EnableAsync;
  * @author Washmore
  * @version V1.0
  * @summary 项目入口, 启动器
- * @Copyright (c) 2018, Lianjia Group All Rights Reserved.
+ * @Copyright (c) 2018, Washmore All Rights Reserved.
  * @since 2018/2/27
  */
 @EnableAsync

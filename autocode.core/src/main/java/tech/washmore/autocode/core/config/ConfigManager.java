@@ -13,8 +13,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ConfigManager {
+    private static ClassLoader classLoader;
+
+
     private static Config config;
 
+
+    public static ClassLoader getClassLoader() {
+        return classLoader;
+    }
+
+    public static void setClassLoader(ClassLoader classLoader) {
+        ConfigManager.classLoader = classLoader;
+    }
 
     public static void initConfigFromFile(String fileName) {
         try {

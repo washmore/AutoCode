@@ -2,10 +2,7 @@ package tech.washmore.autocode.core;
 
 import tech.washmore.autocode.core.config.ConfigManager;
 import tech.washmore.autocode.core.db.DataTableParser;
-import tech.washmore.autocode.core.generate.DaoClassGenerator;
-import tech.washmore.autocode.core.generate.MapperXmlGenerator;
-import tech.washmore.autocode.core.generate.ModelClassGenerator;
-import tech.washmore.autocode.core.generate.ServiceClassGenerator;
+import tech.washmore.autocode.core.generator.factory.MysqlGeneratorFactory;
 import tech.washmore.autocode.model.enums.AutoType;
 import tech.washmore.autocode.model.mysql.TableModel;
 
@@ -14,15 +11,9 @@ import java.util.List;
 
 public class CodeMaker {
 
-    public static void main(String[] args) {
-        generateFromFile("/Users/chenyuqing/IdeaProjects/AutoCode/autocode.test/config.json");
+    public static void main(String[] args) throws Exception {
+       generateFromFile("/Users/chenyuqing/IdeaProjects/AutoCode/autocode.test/config.json");
     }
-
-
-    public static void generate() {
-        generateFromFile(System.getProperty("user.dir") + "/config.json");
-    }
-
 
     public static void generateFromJson(String configJson) {
         ConfigManager.initConfigFromJson(configJson);
@@ -34,6 +25,11 @@ public class CodeMaker {
         handle();
     }
 
+    public static void generateFromFileWithPluginClassLoader(String configLocation, ClassLoader classLoader) {
+        ConfigManager.initConfigFromFile(configLocation);
+        ConfigManager.setClassLoader(classLoader);
+        handle();
+    }
 
     private static void handle() {
         List<TableModel> tableModels = DataTableParser.finalTableModels();
@@ -53,33 +49,31 @@ public class CodeMaker {
                     if (autoTypes.contains(autoType.name())) {
                         System.out.println(System.lineSeparator() + "-----------------------------------------------");
                         System.out.println("开始输出service文件:" + System.lineSeparator());
-                        ServiceClassGenerator.generateServices(tableModels);
+                        MysqlGeneratorFactory.serviceClassGenerator().generateServices(tableModels);
                     }
                     break;
                 case dao:
                     if (autoTypes.contains(autoType.name())) {
                         System.out.println(System.lineSeparator() + "-----------------------------------------------");
                         System.out.println("开始输出dao文件:" + System.lineSeparator());
-                        DaoClassGenerator.generateDaos(tableModels);
+                        MysqlGeneratorFactory.daoClassGenerator().generateDaos(tableModels);
                     }
                     break;
                 case model:
                     if (autoTypes.contains(autoType.name())) {
                         System.out.println(System.lineSeparator() + "-----------------------------------------------");
                         System.out.println("开始输出model文件:" + System.lineSeparator());
-                        ModelClassGenerator.generateModels(tableModels);
+                        MysqlGeneratorFactory.modelClassGenerator().generateModels(tableModels);
                     }
                     break;
                 case mapper:
                     if (autoTypes.contains(autoType.name())) {
                         System.out.println(System.lineSeparator() + "-----------------------------------------------");
                         System.out.println("开始输出mapper文件:" + System.lineSeparator());
-                        MapperXmlGenerator.generateMappers(tableModels);
+                        MysqlGeneratorFactory.mapperXmlGenerator().generateMappers(tableModels);
                     }
                     break;
             }
         }
     }
-
-
 }

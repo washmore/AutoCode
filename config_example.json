@@ -1,13 +1,12 @@
 {
   "autoTypes": [
-    "service",
-    "junitWithSpring",
     "model",
+    "service",
     "dao",
     "mapper"
   ],
   "project": {
-    "path": "",
+    "path": "/Users/chenyuqing/IdeaProjects/AutoCode/",
     "subModule": "autocode.test",
     "javaRoot": "src/main/java",
     "resourcesRoot": "src/main/resources",
@@ -16,6 +15,8 @@
     "underline2Camel": true,
     "generateOgnl": false,
     "exclude": [
+      "t_test_add_table",
+      "t_test_addtable"
     ],
     "include": [
     ]
@@ -32,6 +33,7 @@
       "packageName": "washmore.service",
       "baseSuffix": "BaseService",
       "abstractBase": true,
+      "batchLimit": 100,
       "suffix": "Service"
     },
     "dao": {
@@ -41,31 +43,26 @@
       "suffix": "Dao"
     },
     "mapper": {
+      "fullParams": false,
       "usekeyProperty": true,
       "path": "mappers",
       "baseSuffix": "BaseMapper",
       "suffix": "Mapper"
     },
     "methodInclude": [
-      "insert",
-      "insertSelective",
-      "updateByPrimaryKey",
-      "updateByPrimaryKeySelective",
-      "deleteByPrimaryKey",
-      "selectByPrimaryKey",
-      "selectByExample",
-      "selectByParams",
-      "countByExample",
-      "countByParams"
     ],
     "methodExclude": [
     ]
   },
   "db": {
+    "tableNamePrefix": [
+      "t_",
+      "x_"
+    ],
     "driver": "com.mysql.jdbc.Driver",
-    "url": "jdbc:mysql://192.168.2.88:3306/mytest?serverTimezone=Asia/Shanghai&useSSL=false&useUnicode=true&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true",
+    "url": "jdbc:mysql://localhost:3306/EmployeeCare?serverTimezone=Asia/Shanghai&useSSL=false&useUnicode=true&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true",
     "username": "root",
-    "password": "wangyalan"
+    "password": ""
   },
   "doc": {
     "author": "Washmore",
