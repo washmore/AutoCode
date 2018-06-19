@@ -37,6 +37,7 @@
       "suffix": "Service"
     },
     "dao": {
+      "userGeneratorClass": "demo.MyDaoGenerator",
       "summary": "",
       "packageName": "washmore.dao",
       "baseSuffix": "BaseDao",
@@ -65,6 +66,8 @@
     "password": ""
   },
   "doc": {
+    "userGeneratorClass": "",
+    "summary": "",
     "author": "Washmore",
     "version": "V1",
     "copyright": "(c) 2018, Washmore All Rights Reserved."

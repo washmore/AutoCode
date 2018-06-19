@@ -4,7 +4,7 @@ package tech.washmore.autocode.model;
  * @author Washmore
  * @version V1.0
  * @summary 常用的通用变量
- * @Copyright (c) 2018, Washmore All Rights Reserved.
+ * @Copyright (c) 2018, Lianjia Group All Rights Reserved.
  * @since 2018/6/11
  */
 public interface Constants {
