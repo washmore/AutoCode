@@ -12,6 +12,9 @@
     </modules>
     <name>autocode Maven Webapp</name>
     <url>http://maven.apache.org</url>
+    <properties>
+        <project.build.sourceEncoding>UTF8</project.build.sourceEncoding>
+    </properties>
     <repositories>
         <repository>
             <id>washmore</id>

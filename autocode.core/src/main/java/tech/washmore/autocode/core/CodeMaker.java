@@ -3,6 +3,7 @@ package tech.washmore.autocode.core;
 import tech.washmore.autocode.core.config.ConfigManager;
 import tech.washmore.autocode.core.db.DataTableParser;
 import tech.washmore.autocode.core.generator.factory.MysqlGeneratorFactory;
+import tech.washmore.autocode.model.config.PluginParams;
 import tech.washmore.autocode.model.enums.AutoType;
 import tech.washmore.autocode.model.mysql.TableModel;
 
@@ -15,9 +16,12 @@ public class CodeMaker {
         generateFromFile("/Users/chenyuqing/IdeaProjects/AutoCode/autocode.test/config.json");
     }
 
-    public static void generateFromJsonWithPluginClassLoader(String configJson, ClassLoader classLoader) {
+    public static void generateFromJsonWithPluginClassLoader(String configJson, PluginParams pluginParams) {
         ConfigManager.initConfigFromJson(configJson);
-        ConfigManager.setClassLoader(classLoader);
+        if (pluginParams.getSourceEncoding() != null) {
+            ConfigManager.getConfig().getProject().setEncoding(pluginParams.getSourceEncoding());
+        }
+        ConfigManager.setClassLoader(pluginParams.getClassLoader());
         handle();
     }
 
@@ -26,9 +30,12 @@ public class CodeMaker {
         handle();
     }
 
-    public static void generateFromFileWithPluginClassLoader(String configLocation, ClassLoader classLoader) {
+    public static void generateFromFileWithPluginClassLoader(String configLocation, PluginParams pluginParams) {
         ConfigManager.initConfigFromFile(configLocation);
-        ConfigManager.setClassLoader(classLoader);
+        if (pluginParams.getSourceEncoding() != null) {
+            ConfigManager.getConfig().getProject().setEncoding(pluginParams.getSourceEncoding());
+        }
+        ConfigManager.setClassLoader(pluginParams.getClassLoader());
         handle();
     }
 

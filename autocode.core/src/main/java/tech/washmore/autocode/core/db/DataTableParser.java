@@ -4,6 +4,7 @@ import tech.washmore.autocode.core.config.ConfigManager;
 import tech.washmore.autocode.model.config.Config;
 import tech.washmore.autocode.model.config.Db;
 import tech.washmore.autocode.model.enums.JdbcType;
+import tech.washmore.autocode.model.enums.MysqlKeywordsAndReserverdWords;
 import tech.washmore.autocode.model.mysql.ColumnModel;
 import tech.washmore.autocode.model.mysql.TableModel;
 
@@ -185,6 +186,22 @@ public class DataTableParser {
                 throw new RuntimeException(e);
             }
         }
+
+        filterKeywordsAndReservedWords(tableModels);
+
         return tableModels;
+    }
+
+    private static void filterKeywordsAndReservedWords(List<TableModel> tableModels) {
+        for (TableModel tm : tableModels) {
+            if (MysqlKeywordsAndReserverdWords.list.contains(tm.getTbName().toUpperCase())) {
+                tm.setTbName("`" + tm.getTbName() + "`");
+                for (ColumnModel cm : tm.getColumns()) {
+                    if (MysqlKeywordsAndReserverdWords.list.contains(cm.getColumnName().toUpperCase())) {
+                        cm.setColumnName("`" + cm.getColumnName() + "`");
+                    }
+                }
+            }
+        }
     }
 }
