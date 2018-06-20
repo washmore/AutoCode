@@ -55,15 +55,26 @@ mvn clean install -X -e -Dmaven.test.skip=true
     <version>0.0.1-SNAPSHOT</version>
     <configuration>
         <configLocation>
-            此处可选,指定配置文件路径,默认为本项目根目录
+            此处可选,指定配置文件路径,默认为本项目根目录下的config.json
         </configLocation>
+        <!-- 下面的配置项(优先)与上面的配置二选一,免配置文件版本,
+        并且会在根目录下生成一份对应的config.json供参考修改 -->
+        <!-- 参考
+        https://blog.washmoretech.com/articles/2018/06/15/1529054506993.html
+        中的db项配置,自己猜着改... -->
+        <databaseDriver>com.mysql.jdbc.Driver</databaseDriver>
+        <databaseName>EmployeeCare</databaseName>
+        <databaseUrl>jdbc:mysql://localhost:3306/EmployeeCare</databaseUrl>
+        <databaseUsername>root</databaseUsername>
+        <databasePassword></databasePassword> 
+        <databaseTablePrefix></databaseTablePrefix>
     </configuration>
 </plugin>
 ```
-#### 3.在上一步指定的位置编写`config.json`文件(~~可选,如不配置此文件,则应用默认配置(暂未实现缺省配置功能)~~),内容可参考git仓库根目录的`confi_example.json`文件,只需修改db相关配置,其他使用默认值即可;`config.json`各配置项意义详情参考博文:[详解AutoCode插件的配置文件](https://blog.washmoretech.com/articles/2018/06/15/1529054506993.html)
+#### 3.在上一步指定的位置编写`config.json`文件(可选,如不配置此文件,则仅需要在插件配置数据库相关内容,其他应用默认配置),内容可参考git仓库根目录的`confi_example.json`文件,只需修改db相关配置,其他使用默认值即可;`config.json`各配置项意义详情参考博文:[详解AutoCode插件的配置文件](https://blog.washmoretech.com/articles/2018/06/15/1529054506993.html)
 #### 4.执行插件命令生成代码
 ```
-mvn autcode:code
+mvn autocode:code
 ```
 
 ### 参与贡献
