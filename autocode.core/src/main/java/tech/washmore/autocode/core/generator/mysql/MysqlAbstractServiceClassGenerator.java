@@ -1,6 +1,7 @@
 package tech.washmore.autocode.core.generator.mysql;
 
 import tech.washmore.autocode.core.config.ConfigManager;
+import tech.washmore.autocode.core.generator.base.AutoCodeFileWriter;
 import tech.washmore.autocode.model.Constants;
 import tech.washmore.autocode.model.config.*;
 import tech.washmore.autocode.model.enums.DataFileMethod;
@@ -48,17 +49,6 @@ public abstract class MysqlAbstractServiceClassGenerator {
         Doc doc = config.getDoc();
         Project project = config.getProject();
 
-        File dic = new File(project.getPath() + Constants.pathSplitor + project.getJavaRoot() + Constants.pathSplitor + service.getExtendsPackagePath());
-        if (!dic.exists()) {
-            dic.mkdirs();
-        }
-
-        File file = new File(dic, tm.getClsName() + service.getSuffix() + ".java");
-        if (file.exists()) {
-            return;
-        }
-        file.createNewFile();
-
         StringBuffer sb = new StringBuffer("");
         sb.append("package ").append(service.getExtendsPackageName()).append(";").append(System.lineSeparator()).append(System.lineSeparator());
         sb.append("import org.springframework.stereotype.Service;").append(System.lineSeparator());
@@ -78,11 +68,11 @@ public abstract class MysqlAbstractServiceClassGenerator {
                 .append(System.lineSeparator());
         sb.append("}");
 
-        OutputStream ops = new FileOutputStream(file);
-        ops.write(sb.toString().getBytes());
-        ops.flush();
-        ops.close();
-        System.out.println("\t输出文件:" + file.getPath().replace(new File(config.getProject().getPath()).getPath(), ""));
+        AutoCodeFileWriter.writeStringToFile(
+                project.getPath() + Constants.pathSplitor + project.getJavaRoot()
+                        + Constants.pathSplitor + service.getExtendsPackagePath(),
+                tm.getClsName() + service.getSuffix() + ".java", sb.toString(), false
+        );
     }
 
     private void generateService(TableModel tm) throws IOException {
@@ -169,21 +159,12 @@ public abstract class MysqlAbstractServiceClassGenerator {
 
         insertDependencies(sb, tm);
 
-        File dic = new File(project.getPath() + Constants.pathSplitor + project.getJavaRoot() + Constants.pathSplitor + service.getBasePackagePath());
-        if (!dic.exists()) {
-            dic.mkdirs();
-        }
+        AutoCodeFileWriter.writeStringToFile(
+                project.getPath() + Constants.pathSplitor + project.getJavaRoot()
+                        + Constants.pathSplitor + service.getBasePackagePath(),
+                tm.getClsName() + service.getBaseSuffix() + ".java", sb.toString(), true
+        );
 
-        File file = new File(dic, tm.getClsName() + service.getBaseSuffix() + ".java");
-        if (file.exists()) {
-            file.delete();
-        }
-        file.createNewFile();
-        OutputStream ops = new FileOutputStream(file);
-        ops.write(sb.toString().getBytes());
-        ops.flush();
-        ops.close();
-        System.out.println("\t输出文件:" + file.getPath().replace(new File(config.getProject().getPath()).getPath(), ""));
     }
 
 
