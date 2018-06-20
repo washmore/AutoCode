@@ -8,7 +8,7 @@ package tech.washmore.autocode.model.config;
  * @since 2018/6/11
  */
 public class Service {
-    private String suffix="";
+    private String suffix="Service";
     private String baseSuffix="BaseService";
 
     private String packageName;

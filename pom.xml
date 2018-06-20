@@ -4,7 +4,7 @@
     <groupId>tech.washmore</groupId>
     <artifactId>autocode</artifactId>
     <packaging>pom</packaging>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.4-RELEASE</version>
     <modules>
         <module>autocode.core</module>
         <module>autocode.test</module>
@@ -12,6 +12,9 @@
     </modules>
     <name>autocode Maven Webapp</name>
     <url>http://maven.apache.org</url>
+    <properties>
+        <project.build.sourceEncoding>UTF8</project.build.sourceEncoding>
+    </properties>
     <repositories>
         <repository>
             <id>washmore</id>
@@ -25,6 +28,11 @@
             <url>http://maven.washmore.tech/nexus/content/repositories/snapshots/</url>
             <uniqueVersion>false</uniqueVersion>
         </snapshotRepository>
+        <repository>
+            <id>deploymentRepo</id>
+            <name>washmore_release</name>
+            <url>http://maven.washmore.tech/nexus/content/repositories/releases/</url>
+        </repository>
     </distributionManagement>
     <pluginRepositories>
         <pluginRepository>

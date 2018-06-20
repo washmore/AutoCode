@@ -5,17 +5,18 @@
     <parent>
         <artifactId>autocode</artifactId>
         <groupId>tech.washmore</groupId>
-        <version>0.0.1-SNAPSHOT</version>
+        <version>1.0.4-RELEASE</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>autocode.test</artifactId>
 
     <dependencies>
+        <!-- spring整合mybatis -->
         <dependency>
-            <groupId>tech.washmore</groupId>
-            <version>0.0.1-SNAPSHOT</version>
-            <artifactId>autocode.core</artifactId>
+            <groupId>org.mybatis.spring.boot</groupId>
+            <artifactId>mybatis-spring-boot-starter</artifactId>
+            <version>1.3.1</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -40,18 +41,7 @@
             <groupId>org.apache.tomcat</groupId>
             <artifactId>tomcat-jdbc</artifactId>
         </dependency>
-        <!-- spring整合mybatis -->
-        <dependency>
-            <groupId>org.mybatis.spring.boot</groupId>
-            <artifactId>mybatis-spring-boot-starter</artifactId>
-            <version>1.3.1</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.springframework.boot</groupId>
-                    <artifactId>spring-boot-starter-logging</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
+
         <!-- 日志 -->
         <dependency>
             <groupId>ch.qos.logback</groupId>
@@ -79,15 +69,14 @@
         <plugins>
             <plugin>
                 <groupId>tech.washmore</groupId>
-                <version>0.0.1-SNAPSHOT</version>
+                <version>1.0.4-RELEASE</version>
                 <artifactId>maven-autocode-plugin</artifactId>
                 <configuration>
                     <configLocation>/Users/chenyuqing/IdeaProjects/AutoCode/autocode.test/config.json</configLocation>
-                    <databaseDriver>com.mysql.jdbc.Driver</databaseDriver>
-                    <databaseName>EmployeeCare</databaseName>
-                    <databaseUrl>jdbc:mysql://localhost:3306/EmployeeCare</databaseUrl>
-                    <databaseUsername>root</databaseUsername>
-                    <databasePassword></databasePassword>
+                    <!--<databaseDriver>com.mysql.jdbc.Driver</databaseDriver>-->
+                    <!--<databaseUrl>jdbc:mysql://localhost:3306/EmployeeCare</databaseUrl>-->
+                    <!--<databaseUsername>root</databaseUsername>-->
+                    <!--<databasePassword></databasePassword>-->
                 </configuration>
             </plugin>
             <plugin>
@@ -95,7 +84,7 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <version>1.5.3.RELEASE</version>
                 <configuration>
-                    <mainClass>AppStarter</mainClass>
+                    <mainClass>washmore.AppStarter</mainClass>
                 </configuration>
                 <executions>
                     <execution>

@@ -4,6 +4,7 @@ import tech.washmore.autocode.core.config.ConfigManager;
 import tech.washmore.autocode.model.config.Config;
 import tech.washmore.autocode.model.config.Db;
 import tech.washmore.autocode.model.enums.JdbcType;
+import tech.washmore.autocode.model.enums.MysqlKeywordsAndReserverdWords;
 import tech.washmore.autocode.model.mysql.ColumnModel;
 import tech.washmore.autocode.model.mysql.TableModel;
 
@@ -33,7 +34,7 @@ public class DataTableParser {
         stat.setString(2, tableName);
         ResultSet rs = stat.executeQuery();
 
-        String sql2 = "SELECT * FROM " + tableName;
+        String sql2 = "SELECT * FROM `" + tableName + "`";
         Connection c2 = ConnManager.getConn();
         PreparedStatement stat2 = c2.prepareStatement(sql2);
         ResultSet rs2 = stat2.executeQuery();
@@ -78,7 +79,7 @@ public class DataTableParser {
     private static TableModel parseTable(String dbname, String tableName, List<String> existClsNames) throws SQLException {
         System.out.println("当前解析:" + tableName);
         Db db = ConfigManager.getConfig().getDb();
-        String sql = "SELECT * FROM information_schema.tables WHERE TABLE_SCHEMA=? AND table_name=?";
+        String sql = "SELECT * FROM information_schema.tables WHERE TABLE_SCHEMA=? AND table_name = ? ";
         Connection c = ConnManager.getConn();
         PreparedStatement stat = c.prepareStatement(sql);
         stat.setString(1, dbname);
@@ -185,6 +186,22 @@ public class DataTableParser {
                 throw new RuntimeException(e);
             }
         }
+
+        filterKeywordsAndReservedWords(tableModels);
+
         return tableModels;
+    }
+
+    private static void filterKeywordsAndReservedWords(List<TableModel> tableModels) {
+        for (TableModel tm : tableModels) {
+            if (MysqlKeywordsAndReserverdWords.list.contains(tm.getTbName().toUpperCase())) {
+                tm.setTbName("`" + tm.getTbName() + "`");
+                for (ColumnModel cm : tm.getColumns()) {
+                    if (MysqlKeywordsAndReserverdWords.list.contains(cm.getColumnName().toUpperCase())) {
+                        cm.setColumnName("`" + cm.getColumnName() + "`");
+                    }
+                }
+            }
+        }
     }
 }

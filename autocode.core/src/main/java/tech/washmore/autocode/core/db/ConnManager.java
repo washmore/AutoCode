@@ -1,7 +1,6 @@
 package tech.washmore.autocode.core.db;
 
 import tech.washmore.autocode.core.config.ConfigManager;
-import tech.washmore.autocode.model.config.Config;
 import tech.washmore.autocode.model.config.Db;
 
 import java.sql.Connection;

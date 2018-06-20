@@ -7,5 +7,7 @@ target/
 logs/
 *.log
 /autocode.test/src/main/java/
-!/autocode.test/src/main/java/AppStarter.java
+!/autocode.test/src/main/java/washmore/AppStarter.java
 /autocode.test/src/main/resources/mappers/
+!/autocode.test/src/test/java/base/BaseTest.java
+/autocode.test/src/test/java/

@@ -8,6 +8,7 @@ import tech.washmore.autocode.core.CodeMaker;
 import tech.washmore.autocode.core.generator.base.AutoCodeFileWriter;
 import tech.washmore.autocode.model.config.Config;
 import tech.washmore.autocode.model.config.Db;
+import tech.washmore.autocode.model.config.PluginParams;
 
 import java.io.File;
 import java.net.URL;
@@ -32,10 +33,6 @@ public class CodeMojo extends AbstractMojo {
      */
     private String databaseDriver;
     /**
-     * @parameter expression="${databaseName}"
-     */
-    private String databaseName;
-    /**
      * @parameter expression="${databaseUrl}"
      */
     private String databaseUrl;
@@ -58,11 +55,14 @@ public class CodeMojo extends AbstractMojo {
      * @readonly
      */
     private MavenProject project;
-
+    /**
+     * @parameter expression="${project.build.sourceEncoding}"
+     */
+    private String sourceEncoding;
 
     public void execute() throws MojoExecutionException {
         try {
-
+            System.out.println("sourceEncoding:" + sourceEncoding);
 
             List runtimeClasspathElements = project.getRuntimeClasspathElements();
             URL[] runtimeUrls = new URL[runtimeClasspathElements.size()];
@@ -72,12 +72,13 @@ public class CodeMojo extends AbstractMojo {
             }
             URLClassLoader newLoader = new URLClassLoader(runtimeUrls,
                     Thread.currentThread().getContextClassLoader());
-
+            PluginParams params = new PluginParams();
+            params.setClassLoader(newLoader);
+            params.setSourceEncoding(sourceEncoding);
             if (databaseDriver != null) {
                 Config config = new Config();
                 String base = project.getModel().getGroupId() + "." + project.getModel().getArtifactId();
                 Db db = config.getDb();
-                db.setDbName(databaseName);
                 db.setUrl(databaseUrl);
                 db.setDriver(databaseDriver);
                 db.setUsername(databaseUsername);
@@ -89,7 +90,7 @@ public class CodeMojo extends AbstractMojo {
                 config.getDataFile().getDao().setPackageName(base + ".dao");
                 config.getDataFile().getService().setPackageName(base + ".service");
                 config.getModel().setPackageName(base + ".model");
-                CodeMaker.generateFromJsonWithPluginClassLoader(JSON.toJSONString(config), newLoader);
+                CodeMaker.generateFromJsonWithPluginClassLoader(JSON.toJSONString(config), params);
                 AutoCodeFileWriter.writeStringToFile(
                         System.getProperty("user.dir"),
                         "config.json",
@@ -100,7 +101,7 @@ public class CodeMojo extends AbstractMojo {
                     configLocation = System.getProperty("user.dir") + "/config.json";
                 }
                 System.out.println("configPath:" + configLocation);
-                CodeMaker.generateFromFileWithPluginClassLoader(configLocation, newLoader);
+                CodeMaker.generateFromFileWithPluginClassLoader(configLocation, params);
             }
         } catch (Exception e) {
             e.printStackTrace();

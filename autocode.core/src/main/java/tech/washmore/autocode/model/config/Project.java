@@ -6,12 +6,20 @@ import java.util.List;
 public class Project {
     private String path = "";
     private String subModule = "";
-
+    private String encoding = "UTF-8";
     private String javaRoot = "/src/main/java/";
     private String resourcesRoot = "/src/main/resources/";
     private boolean underline2Camel = true;
     private List<String> exclude = new ArrayList<>();
     private List<String> include = new ArrayList<>();
+
+    public String getEncoding() {
+        return encoding;
+    }
+
+    public void setEncoding(String encoding) {
+        this.encoding = encoding;
+    }
 
     public String getSubModule() {
         return subModule;

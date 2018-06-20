@@ -16,6 +16,7 @@ import java.io.OutputStream;
  */
 public class AutoCodeFileWriter {
 
+
     public static void writeStringToFile(String parent, String fileName, String content, boolean overwrite) throws IOException {
         File dic = new File(parent);
         if (!dic.exists()) {
@@ -30,7 +31,7 @@ public class AutoCodeFileWriter {
         file.createNewFile();
 
         OutputStream ops = new FileOutputStream(file);
-        ops.write(content.toString().getBytes());
+        ops.write(content.toString().getBytes(ConfigManager.getConfig().getProject().getEncoding()));
         ops.flush();
         ops.close();
         System.out.println("\t输出文件:" + file.getPath().replace(new File(ConfigManager.getConfig().getProject().getPath()).getPath(), ""));
