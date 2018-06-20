@@ -54,8 +54,8 @@ mvn clean install -X -e -Dmaven.test.skip=true
     <artifactId>maven-autocode-plugin</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <configuration>
+        <!-- 此处可选,指定配置文件路径,默认为本项目根目录下的config.json -->
         <configLocation>
-            此处可选,指定配置文件路径,默认为本项目根目录下的config.json
         </configLocation>
         <!-- 下面的配置项(优先)与上面的配置二选一,免配置文件版本,
         并且会在根目录下生成一份对应的config.json供参考修改 -->
@@ -63,10 +63,10 @@ mvn clean install -X -e -Dmaven.test.skip=true
         https://blog.washmoretech.com/articles/2018/06/15/1529054506993.html
         中的db项配置,自己猜着改... -->
         <databaseDriver>com.mysql.jdbc.Driver</databaseDriver>
-        <databaseName>EmployeeCare</databaseName>
         <databaseUrl>jdbc:mysql://localhost:3306/EmployeeCare</databaseUrl>
         <databaseUsername>root</databaseUsername>
         <databasePassword></databasePassword> 
+        <!-- 指定表名前缀,如有多个,用逗号,分割-->
         <databaseTablePrefix></databaseTablePrefix>
     </configuration>
 </plugin>

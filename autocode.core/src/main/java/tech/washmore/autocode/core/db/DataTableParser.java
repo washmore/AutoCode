@@ -33,7 +33,7 @@ public class DataTableParser {
         stat.setString(2, tableName);
         ResultSet rs = stat.executeQuery();
 
-        String sql2 = "SELECT * FROM " + tableName;
+        String sql2 = "SELECT * FROM `" + tableName + "`";
         Connection c2 = ConnManager.getConn();
         PreparedStatement stat2 = c2.prepareStatement(sql2);
         ResultSet rs2 = stat2.executeQuery();
@@ -78,7 +78,7 @@ public class DataTableParser {
     private static TableModel parseTable(String dbname, String tableName, List<String> existClsNames) throws SQLException {
         System.out.println("当前解析:" + tableName);
         Db db = ConfigManager.getConfig().getDb();
-        String sql = "SELECT * FROM information_schema.tables WHERE TABLE_SCHEMA=? AND table_name=?";
+        String sql = "SELECT * FROM information_schema.tables WHERE TABLE_SCHEMA=? AND table_name = ? ";
         Connection c = ConnManager.getConn();
         PreparedStatement stat = c.prepareStatement(sql);
         stat.setString(1, dbname);
