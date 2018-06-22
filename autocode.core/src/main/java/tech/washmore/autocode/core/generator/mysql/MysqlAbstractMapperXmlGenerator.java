@@ -397,7 +397,7 @@ public abstract class MysqlAbstractMapperXmlGenerator {
             return "";
         }
         StringBuffer sb = new StringBuffer();
-        sb.append("\t<delete id=\"batchDeleteByPrimaryKey\" parameterType=\"").append(pk.getFieldType()).append("\">").append(System.lineSeparator());
+        sb.append("\t<delete id=\"batchDeleteByPrimaryKey\" parameterType=\"list\">").append(System.lineSeparator());
         sb.append("\t\tDELETE FROM ").append(tm.getTbName()).append(System.lineSeparator());
         sb.append("\t\t<where>").append(System.lineSeparator());
         sb.append("\t\t\t").append(pk.getColumnName()).append(" IN").append(System.lineSeparator());
@@ -455,7 +455,7 @@ public abstract class MysqlAbstractMapperXmlGenerator {
         Model model = ConfigManager.getConfig().getModel();
         Mapper mapper = ConfigManager.getConfig().getDataFile().getMapper();
         StringBuffer sb = new StringBuffer();
-        sb.append("\t<insert id=\"batchInsert\" parameterType=\"").append(model.getPackageName()).append(".").append(tm.getClsName()).append("\"");
+        sb.append("\t<insert id=\"batchInsert\" parameterType=\"list\"");
         if (mapper.getUsekeyProperty() && tm.getPrimaryKey() != null) {
             sb.append(" keyProperty = \"").append(tm.getPrimaryKey().getFieldName()).append("\"");
         }
