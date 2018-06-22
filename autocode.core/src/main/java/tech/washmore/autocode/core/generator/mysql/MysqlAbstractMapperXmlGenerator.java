@@ -402,7 +402,7 @@ public abstract class MysqlAbstractMapperXmlGenerator {
         sb.append("\t\t<where>").append(System.lineSeparator());
         sb.append("\t\t\t").append(pk.getColumnName()).append(" IN").append(System.lineSeparator());
         sb.append("\t\t\t<foreach collection=\"list\" item=\"item\" separator=\",\" open=\"(\" close=\")\">").append(System.lineSeparator());
-        sb.append("\t\t\t\t#{item.").append(pk.getColumnName()).append("}").append(System.lineSeparator());
+        sb.append("\t\t\t\t#{item}").append(System.lineSeparator());
         sb.append("\t\t\t</foreach>").append(System.lineSeparator());
         sb.append("\t\t</where>").append(System.lineSeparator());
         sb.append("\t</delete>").append(System.lineSeparator()).append(System.lineSeparator());
