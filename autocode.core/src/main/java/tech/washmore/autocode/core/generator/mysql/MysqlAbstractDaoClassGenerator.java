@@ -25,8 +25,6 @@ import static tech.washmore.autocode.util.StringUtils.underline2Camel;
  * @since 2018/6/11
  */
 public abstract class MysqlAbstractDaoClassGenerator implements DaoClassGenerator {
-
-
     @Override
     public final void generateDaos(List<TableModel> tableModels) {
         try {
@@ -298,7 +296,7 @@ public abstract class MysqlAbstractDaoClassGenerator implements DaoClassGenerato
 
         List<String> methods = dataFile.getMethodInclude();
         for (String m : methods) {
-            if (m.toUpperCase().contains("PrimaryKey" .toUpperCase()) &&
+            if (m.toUpperCase().contains("PrimaryKey".toUpperCase()) &&
                     tm.getPrimaryKey() != null && JavaDataType.时间.value.equals(tm.getPrimaryKey().getFieldType())) {
                 StringUtils.appendAtline3IfNotExist(source, "import java.util.Date;");
             }

@@ -4,6 +4,7 @@
   "autoTypes": ["model","service","dao","mapper"],
   "project": {
     "path": "",
+    "encoding": "UTF8",
     "subModule": "autocode.test",
     "javaRoot": "src/main/java",
     "resourcesRoot": "src/main/resources",
@@ -73,11 +74,18 @@
 ## project 项目基础配置
 ### path
 指定文件生成的根目录,默认为当前项目跟目录
+### encoding
+指定生成文件的编码格式,此配置项优先级低于从`pom.xml`中获取
+```
+    <properties>
+        <project.build.sourceEncoding>UTF8</project.build.sourceEncoding>
+    </properties>
+```
 ### subModule
 子模块名,适用于maven多module项目生成文件到指定子项目
 ### javaRoot
 即maven项目build节点的
-```xml
+```
     <sourceDirectory>.../src/main/java</sourceDirectory>
 ```
 中的结尾内容,默认为`src/main/java`
