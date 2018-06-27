@@ -14,6 +14,15 @@ public class ColumnModel {
     private Integer order;
 
     private boolean primaryKey;
+    private boolean autoIncrement;
+
+    public boolean getAutoIncrement() {
+        return autoIncrement;
+    }
+
+    public void setAutoIncrement(boolean autoIncrement) {
+        this.autoIncrement = autoIncrement;
+    }
 
     public String getFieldTypeFullName() {
         return fieldTypeFullName;
@@ -39,7 +48,7 @@ public class ColumnModel {
         this.jdbcType = jdbcType;
     }
 
-    public boolean isPrimaryKey() {
+    public boolean getPrimaryKey() {
         return primaryKey;
     }
 

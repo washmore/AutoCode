@@ -52,6 +52,7 @@ public class DataTableParser {
             cm.setPrimaryKey(rs.getString("COLUMN_KEY").equals("PRI"));
             cm.setOrder(rs.getInt("ORDINAL_POSITION"));
             cm.setFieldName(underline2Camel(cm.getColumnName(), false));
+            cm.setAutoIncrement(rs.getString("EXTRA").toLowerCase().contains("auto_increment"));
             String userType = dataType2FieldType(cm.getDataType());
             if (userType != null) {
                 cm.setFieldType(userType);
@@ -67,7 +68,10 @@ public class DataTableParser {
         Collections.sort(columnModels, new Comparator<ColumnModel>() {
             @Override
             public int compare(ColumnModel o1, ColumnModel o2) {
-                if (o1.isPrimaryKey()) {
+                if (o1.getPrimaryKey()) {
+                    return -1;
+                }
+                if (o1.getAutoIncrement()) {
                     return -1;
                 }
                 return Integer.compare(o1.getOrder(), o2.getOrder());
@@ -127,13 +131,21 @@ public class DataTableParser {
 
         List<ColumnModel> columnsWithoutPK = new ArrayList<>();
         for (ColumnModel cm : tm.getColumns()) {
-            if (cm.isPrimaryKey()) {
+            if (cm.getPrimaryKey()) {
                 tm.setPrimaryKey(cm);
             } else {
                 columnsWithoutPK.add(cm);
             }
         }
         tm.setColumnsWithoutPK(columnsWithoutPK);
+
+        List<ColumnModel> columnsWithoutAutoIncrement = new ArrayList<>();
+        for (ColumnModel cm : tm.getColumns()) {
+            if (!cm.getAutoIncrement()) {
+                columnsWithoutAutoIncrement.add(cm);
+            }
+        }
+        tm.setColumnsWithoutAutoIncrement(columnsWithoutAutoIncrement);
         return tm;
     }
 

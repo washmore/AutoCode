@@ -9,6 +9,14 @@ public class TableModel {
     private String tbComment;
     private List<ColumnModel> columns;
     private List<ColumnModel> columnsWithoutPK;
+    private List<ColumnModel> columnsWithoutAutoIncrement;
+
+    public List<ColumnModel> getColumnsWithoutAutoIncrement() {
+        return columnsWithoutAutoIncrement;
+    }
+    public void setColumnsWithoutAutoIncrement(List<ColumnModel> columnsWithoutAutoIncrement) {
+        this.columnsWithoutAutoIncrement = columnsWithoutAutoIncrement;
+    }
 
     public String getVirtualTbName() {
         return virtualTbName;

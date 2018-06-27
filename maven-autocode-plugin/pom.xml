@@ -3,7 +3,7 @@
     <parent>
         <artifactId>autocode</artifactId>
         <groupId>tech.washmore</groupId>
-        <version>1.0.5-RELEASE</version>
+        <version>1.0.6-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>maven-autocode-plugin</artifactId>
@@ -38,7 +38,7 @@
         <dependency>
             <groupId>tech.washmore</groupId>
             <artifactId>autocode.core</artifactId>
-            <version>1.0.5-RELEASE</version>
+            <version>1.0.6-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>org.apache.maven</groupId>

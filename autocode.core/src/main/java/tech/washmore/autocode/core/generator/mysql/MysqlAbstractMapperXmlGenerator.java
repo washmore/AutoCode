@@ -462,10 +462,10 @@ public abstract class MysqlAbstractMapperXmlGenerator {
         sb.append(">").append(System.lineSeparator());
         sb.append("\t\tINSERT INTO ").append(tm.getTbName()).append(System.lineSeparator());
         sb.append("\t\t\t(");
-        for (int i = 0; i < tm.getColumns().size(); i++) {
-            ColumnModel cm = tm.getColumns().get(i);
+        for (int i = 0; i < tm.getColumnsWithoutAutoIncrement().size(); i++) {
+            ColumnModel cm = tm.getColumnsWithoutAutoIncrement().get(i);
             sb.append(cm.getColumnName());
-            if (i == tm.getColumns().size() - 1) {
+            if (i == tm.getColumnsWithoutAutoIncrement().size() - 1) {
                 sb.append(")").append(System.lineSeparator());
             } else {
                 sb.append(", ");
@@ -477,10 +477,10 @@ public abstract class MysqlAbstractMapperXmlGenerator {
         sb.append("\t\tVALUES").append(System.lineSeparator());
         sb.append("\t\t<foreach collection=\"list\" item=\"item\" separator=\",\">").append(System.lineSeparator());
         sb.append("\t\t\t(");
-        for (int i = 0; i < tm.getColumns().size(); i++) {
-            ColumnModel cm = tm.getColumns().get(i);
+        for (int i = 0; i < tm.getColumnsWithoutAutoIncrement().size(); i++) {
+            ColumnModel cm = tm.getColumnsWithoutAutoIncrement().get(i);
             sb.append("#{item.").append(cm.getFieldName()).append(",jdbcType=").append(cm.getJdbcType()).append("}");
-            if (i == tm.getColumns().size() - 1) {
+            if (i == tm.getColumnsWithoutAutoIncrement().size() - 1) {
                 sb.append(")").append(System.lineSeparator());
             } else {
                 sb.append(", ");
@@ -505,10 +505,10 @@ public abstract class MysqlAbstractMapperXmlGenerator {
         sb.append(">").append(System.lineSeparator());
         sb.append("\t\tINSERT INTO ").append(tm.getTbName()).append(System.lineSeparator());
         sb.append("\t\t\t(");
-        for (int i = 0; i < tm.getColumns().size(); i++) {
-            ColumnModel cm = tm.getColumns().get(i);
+        for (int i = 0; i < tm.getColumnsWithoutAutoIncrement().size(); i++) {
+            ColumnModel cm = tm.getColumnsWithoutAutoIncrement().get(i);
             sb.append(cm.getColumnName());
-            if (i == tm.getColumns().size() - 1) {
+            if (i == tm.getColumnsWithoutAutoIncrement().size() - 1) {
                 sb.append(")").append(System.lineSeparator());
             } else {
                 sb.append(", ");
@@ -520,11 +520,11 @@ public abstract class MysqlAbstractMapperXmlGenerator {
         sb.append("\t\tVALUES").append(System.lineSeparator());
         sb.append("\t\t\t(");
 
-        for (int i = 0; i < tm.getColumns().size(); i++) {
-            ColumnModel cm = tm.getColumns().get(i);
+        for (int i = 0; i < tm.getColumnsWithoutAutoIncrement().size(); i++) {
+            ColumnModel cm = tm.getColumnsWithoutAutoIncrement().get(i);
             sb.append("#{").append(cm.getFieldName()).append(",jdbcType=").append(cm.getJdbcType()).append("}");
 
-            if (i == tm.getColumns().size() - 1) {
+            if (i == tm.getColumnsWithoutAutoIncrement().size() - 1) {
                 sb.append(")").append(System.lineSeparator());
             } else {
                 sb.append(", ");

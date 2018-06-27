@@ -52,7 +52,7 @@ mvn clean install -X -e -Dmaven.test.skip=true
 <plugin>
     <groupId>tech.washmore</groupId>
     <artifactId>maven-autocode-plugin</artifactId>
-    <version>1.0.4-RELEASE</version>
+    <version>1.0.6-SNAPSHOT</version>
     <configuration>
         <!-- 此处可选,指定配置文件路径,默认为本项目根目录下的config.json -->
         <configLocation>
