@@ -72,11 +72,11 @@
                 <version>1.0.6-SNAPSHOT</version>
                 <artifactId>maven-autocode-plugin</artifactId>
                 <configuration>
-                    <configLocation>/Users/chenyuqing/IdeaProjects/AutoCode/autocode.test/config.json</configLocation>
-                    <!--<databaseDriver>com.mysql.jdbc.Driver</databaseDriver>-->
-                    <!--<databaseUrl>jdbc:mysql://localhost:3306/EmployeeCare</databaseUrl>-->
-                    <!--<databaseUsername>root</databaseUsername>-->
-                    <!--<databasePassword></databasePassword>-->
+                    <!--<configLocation>/Users/chenyuqing/IdeaProjects/AutoCode/autocode.test/config.json</configLocation>-->
+                    <databaseDriver>com.mysql.jdbc.Driver</databaseDriver>
+                    <databaseUrl>jdbc:mysql://localhost:3306/mysql</databaseUrl>
+                    <databaseUsername>root</databaseUsername>
+                    <databasePassword></databasePassword>
                 </configuration>
             </plugin>
             <plugin>
@@ -84,7 +84,7 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <version>1.5.3.RELEASE</version>
                 <configuration>
-                    <mainClass>washmore.AppStarter</mainClass>
+                    <mainClass>tech.washmore.AppStarter</mainClass>
                 </configuration>
                 <executions>
                     <execution>

@@ -37,7 +37,6 @@
       "suffix": "Service"
     },
     "dao": {
-      "userGeneratorClass": "demo.MyDaoGenerator",
       "summary": "",
       "packageName": "washmore.dao",
       "baseSuffix": "BaseDao",
@@ -61,13 +60,11 @@
       "x_"
     ],
     "driver": "com.mysql.jdbc.Driver",
-    "url": "jdbc:mysql://localhost:3306/EmployeeCare?serverTimezone=Asia/Shanghai&useSSL=false&useUnicode=true&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true",
+    "url": "jdbc:mysql://localhost:3306/test?serverTimezone=Asia/Shanghai&useSSL=false&useUnicode=true&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true",
     "username": "root",
     "password": ""
   },
   "doc": {
-    "userGeneratorClass": "",
-    "summary": "",
     "author": "Washmore",
     "version": "V1",
     "copyright": "(c) 2018, Washmore All Rights Reserved."

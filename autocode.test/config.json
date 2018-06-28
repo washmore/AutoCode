@@ -1,95 +1,81 @@
 {
-  "autoTypes": [
-    "model",
-    "service",
-    "dao",
-    "mapper"
-  ],
-  "project": {
-    "path": "/Users/chenyuqing/IdeaProjects/AutoCode/",
-    "subModule": "autocode.test",
-    "javaRoot": "src/main/java",
-    "resourcesRoot": "src/main/resources",
-    "testJavaRoot": "src/test/java/",
-    "testResourcesRoot": "src/main/resources",
-    "underline2Camel": true,
-    "generateOgnl": false,
-    "exclude": [
-      "t_test_add_table",
-      "t_test_addtable"
-    ],
-    "include": [
-    ]
-  },
-  "model": {
-    "summary": "",
-    "packageName": "washmore.model",
-    "visitorWithDoc": false,
-    "toString": true
-  },
-  "dataFile": {
-    "service": {
-      "summary": "",
-      "packageName": "washmore.service",
-      "baseSuffix": "BaseService",
-      "abstractBase": true,
-      "batchLimit": 100,
-      "suffix": "Service"
-    },
-    "dao": {
-      "summary": "",
-      "packageName": "washmore.dao",
-      "baseSuffix": "BaseDao",
-      "suffix": "Dao"
-    },
-    "mapper": {
-      "fullParams": false,
-      "usekeyProperty": true,
-      "path": "mappers",
-      "baseSuffix": "BaseMapper",
-      "suffix": "Mapper"
-    },
-    "methodInclude": [
-    ],
-    "methodExclude": [
-    ]
-  },
-  "db": {
-    "tableNamePrefix": [
-      "t_",
-      "x_"
-    ],
-    "driver": "com.mysql.jdbc.Driver",
-    "url": "jdbc:mysql://localhost:3306/test?serverTimezone=Asia/Shanghai&useSSL=false&useUnicode=true&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true",
-    "username": "root",
-    "password": ""
-  },
-  "doc": {
-    "author": "Washmore",
-    "version": "V1",
-    "copyright": "(c) 2018, Washmore All Rights Reserved."
-  },
-  "dataType": {
-    "date": [
-      "timestamp",
-      "datetime"
-    ],
-    "string": [
-      "char",
-      "varchar",
-      "text"
-    ],
-    "integer": [
-      "int",
-      "smallint",
-      "tinyint"
-    ],
-    "longL": [
-      "bigint"
-    ],
-    "doubleD": [
-      "double",
-      "float"
-    ]
-  }
+	"autoTypes":[
+		"service",
+		"dao",
+		"mapper",
+		"model"
+	],
+	"dataFile":{
+		"dao":{
+			"baseSuffix":"BaseDao",
+			"packageName":"tech.washmore.autocode.test.dao",
+			"suffix":"Dao"
+		},
+		"mapper":{
+			"baseSuffix":"BaseMapper",
+			"fullParams":false,
+			"path":"mappers",
+			"suffix":"Mapper",
+			"usekeyProperty":true
+		},
+		"methodExclude":[],
+		"methodInclude":[],
+		"service":{
+			"abstractBase":true,
+			"baseSuffix":"BaseService",
+			"packageName":"tech.washmore.autocode.test.service",
+			"suffix":"Service"
+		}
+	},
+	"dataType":{
+		"date":[
+			"timestamp",
+			"datetime"
+		],
+		"doubleD":[
+			"double",
+			"float"
+		],
+		"integer":[
+			"int",
+			"smallint",
+			"tinyint"
+		],
+		"longL":[
+			"bigint"
+		],
+		"string":[
+			"char",
+			"varchar",
+			"text"
+		]
+	},
+	"db":{
+		"driver":"com.mysql.jdbc.Driver",
+		"tableNamePrefix":[],
+		"url":"jdbc:mysql://localhost:3306/mysql",
+		"username":"root"
+	},
+	"doc":{
+		"author":"Wahsmore",
+		"copyright":"(c) 2018, Washmore All Rights Reserved.",
+		"summary":"",
+		"userGeneratorClass":"",
+		"version":"V1.0"
+	},
+	"model":{
+		"packageName":"tech.washmore.autocode.test.model",
+		"toString":true,
+		"visitorWithDoc":false
+	},
+	"project":{
+		"encoding":"UTF-8",
+		"exclude":[],
+		"include":[],
+		"javaRoot":"/src/main/java/",
+		"path":"",
+		"resourcesRoot":"/src/main/resources/",
+		"subModule":"",
+		"underline2Camel":true
+	}
 }
