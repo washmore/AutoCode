@@ -57,9 +57,9 @@ public class DataTableParser {
             if (userType != null) {
                 cm.setFieldType(userType);
             } else {
-                cm.setFieldType(data.getColumnClassName(index));
+                cm.setFieldType("[B".equals(data.getColumnClassName(index)) ? "byte[]" : data.getColumnClassName(index));
             }
-            cm.setFieldTypeFullName(data.getColumnClassName(index));
+            cm.setFieldTypeFullName("[B".equals(data.getColumnClassName(index)) ? "byte[]" : data.getColumnClassName(index));
             cm.setJdbcType(JdbcType.forCode(data.getColumnType(index)).name());
             columnModels.add(cm);
         }
