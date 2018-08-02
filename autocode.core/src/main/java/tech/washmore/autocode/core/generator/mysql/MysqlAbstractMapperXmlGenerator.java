@@ -179,7 +179,10 @@ public abstract class MysqlAbstractMapperXmlGenerator {
         file.createNewFile();
 
         OutputStream ops = new FileOutputStream(file);
-        ops.write(sb.toString().getBytes());
+        ops.write(sb.toString()
+                .replace("\"`", "\"")
+                .replace("`\"", "\"")
+                .getBytes());
         ops.flush();
         ops.close();
         System.out.println("\t输出文件:" + file.getPath().replace(new File(config.getProject().getPath()).getPath(), ""));
