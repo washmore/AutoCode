@@ -3,10 +3,19 @@ package tech.washmore.autocode.model.config;
 public class Model {
     private String packageName;
     private String packagePath;
+    private String uuid;
     private boolean visitorWithDoc = false;
     private boolean toString = true;
 
     private String summary;
+
+    public String getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
+    }
 
     public String getSummary() {
         return summary;

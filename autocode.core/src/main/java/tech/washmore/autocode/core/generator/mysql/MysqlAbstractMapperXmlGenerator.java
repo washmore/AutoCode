@@ -116,6 +116,9 @@ public abstract class MysqlAbstractMapperXmlGenerator {
                     case selectByPrimaryKey:
                         sb.append(appendSelectByPrimaryKey(tm));
                         break;
+                    case selectByUuid:
+                        sb.append(appendSelectByUuid(tm));
+                        break;
                     case selectByExample:
                         sb.append(appendSelectByExample(tm));
                         break;
@@ -290,7 +293,33 @@ public abstract class MysqlAbstractMapperXmlGenerator {
         sb.append("\t</select>").append(System.lineSeparator()).append(System.lineSeparator());
         return sb.toString();
     }
+    public String appendSelectByUuid(TableModel tm) {
+        Config config = ConfigManager.getConfig();
+        Model modelConfig = config.getModel();
+        String uuid = modelConfig.getUuid();
+        if (uuid == null || "".equals(uuid)) {
+            return "";
+        }
+        ColumnModel uuidCol = null;
+        for (ColumnModel cl : tm.getColumns()) {
+            if (cl.getColumnName().equals(uuid)) {
+                uuidCol = cl;
+                break;
+            }
+        }
+        if (uuidCol == null) {
+            return "";
+        }
+        StringBuffer sb = new StringBuffer();
+        sb.append("\t<select id=\"selectByUuid\" resultMap=\"BaseResultMap\" parameterType=\"").append(uuidCol.getFieldType()).append("\">").append(System.lineSeparator());
+        sb.append("\t\tSELECT").append(System.lineSeparator());
+        sb.append("\t\t<include refid=\"Base_Column_List\"/>").append(System.lineSeparator());
+        sb.append("\t\tFROM ").append(tm.getTbName()).append(System.lineSeparator());
 
+        sb.append("\t\tWHERE ").append(uuidCol.getColumnName()).append(" = #{").append(uuidCol.getFieldName()).append(",jdbcType=").append(uuidCol.getJdbcType()).append("}").append(System.lineSeparator());
+        sb.append("\t</select>").append(System.lineSeparator()).append(System.lineSeparator());
+        return sb.toString();
+    }
     public String appendSelectByPrimaryKey(TableModel tm) {
         ColumnModel pk = tm.getPrimaryKey();
         if (pk == null) {

@@ -10,10 +10,7 @@ import tech.washmore.autocode.model.mysql.ColumnModel;
 import tech.washmore.autocode.model.mysql.TableModel;
 import tech.washmore.autocode.util.StringUtils;
 
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -135,8 +132,12 @@ public abstract class MysqlAbstractServiceClassGenerator {
                     case batchUpdateByPrimaryKeySelective:
                         sb.append(appendBatchUpdateByPrimaryKeySelective(tm));
                         break;
+
                     case selectByPrimaryKey:
                         sb.append(appendSelectByPrimaryKey(tm));
+                        break;
+                    case selectByUuid:
+                        sb.append(appendSelectByUuid(tm));
                         break;
                     case selectByExample:
                         sb.append(appendSelectByExample(tm));
@@ -212,6 +213,36 @@ public abstract class MysqlAbstractServiceClassGenerator {
         sb.append("\t\treturn ").append(underline2Camel(tm.getVirtualTbName(), false) + dao.getSuffix())
                 .append(".").append("selectByExample(example);")
                 .append(System.lineSeparator());
+        sb.append("\t}").append(System.lineSeparator()).append(System.lineSeparator());
+        return sb.toString();
+    }
+    private String appendSelectByUuid(TableModel tm) {
+        Config config = ConfigManager.getConfig();
+        Model modelConfig = config.getModel();
+        String uuid = modelConfig.getUuid();
+        if (uuid == null || "".equals(uuid)) {
+            return "";
+        }
+        ColumnModel uuidCol = null;
+        for (ColumnModel cl : tm.getColumns()) {
+            if (cl.getColumnName().equals(uuid)) {
+                uuidCol = cl;
+                break;
+            }
+        }
+        if (uuidCol == null) {
+            return "";
+        }
+        Dao dao = ConfigManager.getConfig().getDataFile().getDao();
+        StringBuffer sb = new StringBuffer();
+        sb.append("\tpublic ").append(tm.getClsName()).append(" selectByUuid(")
+                .append(uuidCol.getFieldType()).append(" ")
+                .append(uuidCol.getFieldName())
+                .append(") {")
+                .append(System.lineSeparator());
+        sb.append("\t\treturn ").append(underline2Camel(tm.getVirtualTbName(), false) + dao.getSuffix()).append(".").append("selectByUuid(")
+                .append(uuidCol.getFieldName())
+                .append(");").append(System.lineSeparator());
         sb.append("\t}").append(System.lineSeparator()).append(System.lineSeparator());
         return sb.toString();
     }

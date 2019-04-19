@@ -4,7 +4,7 @@
     <groupId>tech.washmore</groupId>
     <artifactId>autocode</artifactId>
     <packaging>pom</packaging>
-    <version>1.0.6-SNAPSHOT</version>
+    <version>1.0.7-SNAPSHOT</version>
     <modules>
         <module>autocode.core</module>
         <module>autocode.test</module>

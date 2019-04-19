@@ -115,6 +115,9 @@ public abstract class MysqlAbstractDaoClassGenerator implements DaoClassGenerato
                     case selectByPrimaryKey:
                         sb.append(appendSelectByPrimaryKey(tm));
                         break;
+                    case selectByUuid:
+                        sb.append(appendSelectByUuid(tm));
+                        break;
                     case selectByExample:
                         sb.append(appendSelectByExample(tm));
                         break;
@@ -175,6 +178,33 @@ public abstract class MysqlAbstractDaoClassGenerator implements DaoClassGenerato
     public String appendSelectByExample(TableModel tm) {
         StringBuffer sb = new StringBuffer();
         sb.append("\tList<").append(tm.getClsName()).append("> selectByExample(").append(tm.getClsName()).append(" example);")
+                .append(System.lineSeparator());
+        return sb.toString();
+    }
+
+    public String appendSelectByUuid(TableModel tm) {
+        Config config = ConfigManager.getConfig();
+        Model modelConfig = config.getModel();
+        String uuid = modelConfig.getUuid();
+        if (uuid == null || "".equals(uuid)) {
+            return "";
+        }
+        ColumnModel uuidCol = null;
+        for (ColumnModel cl : tm.getColumns()) {
+            if (cl.getColumnName().equals(uuid)) {
+                uuidCol = cl;
+                break;
+            }
+        }
+        if (uuidCol == null) {
+            return "";
+        }
+
+        StringBuffer sb = new StringBuffer();
+        sb.append("\t").append(tm.getClsName()).append(" selectByUuid(")
+                .append(uuidCol.getFieldType()).append(" ")
+                .append(uuidCol.getFieldName())
+                .append(");")
                 .append(System.lineSeparator());
         return sb.toString();
     }

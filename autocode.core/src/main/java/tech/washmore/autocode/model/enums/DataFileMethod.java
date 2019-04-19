@@ -22,6 +22,7 @@ public enum DataFileMethod {
     updateByPrimaryKeySelective,
     deleteByPrimaryKey,
 
+    selectByUuid,
     selectByPrimaryKey,
     selectByExample,
     countByExample;
